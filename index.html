@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pawson wear | THE DOG YOU STYLE</title>
     
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -56,7 +57,6 @@
         body {
             background-color: #fdf5ed;
             color: #292622;
-            overflow-x: hidden;
         }
 
         /* Hide Scrollbar for a cleaner streetwear look */
@@ -81,8 +81,10 @@
             transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
         }
         
-        .brutal-transition:hover {
-            transform: translate(-2px, -2px);
+        @media (hover: hover) and (pointer: fine) {
+            .brutal-transition:hover {
+                transform: translate(-2px, -2px);
+            }
         }
 
         .brutal-transition:active {
@@ -98,6 +100,25 @@
         ::selection {
             background: #e7191f;
             color: #fdf5ed;
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            .marquee-container,
+            .animate-marquee,
+            .animate-marquee-fast {
+                animation: none !important;
+            }
+            .brutal-transition,
+            .brutal-transition:hover,
+            .brutal-transition:active {
+                transform: none !important;
+                transition: none !important;
+            }
+        }
+
+        #toast-container {
+            padding-bottom: env(safe-area-inset-bottom, 0px);
         }
 
         /* Mobile Drawer State */
@@ -124,19 +145,25 @@
     <!-- Top Marquee -->
     <div class="w-full bg-brand-black text-brand-cream border-b-4 border-brand-black overflow-hidden py-2 font-mono text-sm tracking-widest relative z-40">
         <div class="marquee-container animate-marquee">
-            <span class="flex-shrink-0 w-1/2 flex justify-around items-center">
+            <span class="flex-shrink-0 w-1/2 flex justify-around items-center px-2">
                 <span>LIMITED DROP 01</span> <span>//</span>
-                <span>PAWSON WEAR</span> <span>//</span>
-                <span>THE DOG YOU STYLE</span> <span>//</span>
-                <span>WORLDWIDE SHIPPING</span> <span>//</span>
-                <span>[ ||| |||| | || ]</span>
+                <span>PAWSON WEAR</span>
+                <span class="hidden sm:inline">//</span>
+                <span class="hidden sm:inline">THE DOG YOU STYLE</span>
+                <span class="hidden md:inline">//</span>
+                <span class="hidden md:inline">WORLDWIDE SHIPPING</span>
+                <span class="hidden lg:inline">//</span>
+                <span class="hidden lg:inline">[ ||| |||| | || ]</span>
             </span>
-            <span class="flex-shrink-0 w-1/2 flex justify-around items-center">
+            <span class="flex-shrink-0 w-1/2 flex justify-around items-center px-2">
                 <span>LIMITED DROP 01</span> <span>//</span>
-                <span>PAWSON WEAR</span> <span>//</span>
-                <span>THE DOG YOU STYLE</span> <span>//</span>
-                <span>WORLDWIDE SHIPPING</span> <span>//</span>
-                <span>[ ||| |||| | || ]</span>
+                <span>PAWSON WEAR</span>
+                <span class="hidden sm:inline">//</span>
+                <span class="hidden sm:inline">THE DOG YOU STYLE</span>
+                <span class="hidden md:inline">//</span>
+                <span class="hidden md:inline">WORLDWIDE SHIPPING</span>
+                <span class="hidden lg:inline">//</span>
+                <span class="hidden lg:inline">[ ||| |||| | || ]</span>
             </span>
         </div>
     </div>
@@ -146,19 +173,18 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             
             <!-- Mobile Menu Button -->
-            <button id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open Navigation Menu" class="md:hidden p-2 border-3 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm">
+            <button id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open Navigation Menu" class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2 border-3 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm shrink-0">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="square" stroke-linejoin="miter" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
 
-            <!-- Logo Placeholder (USER: REPLACE SRC WITH YOUR OWN LOGO URL) -->
-            <a href="#" class="block group z-50">
-                <div class="border-4 border-brand-black shadow-brutal-sm group-hover:translate-x-[2px] group-hover:-translate-y-[2px] group-hover:shadow-brutal transition-all bg-brand-black overflow-hidden flex items-center justify-center">
-                    <!-- Replace the placeholder src below with your actual logo image path -->
-                    <img src="https://placehold.co/240x60/292622/fdf5ed?text=YOUR+LOGO+HERE&font=oswald" 
-                         alt="Pawson Wear Logo Placeholder" 
-                         class="h-12 sm:h-14 object-contain filter group-hover:opacity-90 transition-opacity px-2 py-1">
+            <!-- Logo -->
+            <a href="#" class="block group z-50 shrink">
+                <div class="border-3 sm:border-4 border-brand-black shadow-brutal-sm group-hover:translate-x-[2px] group-hover:-translate-y-[2px] group-hover:shadow-brutal transition-all bg-brand-black overflow-hidden flex items-center justify-center">
+                    <img src="assets/logo.png" 
+                         alt="Pawson Wear Logo" 
+                         class="h-8 sm:h-14 max-w-[130px] sm:max-w-none object-contain filter group-hover:opacity-90 transition-opacity px-1.5 sm:px-2 py-1">
                 </div>
             </a>
 
@@ -171,9 +197,9 @@
             </nav>
 
             <!-- Cart Badge -->
-            <button class="flex items-center bg-brand-cream border-3 border-brand-black px-4 py-2 font-mono font-bold brutal-transition shadow-brutal-sm hover:bg-brand-red hover:text-white group">
-                <span class="mr-2">CART</span>
-                <span class="bg-brand-black text-brand-cream px-2 py-0.5 group-hover:bg-brand-cream group-hover:text-brand-black transition-colors" id="cart-count">0</span>
+            <button class="flex items-center min-w-[44px] min-h-[44px] justify-center bg-brand-cream border-3 border-brand-black px-2 py-1.5 sm:px-4 sm:py-2 font-mono font-bold brutal-transition shadow-brutal-sm hover:bg-brand-red hover:text-white group shrink-0">
+                <span class="mr-1 sm:mr-2 text-xs sm:text-base">CART</span>
+                <span class="bg-brand-black text-brand-cream px-1.5 sm:px-2 py-0.5 text-xs sm:text-base group-hover:bg-brand-cream group-hover:text-brand-black transition-colors" id="cart-count">0</span>
             </button>
         </div>
     </header>
@@ -203,7 +229,7 @@
         </div>
     </div>
 
-    <section class="relative w-full max-w-7xl mx-auto border-b-4 border-brand-black overflow-hidden flex items-center justify-center min-h-[75vh] py-16 sm:py-24 lg:py-32 bg-brand-black group">
+    <section class="relative w-full max-w-7xl mx-auto border-b-4 border-brand-black overflow-hidden flex items-center justify-center min-h-[75dvh] py-16 sm:py-24 lg:py-32 bg-brand-black group">
         
         <!-- Background Image & Overlays -->
         <div class="absolute inset-0 z-0">
@@ -229,9 +255,9 @@
             <!-- Floating Typography over Dark Overlay -->
             <div class="transform rotate-1 max-w-4xl mx-auto relative mt-6 flex flex-col items-center">
                 
-                <h2 class="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl uppercase leading-[0.85] tracking-tighter text-white relative z-10 drop-shadow-[4px_4px_0px_#292622]">
+                <h2 class="font-display text-[clamp(2.75rem,11vw,8rem)] uppercase leading-[0.85] tracking-tighter text-white relative z-10 drop-shadow-[3px_3px_0px_#292622] sm:drop-shadow-[4px_4px_0px_#292622]">
                     The<br>
-                    <span class="text-brand-red relative inline-block drop-shadow-[4px_4px_0px_#292622]">
+                    <span class="text-brand-red relative inline-block drop-shadow-[3px_3px_0px_#292622] sm:drop-shadow-[4px_4px_0px_#292622]">
                         Dog You
                         <svg class="absolute w-full h-3 md:h-5 -bottom-1 left-0 text-white drop-shadow-none" viewBox="0 0 100 10" preserveAspectRatio="none">
                             <path d="M0 5 Q 50 10 100 0" stroke="currentColor" stroke-width="4" fill="none" />
@@ -294,7 +320,7 @@
                     </div>
                     <div class="flex justify-between items-center mt-4">
                         <span class="font-mono font-bold text-xl">$85.00</span>
-                        <button onclick="addToCart('Box Logo Frenchie Fleece', 85)" class="bg-brand-cream border-2 border-brand-black px-3 py-1 font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+                        <button onclick="addToCart('Box Logo Frenchie Fleece', 85)" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
                             + Add
                         </button>
                     </div>
@@ -317,7 +343,7 @@
                     </div>
                     <div class="flex justify-between items-center mt-4">
                         <span class="font-mono font-bold text-xl">$120.00</span>
-                        <button onclick="addToCart('Tactical Ballistic Harness', 120)" class="bg-brand-cream border-2 border-brand-black px-3 py-1 font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+                        <button onclick="addToCart('Tactical Ballistic Harness', 120)" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
                             + Add
                         </button>
                     </div>
@@ -341,7 +367,7 @@
                     </div>
                     <div class="flex justify-between items-center mt-4">
                         <span class="font-mono font-bold text-xl">$45.00</span>
-                        <button onclick="addToCart('Camo Shark Snood', 45)" class="bg-brand-red border-2 border-white px-3 py-1 font-display uppercase text-white hover:bg-white hover:text-brand-red transition-colors">
+                        <button onclick="addToCart('Camo Shark Snood', 45)" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-red border-2 border-white font-display uppercase text-white hover:bg-white hover:text-brand-red transition-colors">
                             + Add
                         </button>
                     </div>
@@ -365,7 +391,7 @@
                     </div>
                     <div class="flex justify-between items-center mt-4">
                         <span class="font-mono font-bold text-xl">$140.00</span>
-                        <button disabled class="bg-gray-300 border-2 border-brand-black px-3 py-1 font-display uppercase text-gray-500 cursor-not-allowed">
+                        <button disabled class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-gray-300 border-2 border-brand-black font-display uppercase text-gray-500 cursor-not-allowed">
                             Out
                         </button>
                     </div>
@@ -389,13 +415,13 @@
                 
                 <!-- Interactive Tabs -->
                 <div class="flex flex-col gap-2 font-sans font-bold text-xl uppercase">
-                    <button onclick="switchTab('bully')" id="tab-bully" class="text-left px-4 py-3 border-4 border-brand-black bg-brand-red text-white shadow-brutal-sm hover:translate-x-2 transition-transform">
+                    <button onclick="switchTab('bully')" id="tab-bully" class="text-left min-h-[44px] px-4 py-3.5 border-4 border-brand-black bg-brand-red text-white shadow-brutal-sm hover:translate-x-2 transition-transform flex items-center">
                         The Bully (Pitbulls, Frenchies)
                     </button>
-                    <button onclick="switchTab('hound')" id="tab-hound" class="text-left px-4 py-3 border-4 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-all">
+                    <button onclick="switchTab('hound')" id="tab-hound" class="text-left min-h-[44px] px-4 py-3.5 border-4 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-all flex items-center">
                         The Hound (Dobermans, Greys)
                     </button>
-                    <button onclick="switchTab('compact')" id="tab-compact" class="text-left px-4 py-3 border-4 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-all">
+                    <button onclick="switchTab('compact')" id="tab-compact" class="text-left min-h-[44px] px-4 py-3.5 border-4 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-all flex items-center">
                         The Compact (Pugs, Terriers)
                     </button>
                 </div>
@@ -411,13 +437,13 @@
                     <h4 class="font-display text-4xl uppercase mb-2 border-b-4 border-brand-black pb-2 inline-block">The Bully Fit</h4>
                     <p class="font-mono text-brand-red font-bold mb-6">Designed for wide chests & thick necks.</p>
                     
-                    <div class="grid grid-cols-2 gap-4 font-mono text-sm border-2 border-brand-black p-4 bg-brand-cream">
+                    <div class="grid grid-cols-1 min-[400px]:grid-cols-2 gap-4 font-mono text-sm border-2 border-brand-black p-4 bg-brand-cream">
                         <div class="border-b-2 border-brand-black pb-2"><strong>Chest:</strong> 28" - 34"</div>
                         <div class="border-b-2 border-brand-black pb-2"><strong>Neck:</strong> 18" - 24"</div>
-                        <div class="pt-2"><strong>Length:</strong> 16" - 20"</div>
-                        <div class="pt-2"><strong>Rec. Size:</strong> BULLY or L/XL</div>
+                        <div class="border-b-2 min-[400px]:border-b-0 border-brand-black pb-2 min-[400px]:pb-0 min-[400px]:pt-2"><strong>Length:</strong> 16" - 20"</div>
+                        <div class="min-[400px]:pt-2"><strong>Rec. Size:</strong> BULLY or L/XL</div>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=400&q=80" alt="Bully Fit" class="mt-6 border-4 border-brand-black w-32 h-32 object-cover filter grayscale float-right -mt-10 mr-4 rotate-6 shadow-brutal-sm hidden sm:block">
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=400&q=80" alt="Bully Fit" class="mt-6 border-4 border-brand-black w-28 h-28 lg:w-32 lg:h-32 object-cover filter grayscale lg:float-right lg:-mt-12 mr-4 rotate-6 shadow-brutal-sm hidden sm:block">
                 </div>
 
                 <!-- Content: Hound (Hidden initially) -->
@@ -425,13 +451,13 @@
                     <h4 class="font-display text-4xl uppercase mb-2 border-b-4 border-brand-black pb-2 inline-block">The Hound Fit</h4>
                     <p class="font-mono text-brand-red font-bold mb-6">Elongated torso, slim chest contour.</p>
                     
-                    <div class="grid grid-cols-2 gap-4 font-mono text-sm border-2 border-brand-black p-4 bg-brand-cream">
+                    <div class="grid grid-cols-1 min-[400px]:grid-cols-2 gap-4 font-mono text-sm border-2 border-brand-black p-4 bg-brand-cream">
                         <div class="border-b-2 border-brand-black pb-2"><strong>Chest:</strong> 24" - 30"</div>
                         <div class="border-b-2 border-brand-black pb-2"><strong>Neck:</strong> 14" - 18"</div>
-                        <div class="pt-2"><strong>Length:</strong> 22" - 28"</div>
-                        <div class="pt-2"><strong>Rec. Size:</strong> HOUND or M Long</div>
+                        <div class="border-b-2 min-[400px]:border-b-0 border-brand-black pb-2 min-[400px]:pb-0 min-[400px]:pt-2"><strong>Length:</strong> 22" - 28"</div>
+                        <div class="min-[400px]:pt-2"><strong>Rec. Size:</strong> HOUND or M Long</div>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=400&q=80" alt="Hound Fit" class="mt-6 border-4 border-brand-black w-32 h-32 object-cover filter grayscale float-right -mt-10 mr-4 -rotate-6 shadow-brutal-sm hidden sm:block">
+                    <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=400&q=80" alt="Hound Fit" class="mt-6 border-4 border-brand-black w-28 h-28 lg:w-32 lg:h-32 object-cover filter grayscale lg:float-right lg:-mt-12 mr-4 -rotate-6 shadow-brutal-sm hidden sm:block">
                 </div>
 
                 <!-- Content: Compact (Hidden initially) -->
@@ -439,11 +465,11 @@
                     <h4 class="font-display text-4xl uppercase mb-2 border-b-4 border-brand-black pb-2 inline-block">The Compact Fit</h4>
                     <p class="font-mono text-brand-red font-bold mb-6">Short crop, true to size standard fit.</p>
                     
-                    <div class="grid grid-cols-2 gap-4 font-mono text-sm border-2 border-brand-black p-4 bg-brand-cream">
+                    <div class="grid grid-cols-1 min-[400px]:grid-cols-2 gap-4 font-mono text-sm border-2 border-brand-black p-4 bg-brand-cream">
                         <div class="border-b-2 border-brand-black pb-2"><strong>Chest:</strong> 16" - 22"</div>
                         <div class="border-b-2 border-brand-black pb-2"><strong>Neck:</strong> 10" - 14"</div>
-                        <div class="pt-2"><strong>Length:</strong> 10" - 14"</div>
-                        <div class="pt-2"><strong>Rec. Size:</strong> S or M</div>
+                        <div class="border-b-2 min-[400px]:border-b-0 border-brand-black pb-2 min-[400px]:pb-0 min-[400px]:pt-2"><strong>Length:</strong> 10" - 14"</div>
+                        <div class="min-[400px]:pt-2"><strong>Rec. Size:</strong> S or M</div>
                     </div>
                 </div>
 
@@ -457,10 +483,14 @@
         <div class="absolute top-0 left-0 w-full bg-brand-red text-white py-1 font-mono text-xs uppercase overflow-hidden border-b-4 border-brand-black z-20">
             <div class="marquee-container animate-marquee-fast">
                 <span class="flex-shrink-0 w-1/2 flex justify-around">
-                    <span>/// STRICTLY FOR THE PACK</span> <span>/// STRICTLY FOR THE PACK</span> <span>/// STRICTLY FOR THE PACK</span>
+                    <span>/// STRICTLY FOR THE PACK</span>
+                    <span class="hidden sm:inline">/// STRICTLY FOR THE PACK</span>
+                    <span class="hidden md:inline">/// STRICTLY FOR THE PACK</span>
                 </span>
                 <span class="flex-shrink-0 w-1/2 flex justify-around">
-                    <span>/// STRICTLY FOR THE PACK</span> <span>/// STRICTLY FOR THE PACK</span> <span>/// STRICTLY FOR THE PACK</span>
+                    <span>/// STRICTLY FOR THE PACK</span>
+                    <span class="hidden sm:inline">/// STRICTLY FOR THE PACK</span>
+                    <span class="hidden md:inline">/// STRICTLY FOR THE PACK</span>
                 </span>
             </div>
         </div>
@@ -487,13 +517,13 @@
                 </div>
 
                 <!-- Photo 3 -->
-                <div class="bg-white p-3 pb-8 md:p-4 md:pb-12 border-4 border-white shadow-brutal-red transform rotate-6 hover:rotate-0 transition-transform duration-300 self-end mb-8 hidden md:block">
+                <div class="bg-white p-3 pb-8 md:p-4 md:pb-12 border-4 border-white shadow-brutal-red transform rotate-6 hover:rotate-0 transition-transform duration-300 self-end mb-8">
                     <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=500&q=80" class="w-full aspect-square object-cover border-2 border-brand-black filter contrast-125 grayscale" alt="Community Dog 3">
                     <div class="font-mono text-xs text-brand-black font-bold mt-2 text-center">Drop 00 Beta</div>
                 </div>
 
                 <!-- Photo 4 -->
-                <div class="bg-white p-3 pb-8 md:p-4 md:pb-12 border-4 border-white shadow-brutal-red transform -rotate-4 hover:rotate-0 transition-transform duration-300 self-start hidden md:block">
+                <div class="bg-white p-3 pb-8 md:p-4 md:pb-12 border-4 border-white shadow-brutal-red transform -rotate-4 hover:rotate-0 transition-transform duration-300 self-start">
                     <img src="https://images.unsplash.com/photo-1588169930714-22b9c733367b?auto=format&fit=crop&w=500&q=80" class="w-full aspect-[4/5] object-cover border-2 border-brand-black filter contrast-125" alt="Community Dog 4">
                     <div class="font-mono text-xs text-brand-black font-bold mt-2 text-center">@shiba.stussy</div>
                 </div>
@@ -597,7 +627,7 @@
             
             toast.innerHTML = `
                 <span>${message}</span>
-                <button onclick="this.parentElement.remove()" class="ml-4 hover:text-brand-red pointer-events-auto">
+                <button onclick="this.parentElement.remove()" class="ml-4 min-h-[44px] min-w-[44px] flex items-center justify-center p-2 hover:text-brand-red pointer-events-auto" aria-label="Close Toast">
                     [X]
                 </button>
             `;
