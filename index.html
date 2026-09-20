@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pawson wear | THE DOG YOU STYLE</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cream: '#fdf5ed',
+                            red: '#e7191f',
+                            black: '#292622'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Anton', 'sans-serif'],
+                        sans: ['Oswald', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'brutal': '6px 6px 0px 0px #292622',
+                        'brutal-hover': '8px 8px 0px 0px #292622',
+                        'brutal-sm': '4px 4px 0px 0px #292622',
+                        'brutal-red': '6px 6px 0px 0px #e7191f',
+                    },
+                    borderWidth: {
+                        '3': '3px',
+                        '4': '4px',
+                    },
+                    animation: {
+                        'marquee': 'marquee 15s linear infinite',
+                        'marquee-fast': 'marquee 10s linear infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #fdf5ed;
+            color: #292622;
+            overflow-x: hidden;
+        }
+
+        /* Hide Scrollbar for a cleaner streetwear look */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fdf5ed;
+            border-left: 3px solid #292622;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e7191f;
+            border: 3px solid #292622;
+        }
+
+        .marquee-container {
+            display: flex;
+            width: 200%;
+        }
+
+        .brutal-transition {
+            transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        .brutal-transition:hover {
+            transform: translate(-2px, -2px);
+        }
+
+        .brutal-transition:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px #292622 !important;
+        }
+
+        .sticker-badge {
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+        }
+
+        /* Custom Selection */
+        ::selection {
+            background: #e7191f;
+            color: #fdf5ed;
+        }
+
+        /* Mobile Drawer State */
+        #mobile-drawer {
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        #mobile-drawer.open {
+            transform: translateX(0);
+        }
+        #mobile-drawer-backdrop {
+            transition: opacity 0.3s ease;
+        }
+        #mobile-drawer-backdrop.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-brand-red selection:text-brand-cream relative">
+
+    <!-- Custom Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Top Marquee -->
+    <div class="w-full bg-brand-black text-brand-cream border-b-4 border-brand-black overflow-hidden py-2 font-mono text-sm tracking-widest relative z-40">
+        <div class="marquee-container animate-marquee">
+            <span class="flex-shrink-0 w-1/2 flex justify-around items-center">
+                <span>LIMITED DROP 01</span> <span>//</span>
+                <span>PAWSON WEAR</span> <span>//</span>
+                <span>THE DOG YOU STYLE</span> <span>//</span>
+                <span>WORLDWIDE SHIPPING</span> <span>//</span>
+                <span>[ ||| |||| | || ]</span>
+            </span>
+            <span class="flex-shrink-0 w-1/2 flex justify-around items-center">
+                <span>LIMITED DROP 01</span> <span>//</span>
+                <span>PAWSON WEAR</span> <span>//</span>
+                <span>THE DOG YOU STYLE</span> <span>//</span>
+                <span>WORLDWIDE SHIPPING</span> <span>//</span>
+                <span>[ ||| |||| | || ]</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="w-full bg-brand-cream border-b-4 border-brand-black sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Open Navigation Menu" class="md:hidden p-2 border-3 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="square" stroke-linejoin="miter" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <!-- Logo Placeholder (USER: REPLACE SRC WITH YOUR OWN LOGO URL) -->
+            <a href="#" class="block group z-50">
+                <div class="border-4 border-brand-black shadow-brutal-sm group-hover:translate-x-[2px] group-hover:-translate-y-[2px] group-hover:shadow-brutal transition-all bg-brand-black overflow-hidden flex items-center justify-center">
+                    <!-- Replace the placeholder src below with your actual logo image path -->
+                    <img src="https://placehold.co/240x60/292622/fdf5ed?text=YOUR+LOGO+HERE&font=oswald" 
+                         alt="Pawson Wear Logo Placeholder" 
+                         class="h-12 sm:h-14 object-contain filter group-hover:opacity-90 transition-opacity px-2 py-1">
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex space-x-8 font-bold text-lg uppercase tracking-wide">
+                <a href="#drops" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Drops</a>
+                <a href="#lookbook" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Lookbook</a>
+                <a href="#gear" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Apparel & Gear</a>
+                <a href="#sizing" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Archive</a>
+            </nav>
+
+            <!-- Cart Badge -->
+            <button class="flex items-center bg-brand-cream border-3 border-brand-black px-4 py-2 font-mono font-bold brutal-transition shadow-brutal-sm hover:bg-brand-red hover:text-white group">
+                <span class="mr-2">CART</span>
+                <span class="bg-brand-black text-brand-cream px-2 py-0.5 group-hover:bg-brand-cream group-hover:text-brand-black transition-colors" id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer Backdrop -->
+    <div id="mobile-drawer-backdrop" class="fixed inset-0 bg-brand-black/60 z-50 opacity-0 pointer-events-none md:hidden" aria-hidden="true"></div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-drawer" class="fixed top-0 left-0 bottom-0 w-[280px] max-w-[80vw] bg-brand-cream border-r-4 border-brand-black shadow-brutal z-50 flex flex-col justify-between p-6 -translate-x-full md:hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+        <div>
+            <div class="flex justify-between items-center pb-6 border-b-4 border-brand-black mb-8">
+                <span class="font-display text-2xl uppercase tracking-wide">Menu</span>
+                <button id="mobile-drawer-close" aria-label="Close Navigation Menu" class="p-2 border-2 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm font-mono font-bold text-sm">
+                    [X]
+                </button>
+            </div>
+            <nav class="flex flex-col space-y-6 font-display text-3xl uppercase tracking-wide">
+                <a href="#drops" class="mobile-drawer-link hover:text-brand-red transition-colors">Drops</a>
+                <a href="#lookbook" class="mobile-drawer-link hover:text-brand-red transition-colors">Lookbook</a>
+                <a href="#gear" class="mobile-drawer-link hover:text-brand-red transition-colors">Apparel & Gear</a>
+                <a href="#sizing" class="mobile-drawer-link hover:text-brand-red transition-colors">Archive</a>
+            </nav>
+        </div>
+        <div class="pt-6 border-t-4 border-brand-black font-mono text-xs">
+            <p class="font-bold">PAWSON WEAR // VOL. 1</p>
+            <p class="text-brand-black/70">THE DOG YOU STYLE</p>
+        </div>
+    </div>
+
+    <section class="relative w-full max-w-7xl mx-auto border-b-4 border-brand-black overflow-hidden flex items-center justify-center min-h-[75vh] py-16 sm:py-24 lg:py-32 bg-brand-black group">
+        
+        <!-- Background Image & Overlays -->
+        <div class="absolute inset-0 z-0">
+            <!-- USER: REPLACE SRC WITH YOUR OWN BANNER URL -->
+            <img src="https://placehold.co/1920x1080/292622/fdf5ed?text=YOUR+BACKGROUND+PHOTO+HERE&font=oswald" 
+                 alt="Banner Background Placeholder" 
+                 class="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-70 transition-all duration-700 ease-in-out">
+            
+            <!-- Scanline Overlay -->
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg==')] opacity-50 pointer-events-none"></div>
+            
+            <!-- Dark Vignette / Overlay for Readability -->
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-black/95 via-brand-black/50 to-brand-black/90"></div>
+        </div>
+
+        <div class="relative z-10 w-full px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center gap-8">
+            
+            <!-- Top Badge -->
+            <div class="inline-block border-2 border-brand-black px-4 py-1 bg-brand-red text-white shadow-brutal-sm font-mono text-sm sm:text-base font-bold uppercase transform -rotate-2">
+                Vol. 1 // PH
+            </div>
+            
+            <!-- Floating Typography over Dark Overlay -->
+            <div class="transform rotate-1 max-w-4xl mx-auto relative mt-6 flex flex-col items-center">
+                
+                <h2 class="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl uppercase leading-[0.85] tracking-tighter text-white relative z-10 drop-shadow-[4px_4px_0px_#292622]">
+                    The<br>
+                    <span class="text-brand-red relative inline-block drop-shadow-[4px_4px_0px_#292622]">
+                        Dog You
+                        <svg class="absolute w-full h-3 md:h-5 -bottom-1 left-0 text-white drop-shadow-none" viewBox="0 0 100 10" preserveAspectRatio="none">
+                            <path d="M0 5 Q 50 10 100 0" stroke="currentColor" stroke-width="4" fill="none" />
+                        </svg>
+                    </span><br>
+                    Style.
+                </h2>
+                
+                <p class="font-mono text-sm sm:text-base md:text-lg mt-8 max-w-xl mx-auto border-t-4 border-brand-red pt-4 text-brand-cream font-semibold text-center drop-shadow-[2px_2px_0px_#292622]">
+                    Premium canine streetwear built for the concrete jungle. Heavyweight fleece, ballistic nylon, and hype-culture aesthetics. Drop 01 is live.
+                </p>
+            </div>
+
+            <!-- CTAs -->
+            <div class="flex flex-col sm:flex-row gap-4 mt-6 w-full sm:w-auto shrink-0 z-20">
+                <a href="#drops" class="bg-brand-red text-white border-4 border-brand-black px-8 py-4 font-display text-2xl tracking-wide uppercase shadow-brutal brutal-transition text-center hover:bg-brand-black hover:text-white">
+                    Cop The Drop
+                </a>
+                <a href="#lookbook" class="bg-brand-cream text-brand-black border-4 border-brand-black px-8 py-4 font-display text-2xl tracking-wide uppercase shadow-brutal brutal-transition text-center hover:bg-brand-black hover:text-white">
+                    View Lookbook 01
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="drops" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-b-4 border-brand-black">
+        
+        <div class="flex justify-between items-end mb-12 border-b-4 border-brand-black pb-4">
+            <div>
+                <h3 class="font-display text-5xl md:text-7xl uppercase text-brand-black">Latest Drops</h3>
+                <p class="font-mono text-brand-red font-bold mt-2">/// NO RESTOCKS. SECURE YOUR SIZE.</p>
+            </div>
+            <a href="#" class="hidden md:inline-block font-sans font-bold text-xl uppercase border-b-2 border-brand-black hover:text-brand-red hover:border-brand-red transition-colors pb-1">
+                View All [8]
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            <!-- Product 1 -->
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition">
+                <!-- Inventory Badge -->
+                <div class="absolute top-0 right-0 bg-brand-red text-white font-mono text-xs font-bold px-3 py-1 border-l-4 border-b-4 border-brand-black z-10">
+                    LOW STOCK
+                </div>
+                <!-- Image Container -->
+                <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80" alt="Box Logo Frenchie Fleece" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <!-- Product Info -->
+                <div class="p-4 flex flex-col flex-grow justify-between bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPjxjaXJjbGUgY3g9IjIiIGN5PSIyIiByPSIwLjUiIGZpbGw9IiMyOTI2MjIiIG9wYWNpdHk9IjAuMSIvPjwvc3ZnPg==')]">
+                    <div>
+                        <h4 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Box Logo Frenchie Fleece</h4>
+                        <div class="flex gap-1 mb-4 flex-wrap">
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">S</span>
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">M</span>
+                            <span class="text-[10px] font-mono font-bold border border-brand-black text-brand-black px-1.5 py-0.5 opacity-50 line-through">L</span>
+                            <span class="text-[10px] font-mono font-bold bg-brand-red text-white px-1.5 py-0.5 border border-brand-black">BULLY</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="font-mono font-bold text-xl">$85.00</span>
+                        <button onclick="addToCart('Box Logo Frenchie Fleece', 85)" class="bg-brand-cream border-2 border-brand-black px-3 py-1 font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+                            + Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition">
+                <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
+                    <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=600&q=80" alt="Tactical Ballistic Harness" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h4 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Tactical Ballistic Harness w/ Pouch</h4>
+                        <div class="flex gap-1 mb-4 flex-wrap">
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">M</span>
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">L</span>
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">HOUND</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="font-mono font-bold text-xl">$120.00</span>
+                        <button onclick="addToCart('Tactical Ballistic Harness', 120)" class="bg-brand-cream border-2 border-brand-black px-3 py-1 font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+                            + Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition">
+                <div class="absolute top-0 right-0 bg-brand-black text-white font-mono text-xs font-bold px-3 py-1 border-l-4 border-b-4 border-brand-black z-10">
+                    RESTOCKED
+                </div>
+                <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
+                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=600&q=80" alt="Camo Shark Snood" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 grayscale group-hover:grayscale-0">
+                </div>
+                <div class="p-4 flex flex-col flex-grow justify-between bg-brand-black text-white">
+                    <div>
+                        <h4 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Camo Shark Snood / Balaclava</h4>
+                        <div class="flex gap-1 mb-4 flex-wrap">
+                            <span class="text-[10px] font-mono font-bold bg-white text-brand-black px-1.5 py-0.5">ONE SIZE</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="font-mono font-bold text-xl">$45.00</span>
+                        <button onclick="addToCart('Camo Shark Snood', 45)" class="bg-brand-red border-2 border-white px-3 py-1 font-display uppercase text-white hover:bg-white hover:text-brand-red transition-colors">
+                            + Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition opacity-90">
+                 <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-brand-red text-white font-display text-4xl px-4 py-2 border-4 border-brand-black z-20 -rotate-12 shadow-brutal">
+                    SOLD OUT
+                </div>
+                <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
+                    <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=600&q=80" alt="Reflective 3M Puffer" class="w-full h-full object-cover grayscale opacity-50">
+                </div>
+                <div class="p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h4 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Reflective 3M Puffer Vest</h4>
+                        <div class="flex gap-1 mb-4 flex-wrap">
+                            <span class="text-[10px] font-mono font-bold border border-brand-black text-brand-black px-1.5 py-0.5 opacity-50 line-through">ALL SIZES</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="font-mono font-bold text-xl">$140.00</span>
+                        <button disabled class="bg-gray-300 border-2 border-brand-black px-3 py-1 font-display uppercase text-gray-500 cursor-not-allowed">
+                            Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="sizing" class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-b-4 border-brand-black relative">
+        <!-- Abstract BG Decoration -->
+        <div class="absolute top-10 right-10 opacity-5 font-mono text-9xl font-bold pointer-events-none">[FIT]</div>
+
+        <div class="grid md:grid-cols-3 gap-12">
+            <div class="md:col-span-1">
+                <div class="sticker-badge bg-brand-black text-white inline-block px-4 py-1 font-mono text-sm font-bold mb-4">SPEC SHEET v1.2</div>
+                <h3 class="font-display text-5xl uppercase text-brand-black mb-6">Sizing &<br>Fit Guide</h3>
+                <p class="font-mono text-sm mb-6 border-l-4 border-brand-red pl-4">
+                    Streetwear aesthetics demand a specific cut. Our garments feature dropped shoulders and wider chests for maximum mobility and stacking. Find your breed's archetype.
+                </p>
+                
+                <!-- Interactive Tabs -->
+                <div class="flex flex-col gap-2 font-sans font-bold text-xl uppercase">
+                    <button onclick="switchTab('bully')" id="tab-bully" class="text-left px-4 py-3 border-4 border-brand-black bg-brand-red text-white shadow-brutal-sm hover:translate-x-2 transition-transform">
+                        The Bully (Pitbulls, Frenchies)
+                    </button>
+                    <button onclick="switchTab('hound')" id="tab-hound" class="text-left px-4 py-3 border-4 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-all">
+                        The Hound (Dobermans, Greys)
+                    </button>
+                    <button onclick="switchTab('compact')" id="tab-compact" class="text-left px-4 py-3 border-4 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-all">
+                        The Compact (Pugs, Terriers)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Content Area -->
+            <div class="md:col-span-2 relative bg-white border-4 border-brand-black shadow-brutal p-6 sm:p-10 flex items-center justify-center min-h-[400px]">
+                <!-- Grid background pattern inside card -->
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0wIDM5LjVoNDBNMzkuNSAwdi00MCIgc3Ryb2tlPSJyZ2JhKDQxLCAzOCwgMzQsIDAuMSkiIHN0cm9rZS13aWR0aD0iMSIvPjwvc3ZnPg==')] pointer-events-none"></div>
+                
+                <!-- Content: Bully -->
+                <div id="content-bully" class="w-full relative z-10 transition-opacity duration-300 block">
+                    <h4 class="font-display text-4xl uppercase mb-2 border-b-4 border-brand-black pb-2 inline-block">The Bully Fit</h4>
+                    <p class="font-mono text-brand-red font-bold mb-6">Designed for wide chests & thick necks.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 font-mono text-sm border-2 border-brand-black p-4 bg-brand-cream">
+                        <div class="border-b-2 border-brand-black pb-2"><strong>Chest:</strong> 28" - 34"</div>
+                        <div class="border-b-2 border-brand-black pb-2"><strong>Neck:</strong> 18" - 24"</div>
+                        <div class="pt-2"><strong>Length:</strong> 16" - 20"</div>
+                        <div class="pt-2"><strong>Rec. Size:</strong> BULLY or L/XL</div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=400&q=80" alt="Bully Fit" class="mt-6 border-4 border-brand-black w-32 h-32 object-cover filter grayscale float-right -mt-10 mr-4 rotate-6 shadow-brutal-sm hidden sm:block">
+                </div>
+
+                <!-- Content: Hound (Hidden initially) -->
+                <div id="content-hound" class="w-full relative z-10 transition-opacity duration-300 hidden">
+                    <h4 class="font-display text-4xl uppercase mb-2 border-b-4 border-brand-black pb-2 inline-block">The Hound Fit</h4>
+                    <p class="font-mono text-brand-red font-bold mb-6">Elongated torso, slim chest contour.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 font-mono text-sm border-2 border-brand-black p-4 bg-brand-cream">
+                        <div class="border-b-2 border-brand-black pb-2"><strong>Chest:</strong> 24" - 30"</div>
+                        <div class="border-b-2 border-brand-black pb-2"><strong>Neck:</strong> 14" - 18"</div>
+                        <div class="pt-2"><strong>Length:</strong> 22" - 28"</div>
+                        <div class="pt-2"><strong>Rec. Size:</strong> HOUND or M Long</div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=400&q=80" alt="Hound Fit" class="mt-6 border-4 border-brand-black w-32 h-32 object-cover filter grayscale float-right -mt-10 mr-4 -rotate-6 shadow-brutal-sm hidden sm:block">
+                </div>
+
+                <!-- Content: Compact (Hidden initially) -->
+                <div id="content-compact" class="w-full relative z-10 transition-opacity duration-300 hidden">
+                    <h4 class="font-display text-4xl uppercase mb-2 border-b-4 border-brand-black pb-2 inline-block">The Compact Fit</h4>
+                    <p class="font-mono text-brand-red font-bold mb-6">Short crop, true to size standard fit.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 font-mono text-sm border-2 border-brand-black p-4 bg-brand-cream">
+                        <div class="border-b-2 border-brand-black pb-2"><strong>Chest:</strong> 16" - 22"</div>
+                        <div class="border-b-2 border-brand-black pb-2"><strong>Neck:</strong> 10" - 14"</div>
+                        <div class="pt-2"><strong>Length:</strong> 10" - 14"</div>
+                        <div class="pt-2"><strong>Rec. Size:</strong> S or M</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="lookbook" class="w-full border-b-4 border-brand-black bg-brand-black py-20 relative overflow-hidden">
+        
+        <!-- Marquee separator -->
+        <div class="absolute top-0 left-0 w-full bg-brand-red text-white py-1 font-mono text-xs uppercase overflow-hidden border-b-4 border-brand-black z-20">
+            <div class="marquee-container animate-marquee-fast">
+                <span class="flex-shrink-0 w-1/2 flex justify-around">
+                    <span>/// STRICTLY FOR THE PACK</span> <span>/// STRICTLY FOR THE PACK</span> <span>/// STRICTLY FOR THE PACK</span>
+                </span>
+                <span class="flex-shrink-0 w-1/2 flex justify-around">
+                    <span>/// STRICTLY FOR THE PACK</span> <span>/// STRICTLY FOR THE PACK</span> <span>/// STRICTLY FOR THE PACK</span>
+                </span>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mt-8">
+            <div class="text-center mb-12">
+                <h3 class="font-display text-5xl md:text-7xl uppercase text-white tracking-wider">Street Archive</h3>
+                <p class="font-mono text-brand-cream mt-2 bg-brand-red inline-block px-4 py-1 border-2 border-white">SPOTTED IN PH</p>
+            </div>
+
+            <!-- Polaroid Staggered Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 p-4">
+                
+                <!-- Photo 1 -->
+                <div class="bg-white p-3 pb-8 md:p-4 md:pb-12 border-4 border-white shadow-brutal-red transform rotate-3 hover:rotate-0 transition-transform duration-300 self-start mt-8">
+                    <img src="https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=500&q=80" class="w-full aspect-square object-cover border-2 border-brand-black filter contrast-125 grayscale" alt="Community Dog 1">
+                    <div class="font-mono text-xs text-brand-black font-bold mt-2 text-center">@hypepup_ph</div>
+                </div>
+
+                <!-- Photo 2 -->
+                <div class="bg-white p-3 pb-8 md:p-4 md:pb-12 border-4 border-white shadow-brutal-red transform -rotate-2 hover:rotate-0 transition-transform duration-300 self-center">
+                    <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=500&q=80" class="w-full aspect-[4/5] object-cover border-2 border-brand-black filter contrast-125" alt="Community Dog 2">
+                    <div class="font-mono text-xs text-brand-black font-bold mt-2 text-center">Manila, PH</div>
+                </div>
+
+                <!-- Photo 3 -->
+                <div class="bg-white p-3 pb-8 md:p-4 md:pb-12 border-4 border-white shadow-brutal-red transform rotate-6 hover:rotate-0 transition-transform duration-300 self-end mb-8 hidden md:block">
+                    <img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=500&q=80" class="w-full aspect-square object-cover border-2 border-brand-black filter contrast-125 grayscale" alt="Community Dog 3">
+                    <div class="font-mono text-xs text-brand-black font-bold mt-2 text-center">Drop 00 Beta</div>
+                </div>
+
+                <!-- Photo 4 -->
+                <div class="bg-white p-3 pb-8 md:p-4 md:pb-12 border-4 border-white shadow-brutal-red transform -rotate-4 hover:rotate-0 transition-transform duration-300 self-start hidden md:block">
+                    <img src="https://images.unsplash.com/photo-1588169930714-22b9c733367b?auto=format&fit=crop&w=500&q=80" class="w-full aspect-[4/5] object-cover border-2 border-brand-black filter contrast-125" alt="Community Dog 4">
+                    <div class="font-mono text-xs text-brand-black font-bold mt-2 text-center">@shiba.stussy</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-brand-red w-full border-t-8 border-brand-black pt-16 pb-8 relative overflow-hidden">
+        
+        <!-- Giant Watermark Text -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none select-none overflow-hidden">
+            <span class="font-display text-[15rem] md:text-[25rem] text-brand-black leading-none whitespace-nowrap">PAWSON</span>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-12 md:gap-4">
+            
+            <!-- Left Side: Newsletter -->
+            <div class="w-full md:w-1/2">
+                <div class="bg-brand-black text-white inline-block px-3 py-1 font-mono text-sm font-bold border-4 border-white mb-4 transform -rotate-2">
+                    JOIN THE PACK (DROP ACCESS)
+                </div>
+                <h4 class="font-display text-4xl md:text-5xl text-white uppercase mb-4 shadow-black text-shadow-sm">Early Links. No Bots.</h4>
+                
+                <form onsubmit="event.preventDefault(); showToast('Subscribed to the pack.', 'success');" class="flex flex-col sm:flex-row gap-2 mt-4">
+                    <input type="email" placeholder="ENTER EMAIL" required class="flex-grow bg-brand-cream border-4 border-brand-black px-4 py-3 font-mono font-bold text-brand-black placeholder-brand-black/50 focus:outline-none focus:ring-4 focus:ring-brand-black/20 rounded-none">
+                    <button type="submit" class="bg-brand-black text-white border-4 border-brand-black px-6 py-3 font-display text-xl uppercase tracking-widest hover:bg-white hover:text-brand-black transition-colors shadow-brutal-sm sm:shadow-none sm:hover:translate-x-1 sm:hover:-translate-y-1">
+                        Subscribe
+                    </button>
+                </form>
+                <p class="font-mono text-xs text-white/80 mt-2">By subscribing you agree to the Terms of Service. Don't worry, we don't spam.</p>
+            </div>
+
+            <!-- Right Side: Links & Utility -->
+            <div class="w-full md:w-auto flex flex-col items-start md:items-end font-sans font-bold uppercase text-white gap-2">
+                <a href="#" class="text-2xl hover:text-brand-black hover:bg-white px-2 transition-colors">FAQ / Contact</a>
+                <a href="#" class="text-2xl hover:text-brand-black hover:bg-white px-2 transition-colors">Shipping & Returns</a>
+                <a href="#" class="text-2xl hover:text-brand-black hover:bg-white px-2 transition-colors">Terms of Service</a>
+                <a href="#" class="text-2xl hover:text-brand-black hover:bg-white px-2 transition-colors">Privacy Policy</a>
+                
+                <div class="mt-8 font-mono text-sm border-t-4 border-brand-black pt-2 text-brand-black w-full text-left md:text-right flex justify-between md:justify-end gap-4">
+                    <span>©2026 PAWSON WEAR</span>
+                    <span>PH</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // State variables
+        let cartCount = 0;
+
+        // Mobile Drawer Management
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const drawer = document.getElementById('mobile-drawer');
+        const backdrop = document.getElementById('mobile-drawer-backdrop');
+        const drawerClose = document.getElementById('mobile-drawer-close');
+        const drawerLinks = document.querySelectorAll('.mobile-drawer-link');
+
+        function openDrawer() {
+            drawer.classList.add('open');
+            backdrop.classList.add('open');
+            menuToggle.setAttribute('aria-expanded', 'true');
+            document.body.classList.add('overflow-hidden');
+            drawerClose.focus();
+        }
+
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            backdrop.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('overflow-hidden');
+            menuToggle.focus();
+        }
+
+        if (menuToggle && drawer) {
+            menuToggle.addEventListener('click', openDrawer);
+            drawerClose.addEventListener('click', closeDrawer);
+            backdrop.addEventListener('click', closeDrawer);
+
+            drawerLinks.forEach(link => {
+                link.addEventListener('click', closeDrawer);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && drawer.classList.contains('open')) {
+                    closeDrawer();
+                }
+            });
+        }
+
+        // Custom Toast Function (Brutalist style)
+        function showToast(message, type = 'default') {
+            const container = document.getElementById('toast-container');
+            
+            const toast = document.createElement('div');
+            toast.className = `
+                flex items-center justify-between p-4 border-4 border-brand-black font-mono font-bold text-sm shadow-brutal transform transition-all duration-300 translate-x-full opacity-0
+                ${type === 'success' ? 'bg-[#a3e635] text-brand-black' : 'bg-brand-black text-white'}
+            `;
+            
+            toast.innerHTML = `
+                <span>${message}</span>
+                <button onclick="this.parentElement.remove()" class="ml-4 hover:text-brand-red pointer-events-auto">
+                    [X]
+                </button>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full', 'opacity-0');
+                toast.classList.add('translate-x-0', 'opacity-100');
+            }, 10);
+            
+            // Auto remove
+            setTimeout(() => {
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-full', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Add to Cart Logic
+        function addToCart(productName, price) {
+            cartCount++;
+            
+            // Update UI Counters
+            const cartElement = document.getElementById('cart-count');
+            cartElement.innerText = cartCount;
+            
+            // Pulse animation on the cart badge
+            cartElement.parentElement.classList.add('scale-110', 'bg-brand-red', 'text-white');
+            setTimeout(() => {
+                cartElement.parentElement.classList.remove('scale-110', 'bg-brand-red', 'text-white');
+            }, 200);
+
+            // Show Toast
+            showToast(`+1 ${productName} added to cart.`, 'success');
+        }
+
+        // Sizing Tab Logic
+        function switchTab(tabId) {
+            const tabs = ['bully', 'hound', 'compact'];
+            
+            tabs.forEach(t => {
+                // Update Buttons
+                const btn = document.getElementById(`tab-${t}`);
+                if(t === tabId) {
+                    btn.classList.add('bg-brand-red', 'text-white', 'shadow-brutal-sm');
+                    btn.classList.remove('bg-brand-cream', 'text-brand-black');
+                } else {
+                    btn.classList.remove('bg-brand-red', 'text-white', 'shadow-brutal-sm');
+                    btn.classList.add('bg-brand-cream', 'text-brand-black');
+                }
+
+                // Update Content visibility
+                const content = document.getElementById(`content-${t}`);
+                if(t === tabId) {
+                    content.classList.remove('hidden');
+                    content.classList.add('block');
+                } else {
+                    content.classList.add('hidden');
+                    content.classList.remove('block');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
