@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart & Checkout | Pawson Wear</title>
+
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cream: '#fdf5ed',
+                            red: '#e7191f',
+                            black: '#292622'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Anton', 'sans-serif'],
+                        sans: ['Oswald', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'brutal': '6px 6px 0px 0px #292622',
+                        'brutal-hover': '8px 8px 0px 0px #292622',
+                        'brutal-sm': '4px 4px 0px 0px #292622',
+                        'brutal-red': '6px 6px 0px 0px #e7191f',
+                    },
+                    borderWidth: {
+                        '3': '3px',
+                        '4': '4px',
+                    },
+                    animation: {
+                        'marquee': 'marquee 15s linear infinite',
+                        'marquee-fast': 'marquee 10s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-sans antialiased selection:bg-brand-red selection:text-brand-cream relative">
+
+    <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Top Marquee -->
+    <div class="w-full bg-brand-black text-brand-cream border-b-4 border-brand-black overflow-hidden py-2 font-mono text-sm tracking-widest relative z-40">
+        <div class="marquee-container animate-marquee">
+            <span class="flex-shrink-0 w-1/2 flex justify-around items-center px-2">
+                <span>CHECKOUT ARCHIVE</span> <span>//</span>
+                <span>EXPRESS DISPATCH</span>
+                <span class="hidden sm:inline">//</span>
+                <span>PAWSON WEAR</span>
+                <span class="hidden md:inline">//</span>
+                <span>WORLDWIDE SHIPPING</span>
+            </span>
+            <span class="flex-shrink-0 w-1/2 flex justify-around items-center px-2">
+                <span>CHECKOUT ARCHIVE</span> <span>//</span>
+                <span>EXPRESS DISPATCH</span>
+                <span class="hidden sm:inline">//</span>
+                <span>PAWSON WEAR</span>
+                <span class="hidden md:inline">//</span>
+                <span>WORLDWIDE SHIPPING</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="w-full bg-brand-cream border-b-4 border-brand-black sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-drawer"
+                aria-label="Open Navigation Menu"
+                class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2 border-3 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="square" stroke-linejoin="miter" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <!-- Logo -->
+            <a href="index.html" class="block group z-50">
+                <img src="assets/logo.png" alt="Pawson Wear Logo" class="h-12 sm:h-14 object-contain filter group-hover:opacity-90 transition-opacity">
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex space-x-8 font-bold text-lg uppercase tracking-wide">
+                <a href="shop.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Shop Categories</a>
+                <a href="faq.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">FAQ</a>
+                <a href="shipping-returns.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Shipping & Returns</a>
+                <a href="about.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">About</a>
+            </nav>
+
+            <!-- Cart Badge Link -->
+            <a href="cart.html" class="flex items-center min-w-[44px] min-h-[44px] justify-center bg-brand-red text-white border-3 border-brand-black px-2 py-1.5 sm:px-4 sm:py-2 font-mono font-bold brutal-transition shadow-brutal-sm group shrink-0">
+                <span class="mr-1 sm:mr-2 text-xs sm:text-base">CART</span>
+                <span class="bg-brand-black text-brand-cream px-1.5 sm:px-2 py-0.5 text-xs sm:text-base" id="cart-count">0</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-drawer-backdrop" class="fixed inset-0 bg-brand-black/60 z-50 opacity-0 pointer-events-none md:hidden" aria-hidden="true"></div>
+    <div id="mobile-drawer" class="fixed top-0 left-0 bottom-0 w-[280px] max-w-[80vw] bg-brand-cream border-r-4 border-brand-black shadow-brutal z-50 flex flex-col justify-between p-6 -translate-x-full md:hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+        <div>
+            <div class="flex justify-between items-center pb-6 border-b-4 border-brand-black mb-8">
+                <span class="font-display text-2xl uppercase tracking-wide">Menu</span>
+                <button id="mobile-drawer-close" aria-label="Close Navigation Menu" class="p-2 border-2 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm font-mono font-bold text-sm">[X]</button>
+            </div>
+            <nav class="flex flex-col space-y-6 font-display text-3xl uppercase tracking-wide">
+                <a href="index.html" class="mobile-drawer-link hover:text-brand-red transition-colors">Home</a>
+                <a href="shop.html" class="mobile-drawer-link hover:text-brand-red transition-colors">Shop Categories</a>
+                <a href="faq.html" class="mobile-drawer-link hover:text-brand-red transition-colors">FAQ</a>
+                <a href="shipping-returns.html" class="mobile-drawer-link hover:text-brand-red transition-colors">Shipping & Returns</a>
+                <a href="about.html" class="mobile-drawer-link hover:text-brand-red transition-colors">About</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Header Banner -->
+    <section class="w-full bg-brand-black text-white border-b-4 border-brand-black py-10 px-4 sm:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+            <div>
+                <div class="inline-block bg-brand-red text-white font-mono text-xs font-bold px-3 py-1 border-2 border-white mb-2">
+                    CHECKOUT // STEP 01 & 02
+                </div>
+                <h1 class="font-display text-4xl sm:text-6xl uppercase tracking-tight">Your Cart & Checkout</h1>
+            </div>
+            <a href="shop.html" class="font-mono text-sm font-bold text-brand-red hover:underline uppercase">
+                &larr; Continue Shopping
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Container -->
+    <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- EMPTY CART VIEW -->
+        <div id="empty-cart-view" class="hidden flex-col items-center justify-center py-20 text-center border-4 border-brand-black bg-white shadow-brutal p-8">
+            <div class="font-display text-6xl text-brand-black mb-4">[ EMPTY BAG ]</div>
+            <p class="font-mono text-lg text-brand-black/70 max-w-md mb-8">
+                You haven't added any canine streetwear gear to your bag yet.
+            </p>
+            <a href="index.html#categories" class="bg-brand-red text-white border-4 border-brand-black px-8 py-4 font-display text-2xl uppercase tracking-wide shadow-brutal brutal-transition hover:bg-brand-black">
+                Shop Categories &rarr;
+            </a>
+        </div>
+
+        <!-- ACTIVE CART & CHECKOUT VIEW -->
+        <div id="cart-active-view" class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+            <!-- LEFT COLUMN: CART ITEMS (7 cols) -->
+            <div class="lg:col-span-7 flex flex-col">
+                <div class="flex justify-between items-center border-b-4 border-brand-black pb-4 mb-6">
+                    <h2 class="font-display text-3xl uppercase text-brand-black">1. Selected Gear</h2>
+                    <span class="font-mono text-brand-red font-bold text-sm">// SECURE YOUR ARCHETYPE</span>
+                </div>
+
+                <!-- Dynamic Cart Items Container -->
+                <div id="cart-items-list" class="flex-grow">
+                    <!-- JavaScript will inject items here -->
+                </div>
+
+                <!-- Order Summary Breakdown -->
+                <div class="border-4 border-brand-black p-6 bg-brand-cream shadow-brutal mt-6">
+                    <h3 class="font-display text-2xl uppercase border-b-2 border-brand-black pb-2 mb-4">Summary</h3>
+                    <div class="space-y-2 font-mono text-sm">
+                        <div class="flex justify-between">
+                            <span>Subtotal</span>
+                            <span id="cart-subtotal" class="font-bold">₱0.00</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Shipping (Standard Express)</span>
+                            <span class="font-bold text-brand-red">₱100.00</span>
+                        </div>
+                        <div class="border-t-2 border-brand-black pt-3 flex justify-between font-bold text-lg text-brand-black">
+                            <span>ESTIMATED TOTAL</span>
+                            <span id="cart-total" class="text-brand-red text-xl">₱100.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: CHECKOUT FORM (5 cols) -->
+            <div class="lg:col-span-5">
+                <div class="border-4 border-brand-black bg-white p-6 sm:p-8 shadow-brutal">
+                    <h2 class="font-display text-3xl uppercase text-brand-black border-b-4 border-brand-black pb-4 mb-6">
+                        2. Shipping & Contact
+                    </h2>
+
+                    <form onsubmit="processCheckout(event)" class="flex flex-col gap-4 font-mono text-sm">
+
+                        <!-- Contact Details -->
+                        <div class="font-bold text-xs uppercase text-brand-red tracking-wider">Contact Information</div>
+                        <div>
+                            <label class="block font-bold mb-1" for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" required placeholder="e.g. Alex Morgan"
+                                class="w-full bg-brand-cream border-3 border-brand-black p-3 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-brand-red">
+                        </div>
+
+                        <div>
+                            <label class="block font-bold mb-1" for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="alex@example.com"
+                                class="w-full bg-brand-cream border-3 border-brand-black p-3 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-brand-red">
+                        </div>
+
+                        <div>
+                            <label class="block font-bold mb-1" for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+63 917 123 4567"
+                                class="w-full bg-brand-cream border-3 border-brand-black p-3 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-brand-red">
+                        </div>
+
+                        <!-- Shipping Address -->
+                        <div class="font-bold text-xs uppercase text-brand-red tracking-wider mt-4">Shipping Address</div>
+                        <div>
+                            <label class="block font-bold mb-1" for="address">Street Address *</label>
+                            <input type="text" id="address" name="address" required placeholder="123 Main St, Brgy. Central"
+                                class="w-full bg-brand-cream border-3 border-brand-black p-3 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-brand-red">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block font-bold mb-1" for="unit">Apt / Unit</label>
+                                <input type="text" id="unit" name="unit" placeholder="Suite 4B"
+                                    class="w-full bg-brand-cream border-3 border-brand-black p-3 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-brand-red">
+                            </div>
+                            <div>
+                                <label class="block font-bold mb-1" for="city">City / Town *</label>
+                                <input type="text" id="city" name="city" required placeholder="Makati City"
+                                    class="w-full bg-brand-cream border-3 border-brand-black p-3 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-brand-red">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block font-bold mb-1" for="province">State / Province *</label>
+                                <input type="text" id="province" name="province" required placeholder="Metro Manila"
+                                    class="w-full bg-brand-cream border-3 border-brand-black p-3 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-brand-red">
+                            </div>
+                            <div>
+                                <label class="block font-bold mb-1" for="zip">Postal / ZIP *</label>
+                                <input type="text" id="zip" name="zip" required placeholder="1200"
+                                    class="w-full bg-brand-cream border-3 border-brand-black p-3 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-brand-red">
+                            </div>
+                        </div>
+
+                        <!-- Breed & Delivery Notes -->
+                        <div class="font-bold text-xs uppercase text-brand-red tracking-wider mt-4">Special Notes</div>
+                        <div>
+                            <label class="block font-bold mb-1" for="breedNotes">Dog Breed, Sizing, or Gate Notes</label>
+                            <textarea id="breedNotes" name="breedNotes" rows="3" placeholder="e.g. French Bulldog (Bully Fit), leave at front desk."
+                                class="w-full bg-brand-cream border-3 border-brand-black p-3 font-mono font-bold focus:outline-none focus:ring-2 focus:ring-brand-red resize-none"></textarea>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div class="font-bold text-xs uppercase text-brand-red tracking-wider mt-4">Payment Method</div>
+                        <div class="space-y-2 border-2 border-brand-black p-3 bg-brand-cream">
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                <input type="radio" name="paymentMethod" value="Cash on Delivery (COD)" checked class="accent-brand-red w-4 h-4">
+                                <span class="font-bold">Cash on Delivery (COD)</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                <input type="radio" name="paymentMethod" value="GCash / Maya" class="accent-brand-red w-4 h-4">
+                                <span class="font-bold">GCash / Maya E-Wallet</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                <input type="radio" name="paymentMethod" value="Credit / Debit Card" class="accent-brand-red w-4 h-4">
+                                <span class="font-bold">Credit / Debit Card</span>
+                            </label>
+                        </div>
+
+                        <button type="submit"
+                            class="mt-6 w-full bg-brand-red text-white border-4 border-brand-black py-4 font-display text-2xl uppercase tracking-wider shadow-brutal brutal-transition hover:bg-brand-black">
+                            Place Order &rarr;
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ORDER CONFIRMATION / RECEIPT VIEW -->
+        <div id="order-success-view" class="hidden flex-col items-center justify-center py-12 max-w-3xl mx-auto">
+            <div class="w-full bg-white border-4 border-brand-black p-8 sm:p-12 shadow-brutal text-center">
+                <div class="inline-block bg-brand-black text-[#a3e635] font-mono text-sm font-bold px-4 py-1 border-2 border-brand-black mb-4">
+                    /// ORDER CONFIRMED
+                </div>
+                <h2 class="font-display text-5xl uppercase text-brand-black mb-2">Thank You For Your Order!</h2>
+                <p class="font-mono text-brand-red font-bold text-xl mb-6">
+                    ORDER ID: <span id="receipt-order-id">#PW-000000</span>
+                </p>
+
+                <div class="border-t-4 border-b-4 border-brand-black py-6 my-6 font-mono text-left space-y-3 bg-brand-cream p-6">
+                    <div class="flex justify-between border-b border-brand-black/20 pb-2">
+                        <span>Customer Name:</span>
+                        <span id="receipt-name" class="font-bold text-brand-black">--</span>
+                    </div>
+                    <div class="flex justify-between border-b border-brand-black/20 pb-2">
+                        <span>Confirmation Email:</span>
+                        <span id="receipt-email" class="font-bold text-brand-black">--</span>
+                    </div>
+                    <div class="flex justify-between border-b border-brand-black/20 pb-2">
+                        <span>Shipping Address:</span>
+                        <span id="receipt-address" class="font-bold text-brand-black text-right">--</span>
+                    </div>
+                    <div class="flex justify-between font-bold text-lg pt-2 text-brand-red">
+                        <span>Total Paid:</span>
+                        <span id="receipt-total">₱0.00</span>
+                    </div>
+                </div>
+
+                <p class="font-mono text-sm text-brand-black/80 mb-8">
+                    We've sent an early access confirmation to your email. Your gear is being prepped for dispatch.
+                </p>
+
+                <a href="index.html" class="inline-block bg-brand-black text-white border-4 border-brand-black px-8 py-4 font-display text-2xl uppercase tracking-wide shadow-brutal brutal-transition hover:bg-brand-red">
+                    Return to Store &rarr;
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-red w-full border-t-8 border-brand-black pt-16 pb-8 relative overflow-hidden mt-16">
+        <div
+            class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none select-none overflow-hidden">
+            <span
+                class="font-display text-[15rem] md:text-[25rem] text-brand-black leading-none whitespace-nowrap">PAWSON</span>
+        </div>
+
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+
+            <!-- Left Side: Navigation Links & Copyright -->
+            <div class="w-full md:w-auto flex flex-col items-start font-sans font-bold uppercase text-white gap-2">
+                <a href="faq.html" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">FAQ /
+                    Contact</a>
+                <a href="shipping-returns.html" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Shipping &
+                    Returns</a>
+                <a href="#" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Terms of
+                    Service</a>
+                <a href="#" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Privacy
+                    Policy</a>
+
+                <div
+                    class="mt-6 font-mono text-sm border-t-4 border-brand-black pt-2 text-brand-black w-full text-left flex justify-between gap-6">
+                    <span>©2026 PAWSON WEAR</span>
+                    <span>PH</span>
+                </div>
+            </div>
+
+            <!-- Right Side: Social Media Links -->
+            <div class="flex flex-col items-start md:items-end gap-3">
+                <span class="font-mono text-xs font-bold uppercase text-brand-black bg-brand-cream border-2 border-brand-black px-2 py-0.5">
+                    FOLLOW THE PACK
+                </span>
+                <div class="flex items-center gap-3">
+                    <a href="#" aria-label="Instagram"
+                        class="w-11 h-11 flex items-center justify-center bg-brand-cream text-brand-black border-4 border-brand-black shadow-brutal-sm hover:bg-brand-black hover:text-white transition-colors">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="TikTok"
+                        class="w-11 h-11 flex items-center justify-center bg-brand-cream text-brand-black border-4 border-brand-black shadow-brutal-sm hover:bg-brand-black hover:text-white transition-colors">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.98-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Facebook"
+                        class="w-11 h-11 flex items-center justify-center bg-brand-cream text-brand-black border-4 border-brand-black shadow-brutal-sm hover:bg-brand-black hover:text-white transition-colors">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

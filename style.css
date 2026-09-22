@@ -1,0 +1,116 @@
+body {
+    background-color: #fdf5ed;
+    color: #292622;
+}
+
+/* Hide Scrollbar for a cleaner streetwear look */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fdf5ed;
+    border-left: 3px solid #292622;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e7191f;
+    border: 3px solid #292622;
+}
+
+/* Category Carousel scrollbar hiding */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.category-scroll-container {
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.category-card {
+    scroll-snap-align: start;
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 6px 6px 0px 0px #292622;
+}
+
+.category-card:hover img {
+    transform: scale(1.06);
+}
+
+.marquee-container {
+    display: flex;
+    width: 200%;
+}
+
+.brutal-transition {
+    transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .brutal-transition:hover {
+        transform: translate(-2px, -2px);
+    }
+}
+
+.brutal-transition:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px #292622 !important;
+}
+
+.sticker-badge {
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+}
+
+/* Custom Selection */
+::selection {
+    background: #e7191f;
+    color: #fdf5ed;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .marquee-container,
+    .animate-marquee,
+    .animate-marquee-fast {
+        animation: none !important;
+    }
+
+    .brutal-transition,
+    .brutal-transition:hover,
+    .brutal-transition:active {
+        transform: none !important;
+        transition: none !important;
+    }
+}
+
+#toast-container {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Mobile Drawer State */
+#mobile-drawer {
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+#mobile-drawer.open {
+    transform: translateX(0);
+}
+
+#mobile-drawer-backdrop {
+    transition: opacity 0.3s ease;
+}
+
+#mobile-drawer-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+}

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collars & Leashes | Pawson Wear</title>
+
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cream: '#fdf5ed',
+                            red: '#e7191f',
+                            black: '#292622'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Anton', 'sans-serif'],
+                        sans: ['Oswald', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    },
+                    boxShadow: {
+                        'brutal': '6px 6px 0px 0px #292622',
+                        'brutal-hover': '8px 8px 0px 0px #292622',
+                        'brutal-sm': '4px 4px 0px 0px #292622',
+                        'brutal-red': '6px 6px 0px 0px #e7191f',
+                    },
+                    borderWidth: {
+                        '3': '3px',
+                        '4': '4px',
+                    },
+                    animation: {
+                        'marquee': 'marquee 15s linear infinite',
+                        'marquee-fast': 'marquee 10s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="font-sans antialiased selection:bg-brand-red selection:text-brand-cream relative">
+
+    <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- Top Marquee -->
+    <div class="w-full bg-brand-black text-brand-cream border-b-4 border-brand-black overflow-hidden py-2 font-mono text-sm tracking-widest relative z-40">
+        <div class="marquee-container animate-marquee">
+            <span class="flex-shrink-0 w-1/2 flex justify-around items-center px-2">
+                <span>COLLARS & LEASHES ARCHIVE</span> <span>//</span>
+                <span>TACTICAL HARDWARE & LEATHERS</span>
+                <span class="hidden sm:inline">//</span>
+                <span>PAWSON WEAR</span>
+                <span class="hidden md:inline">//</span>
+                <span>WORLDWIDE SHIPPING</span>
+            </span>
+            <span class="flex-shrink-0 w-1/2 flex justify-around items-center px-2">
+                <span>COLLARS & LEASHES ARCHIVE</span> <span>//</span>
+                <span>TACTICAL HARDWARE & LEATHERS</span>
+                <span class="hidden sm:inline">//</span>
+                <span>PAWSON WEAR</span>
+                <span class="hidden md:inline">//</span>
+                <span>WORLDWIDE SHIPPING</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="w-full bg-brand-cream border-b-4 border-brand-black sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-drawer"
+                aria-label="Open Navigation Menu"
+                class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2 border-3 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="square" stroke-linejoin="miter" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+
+            <!-- Logo -->
+            <a href="index.html" class="block group z-50">
+                <img src="assets/logo.png" alt="Pawson Wear Logo" class="h-12 sm:h-14 object-contain filter group-hover:opacity-90 transition-opacity">
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex space-x-8 font-bold text-lg uppercase tracking-wide">
+                <a href="shop.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Shop Categories</a>
+                <a href="faq.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">FAQ</a>
+                <a href="shipping-returns.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Shipping & Returns</a>
+                <a href="about.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">About</a>
+            </nav>
+
+            <!-- Cart Badge -->
+            <a href="cart.html" class="flex items-center min-w-[44px] min-h-[44px] justify-center bg-brand-cream border-3 border-brand-black px-2 py-1.5 sm:px-4 sm:py-2 font-mono font-bold brutal-transition shadow-brutal-sm hover:bg-brand-red hover:text-white group shrink-0">
+                <span class="mr-1 sm:mr-2 text-xs sm:text-base">CART</span>
+                <span class="bg-brand-black text-brand-cream px-1.5 sm:px-2 py-0.5 text-xs sm:text-base group-hover:bg-brand-cream group-hover:text-brand-black transition-colors" id="cart-count">0</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-drawer-backdrop" class="fixed inset-0 bg-brand-black/60 z-50 opacity-0 pointer-events-none md:hidden" aria-hidden="true"></div>
+    <div id="mobile-drawer" class="fixed top-0 left-0 bottom-0 w-[280px] max-w-[80vw] bg-brand-cream border-r-4 border-brand-black shadow-brutal z-50 flex flex-col justify-between p-6 -translate-x-full md:hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+        <div>
+            <div class="flex justify-between items-center pb-6 border-b-4 border-brand-black mb-8">
+                <span class="font-display text-2xl uppercase tracking-wide">Menu</span>
+                <button id="mobile-drawer-close" aria-label="Close Navigation Menu" class="p-2 border-2 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm font-mono font-bold text-sm">[X]</button>
+            </div>
+            <nav class="flex flex-col space-y-6 font-display text-3xl uppercase tracking-wide">
+                <a href="index.html" class="mobile-drawer-link hover:text-brand-red transition-colors">Home</a>
+                <a href="shop.html" class="mobile-drawer-link hover:text-brand-red transition-colors">Shop Categories</a>
+                <a href="faq.html" class="mobile-drawer-link hover:text-brand-red transition-colors">FAQ</a>
+                <a href="shipping-returns.html" class="mobile-drawer-link hover:text-brand-red transition-colors">Shipping & Returns</a>
+                <a href="about.html" class="mobile-drawer-link hover:text-brand-red transition-colors">About</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Category Header -->
+    <section class="w-full bg-brand-black text-white border-b-4 border-brand-black py-12 px-4 sm:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+            <div>
+                <div class="inline-block bg-brand-red text-white font-mono text-xs font-bold px-3 py-1 border-2 border-white mb-3">
+                    CATEGORY // 04
+                </div>
+                <h1 class="font-display text-5xl sm:text-7xl uppercase tracking-tight">Collars & Leashes</h1>
+                <p class="font-mono text-brand-cream/80 max-w-xl mt-2">
+                    Heavy-duty tactical cobra-buckle collars, climbing-rope leashes, and traffic control handles tested for maximum tension and street aesthetic.
+                </p>
+            </div>
+            <a href="index.html#categories" class="font-mono text-sm font-bold text-brand-red hover:underline uppercase">
+                &larr; Back to Categories
+            </a>
+        </div>
+    </section>
+
+    <!-- Category Quick Switcher -->
+    <section class="w-full bg-brand-cream border-b-4 border-brand-black py-4 px-4 overflow-x-auto no-scrollbar">
+        <div class="max-w-7xl mx-auto flex gap-3 min-w-max">
+            <a href="sleeveless-shirts.html" class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Sleeveless Shirts</a>
+            <a href="shirts.html" class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Shirts</a>
+            <a href="jackets.html" class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Jackets</a>
+            <a href="collars-leashes.html" class="px-4 py-2 border-3 border-brand-black bg-brand-red text-white font-mono text-xs font-bold shadow-brutal-sm uppercase">Collars & Leashes</a>
+        </div>
+    </section>
+
+    <!-- Product Grid -->
+    <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            <!-- Product 1 -->
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition">
+                <div class="absolute top-0 right-0 bg-brand-red text-white font-mono text-xs font-bold px-3 py-1 border-l-4 border-b-4 border-brand-black z-10">TACTICAL</div>
+                <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80" alt="Tactical Cobra-Buckle Collar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h3 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Tactical Cobra-Buckle Collar</h3>
+                        <div class="flex gap-1 mb-4 flex-wrap">
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">HEAVY DUTY</span>
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">COBRA BUCKLE</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="font-mono font-bold text-xl">₱45.00</span>
+                        <button onclick="addToCart('Tactical Cobra-Buckle Collar', 45, 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80')" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+                            + Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition">
+                <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
+                    <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=600&q=80" alt="Hands-Free Climbing Rope Leash" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h3 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Hands-Free Rope Leash</h3>
+                        <div class="flex gap-1 mb-4 flex-wrap">
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">6 FT</span>
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">ADJUSTABLE</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="font-mono font-bold text-xl">₱55.00</span>
+                        <button onclick="addToCart('Hands-Free Rope Leash', 55, 'https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=600&q=80')" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+                            + Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition">
+                <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
+                    <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=600&q=80" alt="Traffic Handle Leather Leash" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h3 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Traffic Handle Leather Leash</h3>
+                        <div class="flex gap-1 mb-4 flex-wrap">
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">GENUINE LEATHER</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="font-mono font-bold text-xl">₱60.00</span>
+                        <button onclick="addToCart('Traffic Handle Leather Leash', 60, 'https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=600&q=80')" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+                            + Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition">
+                <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
+                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80" alt="Reflective 3M Control Harness & Lead" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                </div>
+                <div class="p-4 flex flex-col flex-grow justify-between">
+                    <div>
+                        <h3 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Reflective 3M Control Lead</h3>
+                        <div class="flex gap-1 mb-4 flex-wrap">
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">3M REFLECTIVE</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="font-mono font-bold text-xl">₱65.00</span>
+                        <button onclick="addToCart('Reflective 3M Control Lead', 65, 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80')" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+                            + Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-red w-full border-t-8 border-brand-black pt-16 pb-8 relative overflow-hidden">
+        <div
+            class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none select-none overflow-hidden">
+            <span
+                class="font-display text-[15rem] md:text-[25rem] text-brand-black leading-none whitespace-nowrap">PAWSON</span>
+        </div>
+
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
+
+            <!-- Left Side: Navigation Links & Copyright -->
+            <div class="w-full md:w-auto flex flex-col items-start font-sans font-bold uppercase text-white gap-2">
+                <a href="faq.html" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">FAQ /
+                    Contact</a>
+                <a href="shipping-returns.html" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Shipping &
+                    Returns</a>
+                <a href="#" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Terms of
+                    Service</a>
+                <a href="#" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Privacy
+                    Policy</a>
+
+                <div
+                    class="mt-6 font-mono text-sm border-t-4 border-brand-black pt-2 text-brand-black w-full text-left flex justify-between gap-6">
+                    <span>©2026 PAWSON WEAR</span>
+                    <span>PH</span>
+                </div>
+            </div>
+
+            <!-- Right Side: Social Media Links -->
+            <div class="flex flex-col items-start md:items-end gap-3">
+                <span class="font-mono text-xs font-bold uppercase text-brand-black bg-brand-cream border-2 border-brand-black px-2 py-0.5">
+                    FOLLOW THE PACK
+                </span>
+                <div class="flex items-center gap-3">
+                    <a href="#" aria-label="Instagram"
+                        class="w-11 h-11 flex items-center justify-center bg-brand-cream text-brand-black border-4 border-brand-black shadow-brutal-sm hover:bg-brand-black hover:text-white transition-colors">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="TikTok"
+                        class="w-11 h-11 flex items-center justify-center bg-brand-cream text-brand-black border-4 border-brand-black shadow-brutal-sm hover:bg-brand-black hover:text-white transition-colors">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.98-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Facebook"
+                        class="w-11 h-11 flex items-center justify-center bg-brand-cream text-brand-black border-4 border-brand-black shadow-brutal-sm hover:bg-brand-black hover:text-white transition-colors">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
