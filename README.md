@@ -1,2 +1,2 @@
 # pawsonwear
-A streetwear dog clothing store
+A thrift shop-styled dog clothing store
