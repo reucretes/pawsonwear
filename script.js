@@ -78,53 +78,43 @@ function renderSizeGuideModal() {
                 </button>
             </div>
 
-            <!-- Size Scale Cards -->
+            <!-- Size Scale Cards (Static Display) -->
             <div class="grid grid-cols-5 gap-2 sm:gap-4 mb-6 text-center">
-                <div class="size-guide-col border-2 border-brand-black p-2 sm:p-3 bg-white hover:border-brand-red transition-colors cursor-pointer" onclick="highlightGuideSize('XS')">
-                    <div class="h-10 sm:h-12 flex items-center justify-center mb-1">
-                        <svg class="w-6 h-6 sm:w-8 sm:h-8 text-brand-black transition-colors" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3">
-                            <path d="M16 42h8l4-12 10 2 4 10h8v-8l-4-4v-8l-8-6-8 2-6 8v10l-4 6z" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                <div class="border-2 border-brand-black p-2 sm:p-3 bg-white text-brand-black">
+                    <div class="h-12 sm:h-16 flex items-center justify-center mb-1 overflow-hidden">
+                        <img src="assets/xs.png" alt="XS Dog Size" class="max-h-full max-w-full object-contain" />
                     </div>
                     <span class="font-sans font-bold text-base sm:text-lg block">XS</span>
                     <span class="font-mono text-[9px] sm:text-[11px] text-brand-black/80 block">Up to 11 lbs</span>
                 </div>
 
-                <div class="size-guide-col border-2 border-brand-black p-2 sm:p-3 bg-white hover:border-brand-red transition-colors cursor-pointer" onclick="highlightGuideSize('S')">
-                    <div class="h-10 sm:h-12 flex items-center justify-center mb-1">
-                        <svg class="w-7 h-7 sm:w-9 sm:h-9 text-brand-black transition-colors" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3">
-                            <path d="M14 44h10l4-14 12 2 4 12h10v-10l-4-4v-10l-10-6-8 2-6 10v10l-6 10z" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                <div class="border-2 border-brand-black p-2 sm:p-3 bg-white text-brand-black">
+                    <div class="h-12 sm:h-16 flex items-center justify-center mb-1 overflow-hidden">
+                        <img src="assets/s.png" alt="S Dog Size" class="max-h-full max-w-full object-contain" />
                     </div>
                     <span class="font-sans font-bold text-base sm:text-lg block">S</span>
                     <span class="font-mono text-[9px] sm:text-[11px] text-brand-black/80 block">Up to 15 lbs</span>
                 </div>
 
-                <div class="size-guide-col border-2 border-brand-black p-2 sm:p-3 bg-brand-red text-white shadow-brutal-sm cursor-pointer" onclick="highlightGuideSize('M')">
-                    <div class="h-10 sm:h-12 flex items-center justify-center mb-1">
-                        <svg class="w-8 h-8 sm:w-10 sm:h-10 text-white transition-colors" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3">
-                            <path d="M12 46h12l5-16 14 3 5 13h10v-11l-5-5v-11l-11-7-10 2-7 11v12l-7 12z" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                <div class="border-2 border-brand-black p-2 sm:p-3 bg-white text-brand-black">
+                    <div class="h-12 sm:h-16 flex items-center justify-center mb-1 overflow-hidden">
+                        <img src="assets/m.png" alt="M Dog Size" class="max-h-full max-w-full object-contain" />
                     </div>
                     <span class="font-sans font-bold text-base sm:text-lg block">M</span>
-                    <span class="font-mono text-[9px] sm:text-[11px] opacity-90 block">Up to 23 lbs</span>
+                    <span class="font-mono text-[9px] sm:text-[11px] text-brand-black/80 block">Up to 23 lbs</span>
                 </div>
 
-                <div class="size-guide-col border-2 border-brand-black p-2 sm:p-3 bg-white hover:border-brand-red transition-colors cursor-pointer" onclick="highlightGuideSize('L')">
-                    <div class="h-10 sm:h-12 flex items-center justify-center mb-1">
-                        <svg class="w-9 h-9 sm:w-11 sm:h-11 text-brand-black transition-colors" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3">
-                            <path d="M10 48h14l6-18 16 3 6 15h10v-12l-6-6v-12l-12-8-11 2-8 12v14l-8 13z" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                <div class="border-2 border-brand-black p-2 sm:p-3 bg-white text-brand-black">
+                    <div class="h-12 sm:h-16 flex items-center justify-center mb-1 overflow-hidden">
+                        <img src="assets/l.png" alt="L Dog Size" class="max-h-full max-w-full object-contain" />
                     </div>
                     <span class="font-sans font-bold text-base sm:text-lg block">L</span>
                     <span class="font-mono text-[9px] sm:text-[11px] text-brand-black/80 block">Up to 35 lbs</span>
                 </div>
 
-                <div class="size-guide-col border-2 border-brand-black p-2 sm:p-3 bg-white hover:border-brand-red transition-colors cursor-pointer" onclick="highlightGuideSize('XL')">
-                    <div class="h-10 sm:h-12 flex items-center justify-center mb-1">
-                        <svg class="w-10 h-10 sm:w-12 sm:h-12 text-brand-black transition-colors" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3">
-                            <path d="M8 50h16l7-20 18 4 7 16h10v-13l-7-7v-13l-13-9-12 2-9 13v16l-9 14z" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                <div class="border-2 border-brand-black p-2 sm:p-3 bg-white text-brand-black">
+                    <div class="h-12 sm:h-16 flex items-center justify-center mb-1 overflow-hidden">
+                        <img src="assets/xl.png" alt="XL Dog Size" class="max-h-full max-w-full object-contain" />
                     </div>
                     <span class="font-sans font-bold text-base sm:text-lg block">XL</span>
                     <span class="font-mono text-[9px] sm:text-[11px] text-brand-black/80 block">Up to 45 lbs</span>
@@ -139,7 +129,7 @@ function renderSizeGuideModal() {
                             <th class="p-2.5 sm:p-3.5 border-b-2 border-r-2 border-brand-black font-bold">MEASUREMENT</th>
                             <th class="p-2.5 sm:p-3.5 border-b-2 border-r-2 border-brand-black text-center font-bold">XS</th>
                             <th class="p-2.5 sm:p-3.5 border-b-2 border-r-2 border-brand-black text-center font-bold">S</th>
-                            <th class="p-2.5 sm:p-3.5 border-b-2 border-r-2 border-brand-black text-center font-bold bg-brand-red text-white">M</th>
+                            <th class="p-2.5 sm:p-3.5 border-b-2 border-r-2 border-brand-black text-center font-bold">M</th>
                             <th class="p-2.5 sm:p-3.5 border-b-2 border-r-2 border-brand-black text-center font-bold">L</th>
                             <th class="p-2.5 sm:p-3.5 border-b-2 border-brand-black text-center font-bold">XL</th>
                         </tr>
@@ -149,7 +139,7 @@ function renderSizeGuideModal() {
                             <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black font-bold uppercase bg-brand-cream/50">WEIGHT</td>
                             <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center">Up to 11 lbs</td>
                             <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center">Up to 15 lbs</td>
-                            <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center font-bold bg-brand-red/10 text-brand-red">Up to 23 lbs</td>
+                            <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center">Up to 23 lbs</td>
                             <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center">Up to 35 lbs</td>
                             <td class="p-2.5 sm:p-3.5 text-center">Up to 45 lbs</td>
                         </tr>
@@ -157,7 +147,7 @@ function renderSizeGuideModal() {
                             <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black font-bold uppercase bg-brand-cream/50">BACK LENGTH</td>
                             <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center">9 - 12"</td>
                             <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center">11 - 16"</td>
-                            <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center font-bold bg-brand-red/10 text-brand-red">15 - 18"</td>
+                            <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center">15 - 18"</td>
                             <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center">16 - 20"</td>
                             <td class="p-2.5 sm:p-3.5 text-center">20 - 24"</td>
                         </tr>
@@ -165,7 +155,7 @@ function renderSizeGuideModal() {
                             <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black font-bold uppercase bg-brand-cream/50">GIRTH (CHEST)</td>
                             <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center">13 - 17"</td>
                             <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center">14 - 18"</td>
-                            <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center font-bold bg-brand-red/10 text-brand-red">18 - 22"</td>
+                            <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center">18 - 22"</td>
                             <td class="p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center">20 - 24"</td>
                             <td class="p-2.5 sm:p-3.5 text-center">22 - 28"</td>
                         </tr>
@@ -194,34 +184,9 @@ function renderSizeGuideModal() {
                         </div>
                     </div>
 
-                    <!-- Custom SVG Measurement Diagram -->
+                    <!-- Custom Measurement Image -->
                     <div class="md:w-1/2 w-full border-3 border-brand-black bg-brand-cream p-4 flex flex-col items-center justify-center relative">
-                        <svg viewBox="0 0 400 240" class="w-full h-auto max-h-[220px]" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Dog Silhouette Base -->
-                            <path d="M70 160 C70 140 90 120 120 110 L150 110 C170 80 200 60 230 65 C250 68 270 90 260 110 C290 115 330 125 340 145 C345 155 330 170 310 170 L280 170 L275 210 L250 210 L255 170 L185 170 L180 210 L155 210 L160 170 L120 170 L115 210 L90 210 L98 160 Z" 
-                                  fill="#ffffff" stroke="#292622" stroke-width="4" stroke-linejoin="round"/>
-                            <!-- Dog Ear & Head Details -->
-                            <path d="M120 110 L105 75 L130 90 Z" fill="#eb3b2d" stroke="#292622" stroke-width="3"/>
-                            <circle cx="115" cy="98" r="3" fill="#292622"/>
-                            
-                            <!-- Back Length Measurement Arrow -->
-                            <g>
-                                <line x1="130" y1="50" x2="310" y2="50" stroke="#eb3b2d" stroke-width="3" stroke-dasharray="4 4"/>
-                                <path d="M130 50 L140 43 M130 50 L140 57" stroke="#eb3b2d" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M310 50 L300 43 M310 50 L300 57" stroke="#eb3b2d" stroke-width="3" stroke-linecap="round"/>
-                                <line x1="130" y1="40" x2="130" y2="85" stroke="#292622" stroke-width="2" stroke-dasharray="2 2"/>
-                                <line x1="310" y1="40" x2="310" y2="130" stroke="#292622" stroke-width="2" stroke-dasharray="2 2"/>
-                                <rect x="175" y="36" width="100" height="26" fill="#292622" rx="2"/>
-                                <text x="225" y="53" fill="#ffffff" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">BACK LENGTH</text>
-                            </g>
-
-                            <!-- Girth Measurement Arrow -->
-                            <g>
-                                <ellipse cx="170" cy="140" rx="18" ry="32" stroke="#eb3b2d" stroke-width="4" fill="none" stroke-dasharray="5 5"/>
-                                <rect x="125" y="128" width="60" height="24" fill="#eb3b2d" rx="2"/>
-                                <text x="155" y="144" fill="#ffffff" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">GIRTH</text>
-                            </g>
-                        </svg>
+                        <img src="assets/measurement.png" alt="Pawson Wear Measurement Guide: Back Length and Girth" class="w-full h-auto max-h-[250px] object-contain" />
                         <span class="font-mono text-[10px] text-brand-black/80 font-bold mt-2 uppercase tracking-wide">// PAWSON WEAR ANATOMICAL FIT DIAGRAM</span>
                     </div>
                 </div>
@@ -236,14 +201,10 @@ function renderSizeGuideModal() {
     document.body.appendChild(modal);
 }
 
-function openSizeGuide(highlightSize) {
+function openSizeGuide() {
     renderSizeGuideModal();
     const modal = document.getElementById('size-guide-modal');
     if (!modal) return;
-
-    if (highlightSize) {
-        highlightGuideSize(highlightSize);
-    }
 
     modal.classList.remove('hidden');
     setTimeout(() => {
@@ -266,47 +227,7 @@ function closeSizeGuide() {
 }
 
 function highlightGuideSize(targetSize) {
-    const modal = document.getElementById('size-guide-modal');
-    if (!modal) return;
-
-    const sizeCols = modal.querySelectorAll('.size-guide-col');
-    sizeCols.forEach(col => {
-        const sizeText = col.querySelector('.font-sans')?.innerText.trim();
-        const svg = col.querySelector('svg');
-        if (sizeText === targetSize) {
-            col.className = 'size-guide-col border-2 border-brand-black p-2 sm:p-3 bg-brand-red text-white shadow-brutal-sm cursor-pointer';
-            if (svg) svg.classList.replace('text-brand-black', 'text-white');
-        } else {
-            col.className = 'size-guide-col border-2 border-brand-black p-2 sm:p-3 bg-white text-brand-black hover:border-brand-red transition-colors cursor-pointer';
-            if (svg) svg.classList.replace('text-white', 'text-brand-black');
-        }
-    });
-
-    // Also highlight matching column in the table
-    const tableHeaders = modal.querySelectorAll('table thead th');
-    const tableCells = modal.querySelectorAll('table tbody tr');
-    
-    const sizeIndexMap = { 'XS': 1, 'S': 2, 'M': 3, 'L': 4, 'XL': 5 };
-    const targetIdx = sizeIndexMap[targetSize] || 3;
-
-    tableHeaders.forEach((th, idx) => {
-        if (idx === targetIdx) {
-            th.className = 'p-2.5 sm:p-3.5 border-b-2 border-r-2 border-brand-black text-center font-bold bg-brand-red text-white';
-        } else if (idx > 0) {
-            th.className = 'p-2.5 sm:p-3.5 border-b-2 border-r-2 border-brand-black text-center font-bold text-brand-cream';
-        }
-    });
-
-    tableCells.forEach(tr => {
-        const cells = tr.querySelectorAll('td');
-        cells.forEach((td, idx) => {
-            if (idx === targetIdx) {
-                td.className = 'p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center font-bold bg-brand-red/10 text-brand-red';
-            } else if (idx > 0) {
-                td.className = 'p-2.5 sm:p-3.5 border-r-2 border-brand-black text-center';
-            }
-        });
-    });
+    // Sizing guide is static as-is
 }
 
 // Close Size Guide Modal on Escape key
