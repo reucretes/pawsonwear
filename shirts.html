@@ -9,7 +9,9 @@
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -61,23 +63,24 @@
     <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <!-- Top Marquee -->
-    <div class="w-full bg-brand-black text-brand-cream border-b-4 border-brand-black overflow-hidden py-2 font-mono text-sm tracking-widest relative z-40">
+    <div
+        class="w-full bg-brand-black text-brand-cream border-b-4 border-brand-black overflow-hidden py-2 font-mono text-sm tracking-widest relative z-40">
         <div class="marquee-container animate-marquee">
             <span class="flex-shrink-0 w-1/2 flex justify-around items-center px-2">
-                <span>SHIRTS ARCHIVE</span> <span>//</span>
-                <span>HEAVY COTTON TEES</span>
+                <span>UKAY UKAY FOR DOGS</span> <span>//</span>
+                <span>PINOY SWAG</span>
                 <span class="hidden sm:inline">//</span>
                 <span>PAWSON WEAR</span>
                 <span class="hidden md:inline">//</span>
-                <span>WORLDWIDE SHIPPING</span>
+                <span>NATIONWIDE SHIPPING</span> <span>//</span>
             </span>
             <span class="flex-shrink-0 w-1/2 flex justify-around items-center px-2">
-                <span>SHIRTS ARCHIVE</span> <span>//</span>
-                <span>HEAVY COTTON TEES</span>
+                <span>UKAY UKAY FOR DOGS</span> <span>//</span>
+                <span>PINOY SWAG</span>
                 <span class="hidden sm:inline">//</span>
                 <span>PAWSON WEAR</span>
                 <span class="hidden md:inline">//</span>
-                <span>WORLDWIDE SHIPPING</span>
+                <span>NATIONWIDE SHIPPING</span> <span>//</span>
             </span>
         </div>
     </div>
@@ -90,46 +93,61 @@
             <button id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-drawer"
                 aria-label="Open Navigation Menu"
                 class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2 border-3 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="square" stroke-linejoin="miter" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
 
             <!-- Logo -->
             <a href="index.html" class="block group z-50">
-                <img src="assets/logo.png" alt="Pawson Wear Logo" class="h-12 sm:h-14 object-contain filter group-hover:opacity-90 transition-opacity">
+                <img src="assets/logo.png" alt="Pawson Wear Logo"
+                    class="h-12 sm:h-14 object-contain filter group-hover:opacity-90 transition-opacity">
             </a>
 
             <!-- Desktop Nav -->
             <nav class="hidden md:flex space-x-8 font-bold text-lg uppercase tracking-wide">
                 <a href="shop.html"
-                    class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Shop Now</a>
-                <a href="faq.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">FAQ</a>
-                <a href="shipping-returns.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Shipping & Returns</a>
-                <a href="about.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">About</a>
+                    class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Shop
+                    Now</a>
+                <a href="faq.html"
+                    class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">FAQ</a>
+                <a href="shipping-returns.html"
+                    class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Shipping
+                    & Returns</a>
+                <a href="about.html"
+                    class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">About</a>
             </nav>
 
             <!-- Cart Badge -->
-            <a href="cart.html" class="flex items-center min-w-[44px] min-h-[44px] justify-center bg-brand-cream border-3 border-brand-black px-2 py-1.5 sm:px-4 sm:py-2 font-mono font-bold brutal-transition shadow-brutal-sm hover:bg-brand-red hover:text-white group shrink-0">
+            <a href="cart.html"
+                class="flex items-center min-w-[44px] min-h-[44px] justify-center bg-brand-cream border-3 border-brand-black px-2 py-1.5 sm:px-4 sm:py-2 font-mono font-bold brutal-transition shadow-brutal-sm hover:bg-brand-red hover:text-white group shrink-0">
                 <span class="mr-1 sm:mr-2 text-xs sm:text-base">CART</span>
-                <span class="bg-brand-black text-brand-cream px-1.5 sm:px-2 py-0.5 text-xs sm:text-base group-hover:bg-brand-cream group-hover:text-brand-black transition-colors" id="cart-count">0</span>
+                <span
+                    class="bg-brand-black text-brand-cream px-1.5 sm:px-2 py-0.5 text-xs sm:text-base group-hover:bg-brand-cream group-hover:text-brand-black transition-colors"
+                    id="cart-count">0</span>
             </a>
         </div>
     </header>
 
     <!-- Mobile Navigation Drawer -->
-    <div id="mobile-drawer-backdrop" class="fixed inset-0 bg-brand-black/60 z-50 opacity-0 pointer-events-none md:hidden" aria-hidden="true"></div>
-    <div id="mobile-drawer" class="fixed top-0 left-0 bottom-0 w-[280px] max-w-[80vw] bg-brand-cream border-r-4 border-brand-black shadow-brutal z-50 flex flex-col justify-between p-6 -translate-x-full md:hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <div id="mobile-drawer-backdrop"
+        class="fixed inset-0 bg-brand-black/60 z-50 opacity-0 pointer-events-none md:hidden" aria-hidden="true"></div>
+    <div id="mobile-drawer"
+        class="fixed top-0 left-0 bottom-0 w-[280px] max-w-[80vw] bg-brand-cream border-r-4 border-brand-black shadow-brutal z-50 flex flex-col justify-between p-6 -translate-x-full md:hidden"
+        role="dialog" aria-modal="true" aria-label="Mobile Navigation">
         <div>
             <div class="flex justify-between items-center pb-6 border-b-4 border-brand-black mb-8">
                 <span class="font-display text-2xl uppercase tracking-wide">Menu</span>
-                <button id="mobile-drawer-close" aria-label="Close Navigation Menu" class="p-2 border-2 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm font-mono font-bold text-sm">[X]</button>
+                <button id="mobile-drawer-close" aria-label="Close Navigation Menu"
+                    class="p-2 border-2 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm font-mono font-bold text-sm">[X]</button>
             </div>
             <nav class="flex flex-col space-y-6 font-display text-3xl uppercase tracking-wide">
                 <a href="index.html" class="mobile-drawer-link hover:text-brand-red transition-colors">Home</a>
                 <a href="shop.html" class="mobile-drawer-link hover:text-brand-red transition-colors">Shop Now</a>
                 <a href="faq.html" class="mobile-drawer-link hover:text-brand-red transition-colors">FAQ</a>
-                <a href="shipping-returns.html" class="mobile-drawer-link hover:text-brand-red transition-colors">Shipping & Returns</a>
+                <a href="shipping-returns.html"
+                    class="mobile-drawer-link hover:text-brand-red transition-colors">Shipping & Returns</a>
                 <a href="about.html" class="mobile-drawer-link hover:text-brand-red transition-colors">About</a>
             </nav>
         </div>
@@ -139,15 +157,18 @@
     <section class="w-full bg-brand-black text-white border-b-4 border-brand-black py-12 px-4 sm:px-8">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <div>
-                <div class="inline-block bg-brand-red text-white font-mono text-xs font-bold px-3 py-1 border-2 border-white mb-3">
-                    CATEGORY // 03
+                <div
+                    class="inline-block bg-brand-red text-white font-mono text-xs font-bold px-3 py-1 border-2 border-white mb-3">
+                    SECTION 2 // MGA DAMIT
                 </div>
-                <h1 class="font-display text-5xl sm:text-7xl uppercase tracking-tight">Streetwear Shirts</h1>
+                <h1 class="font-display text-5xl sm:text-7xl uppercase tracking-tight">Shirts</h1>
                 <p class="font-mono text-brand-cream/80 max-w-xl mt-2">
-                    Heavyweight 300GSM combed cotton t-shirts, striped long-sleeves, and boxy fits for everyday dog culture.
+                    Lightweight combed cotton t-shirts and boxy fits for everyday dog
+                    culture.
                 </p>
             </div>
-            <a href="index.html#categories" class="font-mono text-sm font-bold text-brand-red hover:underline uppercase">
+            <a href="index.html#categories"
+                class="font-mono text-sm font-bold text-brand-red hover:underline uppercase">
                 &larr; Back to Categories
             </a>
         </div>
@@ -156,10 +177,16 @@
     <!-- Category Quick Switcher -->
     <section class="w-full bg-brand-cream border-b-4 border-brand-black py-4 px-4 overflow-x-auto no-scrollbar">
         <div class="max-w-7xl mx-auto flex gap-3 min-w-max">
-            <a href="sleeveless-shirts.html" class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Sleeveless Shirts</a>
-            <a href="shirts.html" class="px-4 py-2 border-3 border-brand-black bg-brand-red text-white font-mono text-xs font-bold shadow-brutal-sm uppercase">Shirts</a>
-            <a href="jackets.html" class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Jackets</a>
-            <a href="collars-leashes.html" class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Collars & Leashes</a>
+            <a href="sleeveless-shirts.html"
+                class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Sleeveless
+                Shirts</a>
+            <a href="shirts.html"
+                class="px-4 py-2 border-3 border-brand-black bg-brand-red text-white font-mono text-xs font-bold shadow-brutal-sm uppercase">Shirts</a>
+            <a href="jackets.html"
+                class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Jackets</a>
+            <a href="collars-leashes.html"
+                class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Collars
+                & Leashes</a>
         </div>
     </section>
 
@@ -168,28 +195,46 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
             <!-- Product 1 -->
-            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition" data-selected-size="M">
-                <div class="absolute top-0 right-0 bg-brand-red text-white font-mono text-xs font-bold px-3 py-1 border-l-4 border-b-4 border-brand-black z-10">POPULAR</div>
-                <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
-                    <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=600&q=80" alt="Striped Blue Long-Sleeve Shirt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition"
+                data-selected-size="M">
+                <div
+                    class="absolute top-0 right-0 bg-brand-red text-white font-mono text-xs font-bold px-3 py-1 border-l-4 border-b-4 border-brand-black z-10">
+                    POPULAR</div>
+                <div onclick="toggleModelPreview(this, 'assets/designs/model 1.png', 'assets/designs/shirt 1.png')"
+                    class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white cursor-pointer select-none">
+                    <img src="assets/designs/shirt 1.png" alt="Brown Pawson Ringer Tee"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="model-badge absolute bottom-2 left-2 bg-brand-black text-brand-cream border-2 border-brand-black px-2 py-0.5 text-xs font-mono font-bold">
+                        VIEW ON MODEL
+                    </div>
                 </div>
                 <div class="p-4 flex flex-col flex-grow justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-1">
-                            <h3 class="font-sans font-bold text-2xl leading-tight uppercase">Striped Blue Long-Sleeve</h3>
-                            <button type="button" onclick="openSizeGuide('M')" class="text-[10px] font-mono font-bold text-brand-red hover:underline shrink-0 ml-1">[?] FIT GUIDE</button>
+                            <h3 class="font-sans font-bold text-2xl leading-tight uppercase">Brown Pawson Ringer Tee
+                            </h3>
+                            <button type="button" onclick="openSizeGuide('M')"
+                                class="text-[10px] font-mono font-bold text-brand-red hover:underline shrink-0 ml-1">[?]
+                                FIT GUIDE</button>
                         </div>
                         <div class="size-picker flex gap-1 mb-4 flex-wrap">
-                            <button type="button" onclick="selectProductSize(this, 'XS')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XS</button>
-                            <button type="button" onclick="selectProductSize(this, 'S')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">S</button>
-                            <button type="button" onclick="selectProductSize(this, 'M')" class="size-pill text-[10px] font-mono font-bold border border-brand-black bg-brand-red text-white px-1.5 py-0.5 shadow-brutal-sm">M</button>
-                            <button type="button" onclick="selectProductSize(this, 'L')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">L</button>
-                            <button type="button" onclick="selectProductSize(this, 'XL')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XL</button>
+                            <button type="button" onclick="selectProductSize(this, 'XS')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XS</button>
+                            <button type="button" onclick="selectProductSize(this, 'S')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">S</button>
+                            <button type="button" onclick="selectProductSize(this, 'M')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black bg-brand-red text-white px-1.5 py-0.5">M</button>
+                            <button type="button" onclick="selectProductSize(this, 'L')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">L</button>
+                            <button type="button" onclick="selectProductSize(this, 'XL')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XL</button>
                         </div>
                     </div>
                     <div class="flex justify-between items-center mt-4">
-                        <span class="font-mono font-bold text-xl">₱50.00</span>
-                        <button onclick="addToCartFromCard(this, 'Striped Blue Long-Sleeve', 50, 'https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=600&q=80')" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+                        <span class="font-mono font-bold text-xl">₱450.00</span>
+                        <button
+                            onclick="addToCartFromCard(this, 'Brown Pawson Ringer Tee', 450, 'assets/designs/shirt 1.png')"
+                            class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
                             + Add
                         </button>
                     </div>
@@ -197,27 +242,39 @@
             </div>
 
             <!-- Product 2 -->
-            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition" data-selected-size="M">
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition"
+                data-selected-size="M">
                 <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
-                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80" alt="Heavy Cotton Box Logo Tee" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="assets/designs/shirt 1 design 2.png" alt="Blue Pawson Ringer Tee"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
                 <div class="p-4 flex flex-col flex-grow justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-1">
-                            <h3 class="font-sans font-bold text-2xl leading-tight uppercase">Heavy Cotton Box Logo Tee</h3>
-                            <button type="button" onclick="openSizeGuide('M')" class="text-[10px] font-mono font-bold text-brand-red hover:underline shrink-0 ml-1">[?] FIT GUIDE</button>
+                            <h3 class="font-sans font-bold text-2xl leading-tight uppercase">Blue Pawson Ringer Tee
+                            </h3>
+                            <button type="button" onclick="openSizeGuide('M')"
+                                class="text-[10px] font-mono font-bold text-brand-red hover:underline shrink-0 ml-1">[?]
+                                FIT GUIDE</button>
                         </div>
                         <div class="size-picker flex gap-1 mb-4 flex-wrap">
-                            <button type="button" onclick="selectProductSize(this, 'XS')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XS</button>
-                            <button type="button" onclick="selectProductSize(this, 'S')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">S</button>
-                            <button type="button" onclick="selectProductSize(this, 'M')" class="size-pill text-[10px] font-mono font-bold border border-brand-black bg-brand-red text-white px-1.5 py-0.5 shadow-brutal-sm">M</button>
-                            <button type="button" onclick="selectProductSize(this, 'L')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">L</button>
-                            <button type="button" onclick="selectProductSize(this, 'XL')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XL</button>
+                            <button type="button" onclick="selectProductSize(this, 'XS')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XS</button>
+                            <button type="button" onclick="selectProductSize(this, 'S')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">S</button>
+                            <button type="button" onclick="selectProductSize(this, 'M')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black bg-brand-red text-white px-1.5 py-0.5">M</button>
+                            <button type="button" onclick="selectProductSize(this, 'L')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">L</button>
+                            <button type="button" onclick="selectProductSize(this, 'XL')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XL</button>
                         </div>
                     </div>
                     <div class="flex justify-between items-center mt-4">
-                        <span class="font-mono font-bold text-xl">₱45.00</span>
-                        <button onclick="addToCartFromCard(this, 'Heavy Cotton Box Logo Tee', 45, 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80')" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+                        <span class="font-mono font-bold text-xl">₱450.00</span>
+                        <button
+                            onclick="addToCartFromCard(this, 'Blue Pawson Ringer Tee', 450, 'assets/designs/shirt 1 design 2.png')"
+                            class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
                             + Add
                         </button>
                     </div>
@@ -225,27 +282,43 @@
             </div>
 
             <!-- Product 3 -->
-            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition" data-selected-size="M">
-                <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
-                    <img src="https://images.unsplash.com/photo-1588169930714-22b9c733367b?auto=format&fit=crop&w=600&q=80" alt="Streetwear Raglan Graphic Tee" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition"
+                data-selected-size="M">
+                <div onclick="toggleModelPreview(this, 'assets/designs/model 2.png', 'assets/designs/shirt 2.png')"
+                    class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white cursor-pointer select-none">
+                    <img src="assets/designs/shirt 2.png" alt="Red-Blue Pawson Ringer Graphic Tee"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="model-badge absolute bottom-2 left-2 bg-brand-black text-brand-cream border-2 border-brand-black px-2 py-0.5 text-xs font-mono font-bold">
+                        VIEW ON MODEL
+                    </div>
                 </div>
                 <div class="p-4 flex flex-col flex-grow justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-1">
-                            <h3 class="font-sans font-bold text-2xl leading-tight uppercase">Streetwear Raglan Graphic Tee</h3>
-                            <button type="button" onclick="openSizeGuide('M')" class="text-[10px] font-mono font-bold text-brand-red hover:underline shrink-0 ml-1">[?] FIT GUIDE</button>
+                            <h3 class="font-sans font-bold text-2xl leading-tight uppercase">Red-Blue Pawson Ringer
+                                Graphic Tee</h3>
+                            <button type="button" onclick="openSizeGuide('M')"
+                                class="text-[10px] font-mono font-bold text-brand-red hover:underline shrink-0 ml-1">[?]
+                                FIT GUIDE</button>
                         </div>
                         <div class="size-picker flex gap-1 mb-4 flex-wrap">
-                            <button type="button" onclick="selectProductSize(this, 'XS')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XS</button>
-                            <button type="button" onclick="selectProductSize(this, 'S')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">S</button>
-                            <button type="button" onclick="selectProductSize(this, 'M')" class="size-pill text-[10px] font-mono font-bold border border-brand-black bg-brand-red text-white px-1.5 py-0.5 shadow-brutal-sm">M</button>
-                            <button type="button" onclick="selectProductSize(this, 'L')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">L</button>
-                            <button type="button" onclick="selectProductSize(this, 'XL')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XL</button>
+                            <button type="button" onclick="selectProductSize(this, 'XS')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XS</button>
+                            <button type="button" onclick="selectProductSize(this, 'S')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">S</button>
+                            <button type="button" onclick="selectProductSize(this, 'M')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black bg-brand-red text-white px-1.5 py-0.5">M</button>
+                            <button type="button" onclick="selectProductSize(this, 'L')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">L</button>
+                            <button type="button" onclick="selectProductSize(this, 'XL')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XL</button>
                         </div>
                     </div>
                     <div class="flex justify-between items-center mt-4">
-                        <span class="font-mono font-bold text-xl">₱55.00</span>
-                        <button onclick="addToCartFromCard(this, 'Streetwear Raglan Graphic Tee', 55, 'https://images.unsplash.com/photo-1588169930714-22b9c733367b?auto=format&fit=crop&w=600&q=80')" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+                        <span class="font-mono font-bold text-xl">₱550.00</span>
+                        <button
+                            onclick="addToCartFromCard(this, 'Red-Blue Pawson Ringer Graphic Tee', 550, 'assets/designs/shirt 2.png')"
+                            class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
                             + Add
                         </button>
                     </div>
@@ -253,27 +326,39 @@
             </div>
 
             <!-- Product 4 -->
-            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition" data-selected-size="M">
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition"
+                data-selected-size="M">
                 <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
-                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80" alt="Oversized Pawson Utility Shirt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="assets/designs/shirt 2 design 2.png" alt="Red Pawson Ringer Graphic Tee"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
                 <div class="p-4 flex flex-col flex-grow justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-1">
-                            <h3 class="font-sans font-bold text-2xl leading-tight uppercase">Oversized Pawson Utility Shirt</h3>
-                            <button type="button" onclick="openSizeGuide('M')" class="text-[10px] font-mono font-bold text-brand-red hover:underline shrink-0 ml-1">[?] FIT GUIDE</button>
+                            <h3 class="font-sans font-bold text-2xl leading-tight uppercase">Red Pawson Ringer Graphic
+                                Tee</h3>
+                            <button type="button" onclick="openSizeGuide('M')"
+                                class="text-[10px] font-mono font-bold text-brand-red hover:underline shrink-0 ml-1">[?]
+                                FIT GUIDE</button>
                         </div>
                         <div class="size-picker flex gap-1 mb-4 flex-wrap">
-                            <button type="button" onclick="selectProductSize(this, 'XS')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XS</button>
-                            <button type="button" onclick="selectProductSize(this, 'S')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">S</button>
-                            <button type="button" onclick="selectProductSize(this, 'M')" class="size-pill text-[10px] font-mono font-bold border border-brand-black bg-brand-red text-white px-1.5 py-0.5 shadow-brutal-sm">M</button>
-                            <button type="button" onclick="selectProductSize(this, 'L')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">L</button>
-                            <button type="button" onclick="selectProductSize(this, 'XL')" class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XL</button>
+                            <button type="button" onclick="selectProductSize(this, 'XS')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XS</button>
+                            <button type="button" onclick="selectProductSize(this, 'S')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">S</button>
+                            <button type="button" onclick="selectProductSize(this, 'M')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black bg-brand-red text-white px-1.5 py-0.5">M</button>
+                            <button type="button" onclick="selectProductSize(this, 'L')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">L</button>
+                            <button type="button" onclick="selectProductSize(this, 'XL')"
+                                class="size-pill text-[10px] font-mono font-bold border border-brand-black px-1.5 py-0.5 bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white transition-colors">XL</button>
                         </div>
                     </div>
                     <div class="flex justify-between items-center mt-4">
-                        <span class="font-mono font-bold text-xl">₱60.00</span>
-                        <button onclick="addToCartFromCard(this, 'Oversized Pawson Utility Shirt', 60, 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80')" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+                        <span class="font-mono font-bold text-xl">₱550.00</span>
+                        <button
+                            onclick="addToCartFromCard(this, 'Red Pawson Ringer Graphic Tee', 550, 'assets/designs/shirt 2 design 2.png')"
+                            class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
                             + Add
                         </button>
                     </div>
@@ -296,9 +381,11 @@
 
             <!-- Left Side: Navigation Links & Copyright -->
             <div class="w-full md:w-auto flex flex-col items-start font-sans font-bold uppercase text-white gap-2">
-                <a href="faq.html" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">FAQ /
+                <a href="faq.html"
+                    class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">FAQ /
                     Contact</a>
-                <a href="shipping-returns.html" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Shipping &
+                <a href="shipping-returns.html"
+                    class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Shipping &
                     Returns</a>
                 <a href="#" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Terms of
                     Service</a>
@@ -314,7 +401,8 @@
 
             <!-- Right Side: Social Media Links -->
             <div class="flex flex-col items-start md:items-end gap-3">
-                <span class="font-mono text-xs font-bold uppercase text-brand-black bg-brand-cream border-2 border-brand-black px-2 py-0.5">
+                <span
+                    class="font-mono text-xs font-bold uppercase text-brand-black bg-brand-cream border-2 border-brand-black px-2 py-0.5">
                     FOLLOW THE PACK
                 </span>
                 <div class="flex items-center gap-3">

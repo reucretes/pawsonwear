@@ -42,13 +42,13 @@ function selectProductSize(pillBtn, size) {
     // Reset sibling pill styles
     const pills = container.querySelectorAll('.size-pill');
     pills.forEach(p => {
-        p.classList.remove('bg-brand-red', 'text-white', 'shadow-brutal-sm');
+        p.classList.remove('bg-brand-red', 'text-white');
         p.classList.add('bg-brand-cream', 'text-brand-black');
     });
 
     // Set clicked pill active style
     pillBtn.classList.remove('bg-brand-cream', 'text-brand-black');
-    pillBtn.classList.add('bg-brand-red', 'text-white', 'shadow-brutal-sm');
+    pillBtn.classList.add('bg-brand-red', 'text-white');
 
     // Store selected size attribute on closest product card
     const card = pillBtn.closest('.group') || pillBtn.closest('[data-product-card]');
@@ -56,6 +56,31 @@ function selectProductSize(pillBtn, size) {
         card.setAttribute('data-selected-size', size);
     }
 }
+
+// Toggle On-Model Preview on Product Cards
+function toggleModelPreview(containerElement, modelSrc, flatSrc) {
+    if (!containerElement) return;
+    const imgElement = containerElement.querySelector('img');
+    const badgeElement = containerElement.querySelector('.model-badge');
+    if (!imgElement) return;
+
+    const isCurrentlyModel = containerElement.getAttribute('data-is-model') === 'true';
+
+    if (isCurrentlyModel) {
+        imgElement.src = flatSrc;
+        containerElement.setAttribute('data-is-model', 'false');
+        if (badgeElement) {
+            badgeElement.innerText = 'VIEW ON MODEL';
+        }
+    } else {
+        imgElement.src = modelSrc;
+        containerElement.setAttribute('data-is-model', 'true');
+        if (badgeElement) {
+            badgeElement.innerText = 'VIEW SHIRT';
+        }
+    }
+}
+
 
 // Global Sizing & Fit Guide Modal System
 function renderSizeGuideModal() {
@@ -244,6 +269,7 @@ document.addEventListener('keydown', (e) => {
 function addToCartFromCard(addBtn, productName, price, imageSrc) {
     const card = addBtn.closest('.group') || addBtn.closest('[data-product-card]');
     let chosenSize = null;
+    let activeImage = imageSrc;
 
     if (card) {
         chosenSize = card.getAttribute('data-selected-size');
@@ -256,9 +282,14 @@ function addToCartFromCard(addBtn, productName, price, imageSrc) {
                 chosenSize = 'M'; // Default size
             }
         }
+
+        const imgEl = card.querySelector('img');
+        if (imgEl && imgEl.getAttribute('src')) {
+            activeImage = imgEl.getAttribute('src');
+        }
     }
 
-    addToCart(productName, price, imageSrc, chosenSize);
+    addToCart(productName, price, activeImage, chosenSize);
 }
 
 // General Add to Cart Logic
