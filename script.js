@@ -57,6 +57,111 @@ function selectProductSize(pillBtn, size) {
     }
 }
 
+// ==========================================
+// DATA-DRIVEN PRODUCT COLOR CONFIGURATION
+// ==========================================
+const COLLARS_LEASHES_DATA = [
+    {
+        id: "collar-1",
+        name: "Tactical Cobra-Buckle Collar",
+        price: 45.00,
+        badge: "TACTICAL",
+        tags: ["HEAVY DUTY", "COBRA BUCKLE"],
+        colors: [
+            { id: "violet", name: "Violet", hex: "#8b5cf6", image: "assets/designs/collar 1.png", inStock: true },
+            { id: "green",  name: "Green",  hex: "#22c55e", image: "assets/designs/collar 2.png", inStock: true },
+            { id: "blue",   name: "Blue",   hex: "#3b82f6", image: "assets/designs/collar 3.png", inStock: true },
+            { id: "pink",   name: "Pink",   hex: "#ec4899", image: "assets/designs/collar 4.png", inStock: true },
+            { id: "orange", name: "Orange", hex: "#f97316", image: "assets/designs/collar 5.png", inStock: true }
+        ]
+    },
+    {
+        id: "leash-1",
+        name: "Hands-Free Rope Leash",
+        price: 55.00,
+        tags: ["6 FT", "ADJUSTABLE"],
+        colors: [
+            { id: "violet", name: "Violet", hex: "#8b5cf6", image: "assets/designs/leash 1.png", inStock: true },
+            { id: "green",  name: "Green",  hex: "#22c55e", image: "assets/designs/leash 2.png", inStock: true },
+            { id: "blue",   name: "Blue",   hex: "#3b82f6", image: "assets/designs/leash 3.png", inStock: true },
+            { id: "pink",   name: "Pink",   hex: "#ec4899", image: "assets/designs/leash 4.png", inStock: true },
+            { id: "orange", name: "Orange", hex: "#f97316", image: "assets/designs/leash 5.png", inStock: true }
+        ]
+    }
+];
+
+// Interactive Color Selection on Product Cards
+function selectProductColor(swatchBtn, colorName, colorImgSrc) {
+    if (swatchBtn.hasAttribute('disabled') || swatchBtn.classList.contains('out-of-stock')) return;
+
+    const card = swatchBtn.closest('.group') || swatchBtn.closest('[data-product-card]');
+    if (!card) return;
+
+    const container = swatchBtn.closest('[role="radiogroup"]') || swatchBtn.parentElement;
+    
+    // Reset sibling swatches
+    const swatches = container.querySelectorAll('.color-swatch');
+    swatches.forEach(sw => {
+        sw.classList.remove('active');
+        sw.setAttribute('aria-checked', 'false');
+        const checkIcon = sw.querySelector('.check-icon');
+        if (checkIcon) checkIcon.classList.add('hidden');
+    });
+
+    // Set clicked swatch active
+    swatchBtn.classList.add('active');
+    swatchBtn.setAttribute('aria-checked', 'true');
+    const checkIcon = swatchBtn.querySelector('.check-icon');
+    if (checkIcon) checkIcon.classList.remove('hidden');
+
+    // Update color label
+    const label = card.querySelector('.color-label');
+    if (label) {
+        label.innerText = colorName.toUpperCase();
+    }
+
+    // Update main image smoothly
+    const mainImg = card.querySelector('.product-main-img') || card.querySelector('img');
+    if (mainImg && colorImgSrc) {
+        mainImg.style.opacity = '0.3';
+        setTimeout(() => {
+            mainImg.src = colorImgSrc;
+            mainImg.style.opacity = '1';
+        }, 120);
+    }
+
+    // Save selected state on card dataset
+    card.setAttribute('data-selected-color', colorName);
+    card.setAttribute('data-selected-color-image', colorImgSrc);
+}
+
+// Hover Preview (Desktop)
+function previewProductColor(swatchBtn, colorImgSrc) {
+    if (swatchBtn.hasAttribute('disabled') || swatchBtn.classList.contains('out-of-stock')) return;
+
+    const card = swatchBtn.closest('.group') || swatchBtn.closest('[data-product-card]');
+    if (!card) return;
+
+    const mainImg = card.querySelector('.product-main-img') || card.querySelector('img');
+    if (mainImg && colorImgSrc) {
+        mainImg.src = colorImgSrc;
+    }
+}
+
+// Reset Image on Mouse Leave
+function resetProductColor(swatchBtn) {
+    const card = swatchBtn.closest('.group') || swatchBtn.closest('[data-product-card]');
+    if (!card) return;
+
+    const mainImg = card.querySelector('.product-main-img') || card.querySelector('img');
+    const activeColorImg = card.getAttribute('data-selected-color-image') || card.getAttribute('data-initial-image');
+    
+    if (mainImg && activeColorImg) {
+        mainImg.src = activeColorImg;
+    }
+}
+
+
 // Toggle On-Model Preview on Product Cards
 function toggleModelPreview(containerElement, modelSrc, flatSrc) {
     if (!containerElement) return;
@@ -269,46 +374,61 @@ document.addEventListener('keydown', (e) => {
 function addToCartFromCard(addBtn, productName, price, imageSrc) {
     const card = addBtn.closest('.group') || addBtn.closest('[data-product-card]');
     let chosenSize = null;
+    let chosenColor = null;
     let activeImage = imageSrc;
 
     if (card) {
         chosenSize = card.getAttribute('data-selected-size');
-        // If no explicit click, look for the active size pill
+        chosenColor = card.getAttribute('data-selected-color');
+
+        // Fallback size check
         if (!chosenSize) {
             const activePill = card.querySelector('.size-pill.bg-brand-red');
             if (activePill) {
                 chosenSize = activePill.innerText.trim();
-            } else {
-                chosenSize = 'M'; // Default size
             }
         }
 
-        const imgEl = card.querySelector('img');
+        // Fallback color check
+        if (!chosenColor) {
+            const activeSwatch = card.querySelector('.color-swatch.active');
+            if (activeSwatch) {
+                chosenColor = activeSwatch.getAttribute('data-color-name');
+            }
+        }
+
+        const imgEl = card.querySelector('.product-main-img') || card.querySelector('img');
         if (imgEl && imgEl.getAttribute('src')) {
             activeImage = imgEl.getAttribute('src');
         }
     }
 
-    addToCart(productName, price, activeImage, chosenSize);
+    addToCart(productName, price, activeImage, chosenSize, chosenColor);
 }
 
 // General Add to Cart Logic
-function addToCart(productName, price, imageSrc, size) {
+function addToCart(productName, price, imageSrc, size, color) {
     const items = getCartItems();
     const itemSize = size || null;
+    const itemColor = color || null;
 
-    // Compare name AND size
-    const existingIndex = items.findIndex(item => item.name === productName && item.size === itemSize);
+    // Compare name, size, AND color
+    const existingIndex = items.findIndex(item => 
+        item.name === productName && 
+        item.size === itemSize && 
+        item.color === itemColor
+    );
 
     if (existingIndex > -1) {
         items[existingIndex].quantity = (items[existingIndex].quantity || 1) + 1;
     } else {
-        const fallbackImg = imageSrc || 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=500&q=80';
+        const fallbackImg = imageSrc || 'assets/designs/collar 1.png';
         items.push({
             name: productName,
             price: parseFloat(price),
             image: fallbackImg,
             size: itemSize,
+            color: itemColor,
             quantity: 1
         });
     }
@@ -325,7 +445,8 @@ function addToCart(productName, price, imageSrc, size) {
     }
 
     const sizeMsg = itemSize ? ` (Size: ${itemSize})` : '';
-    showToast(`+1 ${productName}${sizeMsg} added to cart.`, 'success');
+    const colorMsg = itemColor ? ` [Color: ${itemColor}]` : '';
+    showToast(`+1 ${productName}${colorMsg}${sizeMsg} added to cart.`, 'success');
 }
 
 // Mobile Drawer Management
@@ -435,6 +556,7 @@ function renderCartPage() {
         subtotal += itemTotal;
 
         const sizeBadge = item.size ? `<span class="bg-brand-black text-white text-[11px] font-mono font-bold px-2 py-0.5 border border-brand-black">SIZE: ${item.size}</span>` : '';
+        const colorBadge = item.color ? `<span class="bg-brand-red text-white text-[11px] font-mono font-bold px-2 py-0.5 border border-brand-black uppercase">COLOR: ${item.color}</span>` : '';
 
         html += `
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-white border-3 border-brand-black shadow-brutal-sm gap-4 mb-4">
@@ -442,9 +564,10 @@ function renderCartPage() {
                     <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover border-2 border-brand-black shrink-0">
                     <div>
                         <h4 class="font-sans font-bold text-xl uppercase leading-tight mb-1">${item.name}</h4>
-                        <div class="flex items-center gap-2 mb-1">
+                        <div class="flex items-center gap-2 mb-1 flex-wrap">
                             <span class="font-mono text-sm text-brand-red font-bold">₱${item.price.toFixed(2)} each</span>
                             ${sizeBadge}
+                            ${colorBadge}
                         </div>
                     </div>
                 </div>
@@ -542,3 +665,6 @@ function processCheckout(event) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     showToast(`Order ${orderId} placed successfully!`, 'success');
 }
+
+
+

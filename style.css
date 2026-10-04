@@ -114,3 +114,64 @@ body {
     opacity: 1;
     pointer-events: auto;
 }
+
+/* Color Swatch & Preview Crossfade System */
+.product-main-img {
+    transition: opacity 0.2s ease-in-out;
+}
+
+.color-swatch {
+    min-width: 36px;
+    min-height: 36px;
+    width: 36px;
+    height: 36px;
+    border-radius: 9999px;
+    border: 3px solid #292622;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Touch-friendly touch target padding for mobile */
+@media (max-width: 640px) {
+    .color-swatch {
+        min-width: 44px;
+        min-height: 44px;
+        width: 44px;
+        height: 44px;
+    }
+}
+
+.color-swatch:hover:not(:disabled) {
+    transform: scale(1.1);
+    box-shadow: 2px 2px 0px 0px #292622;
+}
+
+.color-swatch.active {
+    box-shadow: 0 0 0 4px #e7191f;
+}
+
+.color-swatch:focus-visible {
+    outline: 3px solid #292622;
+    outline-offset: 2px;
+}
+
+/* Out of Stock Strike-Through */
+.color-swatch.out-of-stock {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.color-swatch.out-of-stock::after {
+    content: '';
+    position: absolute;
+    width: 120%;
+    height: 3px;
+    background-color: #292622;
+    transform: rotate(-45deg);
+}
+

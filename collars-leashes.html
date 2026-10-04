@@ -9,7 +9,9 @@
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -61,23 +63,28 @@
     <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <!-- Top Marquee -->
-    <div class="w-full bg-brand-black text-brand-cream border-b-4 border-brand-black overflow-hidden py-2 font-mono text-sm tracking-widest relative z-40">
+    <div
+        class="w-full bg-brand-black text-brand-cream border-b-4 border-brand-black overflow-hidden py-2 font-mono text-sm tracking-widest relative z-40">
         <div class="marquee-container animate-marquee">
             <span class="flex-shrink-0 w-1/2 flex justify-around items-center px-2">
-                <span>COLLARS & LEASHES ARCHIVE</span> <span>//</span>
-                <span>TACTICAL HARDWARE & LEATHERS</span>
-                <span class="hidden sm:inline">//</span>
                 <span>PAWSON WEAR</span>
+                <span class="hidden sm:inline">//</span>
+                <span class="hidden sm:inline">THE DOG YOU STYLE</span>
                 <span class="hidden md:inline">//</span>
-                <span>WORLDWIDE SHIPPING</span>
+                <span class="hidden md:inline">COLLARS AND LEASHES</span>
+                <span class="hidden lg:inline">//</span>
+                <span class="hidden lg:inline">PINOY THRIFT SWAG FOR DAWGS</span>
+                <span class="hidden lg:inline">//</span>
             </span>
             <span class="flex-shrink-0 w-1/2 flex justify-around items-center px-2">
-                <span>COLLARS & LEASHES ARCHIVE</span> <span>//</span>
-                <span>TACTICAL HARDWARE & LEATHERS</span>
-                <span class="hidden sm:inline">//</span>
                 <span>PAWSON WEAR</span>
+                <span class="hidden sm:inline">//</span>
+                <span class="hidden sm:inline">THE DOG YOU STYLE</span>
                 <span class="hidden md:inline">//</span>
-                <span>WORLDWIDE SHIPPING</span>
+                <span class="hidden md:inline">COLLARS AND LEASHES</span>
+                <span class="hidden lg:inline">//</span>
+                <span class="hidden lg:inline">PINOY THRIFT SWAG FOR DAWGS</span>
+                <span class="hidden lg:inline">//</span>
             </span>
         </div>
     </div>
@@ -90,45 +97,61 @@
             <button id="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-drawer"
                 aria-label="Open Navigation Menu"
                 class="md:hidden min-w-[44px] min-h-[44px] flex items-center justify-center p-2 border-3 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="square" stroke-linejoin="miter" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
 
             <!-- Logo -->
             <a href="index.html" class="block group z-50">
-                <img src="assets/logo.png" alt="Pawson Wear Logo" class="h-12 sm:h-14 object-contain filter group-hover:opacity-90 transition-opacity">
+                <img src="assets/logo.png" alt="Pawson Wear Logo"
+                    class="h-12 sm:h-14 object-contain filter group-hover:opacity-90 transition-opacity">
             </a>
 
             <!-- Desktop Nav -->
             <nav class="hidden md:flex space-x-8 font-bold text-lg uppercase tracking-wide">
-                <a href="shop.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Shop Now</a>
-                <a href="faq.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">FAQ</a>
-                <a href="shipping-returns.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Shipping & Returns</a>
-                <a href="about.html" class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">About</a>
+                <a href="shop.html"
+                    class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Shop
+                </a>
+                <a href="faq.html"
+                    class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">FAQ</a>
+                <a href="shipping-returns.html"
+                    class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">Shipping
+                    & Returns</a>
+                <a href="about.html"
+                    class="hover:text-brand-red hover:underline decoration-4 underline-offset-4 transition-colors">About</a>
             </nav>
 
             <!-- Cart Badge -->
-            <a href="cart.html" class="flex items-center min-w-[44px] min-h-[44px] justify-center bg-brand-cream border-3 border-brand-black px-2 py-1.5 sm:px-4 sm:py-2 font-mono font-bold brutal-transition shadow-brutal-sm hover:bg-brand-red hover:text-white group shrink-0">
+            <a href="cart.html"
+                class="flex items-center min-w-[44px] min-h-[44px] justify-center bg-brand-cream border-3 border-brand-black px-2 py-1.5 sm:px-4 sm:py-2 font-mono font-bold brutal-transition shadow-brutal-sm hover:bg-brand-red hover:text-white group shrink-0">
                 <span class="mr-1 sm:mr-2 text-xs sm:text-base">CART</span>
-                <span class="bg-brand-black text-brand-cream px-1.5 sm:px-2 py-0.5 text-xs sm:text-base group-hover:bg-brand-cream group-hover:text-brand-black transition-colors" id="cart-count">0</span>
+                <span
+                    class="bg-brand-black text-brand-cream px-1.5 sm:px-2 py-0.5 text-xs sm:text-base group-hover:bg-brand-cream group-hover:text-brand-black transition-colors"
+                    id="cart-count">0</span>
             </a>
         </div>
     </header>
 
     <!-- Mobile Navigation Drawer -->
-    <div id="mobile-drawer-backdrop" class="fixed inset-0 bg-brand-black/60 z-50 opacity-0 pointer-events-none md:hidden" aria-hidden="true"></div>
-    <div id="mobile-drawer" class="fixed top-0 left-0 bottom-0 w-[280px] max-w-[80vw] bg-brand-cream border-r-4 border-brand-black shadow-brutal z-50 flex flex-col justify-between p-6 -translate-x-full md:hidden" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <div id="mobile-drawer-backdrop"
+        class="fixed inset-0 bg-brand-black/60 z-50 opacity-0 pointer-events-none md:hidden" aria-hidden="true"></div>
+    <div id="mobile-drawer"
+        class="fixed top-0 left-0 bottom-0 w-[280px] max-w-[80vw] bg-brand-cream border-r-4 border-brand-black shadow-brutal z-50 flex flex-col justify-between p-6 -translate-x-full md:hidden"
+        role="dialog" aria-modal="true" aria-label="Mobile Navigation">
         <div>
             <div class="flex justify-between items-center pb-6 border-b-4 border-brand-black mb-8">
                 <span class="font-display text-2xl uppercase tracking-wide">Menu</span>
-                <button id="mobile-drawer-close" aria-label="Close Navigation Menu" class="p-2 border-2 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm font-mono font-bold text-sm">[X]</button>
+                <button id="mobile-drawer-close" aria-label="Close Navigation Menu"
+                    class="p-2 border-2 border-brand-black bg-brand-cream brutal-transition shadow-brutal-sm font-mono font-bold text-sm">[X]</button>
             </div>
             <nav class="flex flex-col space-y-6 font-display text-3xl uppercase tracking-wide">
                 <a href="index.html" class="mobile-drawer-link hover:text-brand-red transition-colors">Home</a>
-                <a href="shop.html" class="mobile-drawer-link hover:text-brand-red transition-colors">Shop Now</a>
+                <a href="shop.html" class="mobile-drawer-link hover:text-brand-red transition-colors">Shop</a>
                 <a href="faq.html" class="mobile-drawer-link hover:text-brand-red transition-colors">FAQ</a>
-                <a href="shipping-returns.html" class="mobile-drawer-link hover:text-brand-red transition-colors">Shipping & Returns</a>
+                <a href="shipping-returns.html"
+                    class="mobile-drawer-link hover:text-brand-red transition-colors">Shipping & Returns</a>
                 <a href="about.html" class="mobile-drawer-link hover:text-brand-red transition-colors">About</a>
             </nav>
         </div>
@@ -138,15 +161,18 @@
     <section class="w-full bg-brand-black text-white border-b-4 border-brand-black py-12 px-4 sm:px-8">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <div>
-                <div class="inline-block bg-brand-red text-white font-mono text-xs font-bold px-3 py-1 border-2 border-white mb-3">
-                    CATEGORY // 04
+                <div
+                    class="inline-block bg-brand-red text-white font-mono text-xs font-bold px-3 py-1 border-2 border-white mb-3">
+                    SECTION 4
                 </div>
                 <h1 class="font-display text-5xl sm:text-7xl uppercase tracking-tight">Collars & Leashes</h1>
                 <p class="font-mono text-brand-cream/80 max-w-xl mt-2">
-                    Heavy-duty tactical cobra-buckle collars, climbing-rope leashes, and traffic control handles tested for maximum tension and street aesthetic.
+                    Hindi basta-basta. Matibay ang kapit, kampante ang lakad, walang sablay.
+                    Pang-araw-araw na flex.
                 </p>
             </div>
-            <a href="index.html#categories" class="font-mono text-sm font-bold text-brand-red hover:underline uppercase">
+            <a href="index.html#categories"
+                class="font-mono text-sm font-bold text-brand-red hover:underline uppercase">
                 &larr; Back to Categories
             </a>
         </div>
@@ -155,10 +181,16 @@
     <!-- Category Quick Switcher -->
     <section class="w-full bg-brand-cream border-b-4 border-brand-black py-4 px-4 overflow-x-auto no-scrollbar">
         <div class="max-w-7xl mx-auto flex gap-3 min-w-max">
-            <a href="sleeveless-shirts.html" class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Sleeveless Shirts</a>
-            <a href="shirts.html" class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Shirts</a>
-            <a href="jackets.html" class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Jackets</a>
-            <a href="collars-leashes.html" class="px-4 py-2 border-3 border-brand-black bg-brand-red text-white font-mono text-xs font-bold shadow-brutal-sm uppercase">Collars & Leashes</a>
+            <a href="sleeveless-shirts.html"
+                class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Sleeveless
+                Shirts</a>
+            <a href="shirts.html"
+                class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Shirts</a>
+            <a href="jackets.html"
+                class="px-4 py-2 border-3 border-brand-black bg-brand-cream text-brand-black hover:bg-brand-black hover:text-white font-mono text-xs font-bold shadow-brutal-sm uppercase transition-colors">Jackets</a>
+            <a href="collars-leashes.html"
+                class="px-4 py-2 border-3 border-brand-black bg-brand-red text-white font-mono text-xs font-bold shadow-brutal-sm uppercase">Collars
+                & Leashes</a>
         </div>
     </section>
 
@@ -167,22 +199,99 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
             <!-- Product 1 -->
-            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition">
-                <div class="absolute top-0 right-0 bg-brand-red text-white font-mono text-xs font-bold px-3 py-1 border-l-4 border-b-4 border-brand-black z-10">TACTICAL</div>
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition"
+                data-product-card data-selected-color="Violet" data-selected-color-image="assets/designs/collar 1.png"
+                data-initial-image="assets/designs/collar 1.png">
+
                 <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
-                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80" alt="Tactical Cobra-Buckle Collar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="assets/designs/collar 1.png" alt="Tactical Tang Buckle Pawson Collar"
+                        class="product-main-img w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
+
                 <div class="p-4 flex flex-col flex-grow justify-between">
                     <div>
-                        <h3 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Tactical Cobra-Buckle Collar</h3>
-                        <div class="flex gap-1 mb-4 flex-wrap">
-                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">HEAVY DUTY</span>
-                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">COBRA BUCKLE</span>
+                        <h3 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Tactical Tang Buckle
+                            Pawson Collar</h3>
+                        <div class="flex gap-1 mb-3 flex-wrap">
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">HEAVY
+                                DUTY</span>
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">TANG
+                                BUCKLE</span>
+                        </div>
+
+                        <!-- Color Picker -->
+                        <div class="my-3 pt-2 border-t-2 border-brand-black/20">
+                            <div class="flex justify-between items-center mb-2 font-mono text-xs">
+                                <span class="font-bold text-brand-black/70">COLOR:</span>
+                                <span class="color-label font-bold text-brand-red uppercase">VIOLET</span>
+                            </div>
+
+                            <div class="flex flex-wrap gap-2 items-center" role="radiogroup"
+                                aria-label="Select color for Tactical Collar">
+                                <button type="button" role="radio" aria-checked="true" aria-label="Select color Violet"
+                                    data-color-name="Violet"
+                                    onclick="selectProductColor(this, 'Violet', 'assets/designs/collar 1.png')"
+                                    onmouseenter="previewProductColor(this, 'assets/designs/collar 1.png')"
+                                    onmouseleave="resetProductColor(this)" class="color-swatch active"
+                                    style="background-color: #ab46d9;">
+                                    <svg class="check-icon w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </button>
+                                <button type="button" role="radio" aria-checked="false" aria-label="Select color Green"
+                                    data-color-name="Green"
+                                    onclick="selectProductColor(this, 'Green', 'assets/designs/collar 2.png')"
+                                    onmouseenter="previewProductColor(this, 'assets/designs/collar 2.png')"
+                                    onmouseleave="resetProductColor(this)" class="color-swatch"
+                                    style="background-color: #22c55e;">
+                                    <svg class="check-icon hidden w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </button>
+                                <button type="button" role="radio" aria-checked="false" aria-label="Select color Blue"
+                                    data-color-name="Blue"
+                                    onclick="selectProductColor(this, 'Blue', 'assets/designs/collar 3.png')"
+                                    onmouseenter="previewProductColor(this, 'assets/designs/collar 3.png')"
+                                    onmouseleave="resetProductColor(this)" class="color-swatch"
+                                    style="background-color: #3b82f6;">
+                                    <svg class="check-icon hidden w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </button>
+                                <button type="button" role="radio" aria-checked="false" aria-label="Select color Pink"
+                                    data-color-name="Pink"
+                                    onclick="selectProductColor(this, 'Pink', 'assets/designs/collar 4.png')"
+                                    onmouseenter="previewProductColor(this, 'assets/designs/collar 4.png')"
+                                    onmouseleave="resetProductColor(this)" class="color-swatch"
+                                    style="background-color: #ec4899;">
+                                    <svg class="check-icon hidden w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </button>
+                                <button type="button" role="radio" aria-checked="false" aria-label="Select color Orange"
+                                    data-color-name="Orange"
+                                    onclick="selectProductColor(this, 'Orange', 'assets/designs/collar 5.png')"
+                                    onmouseenter="previewProductColor(this, 'assets/designs/collar 5.png')"
+                                    onmouseleave="resetProductColor(this)" class="color-swatch"
+                                    style="background-color: #f97316;">
+                                    <svg class="check-icon hidden w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center mt-4">
-                        <span class="font-mono font-bold text-xl">₱45.00</span>
-                        <button onclick="addToCart('Tactical Cobra-Buckle Collar', 45, 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?auto=format&fit=crop&w=600&q=80')" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+
+                    <div class="flex justify-between items-center mt-4 pt-2 border-t-2 border-brand-black">
+                        <span class="font-mono font-bold text-xl">₱400.00</span>
+                        <button
+                            onclick="addToCartFromCard(this, 'Tactical Tang Buckle Pawson Collar', 400, 'assets/designs/collar 1.png')"
+                            class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
                             + Add
                         </button>
                     </div>
@@ -190,63 +299,99 @@
             </div>
 
             <!-- Product 2 -->
-            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition">
-                <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
-                    <img src="https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=600&q=80" alt="Hands-Free Climbing Rope Leash" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="p-4 flex flex-col flex-grow justify-between">
-                    <div>
-                        <h3 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Hands-Free Rope Leash</h3>
-                        <div class="flex gap-1 mb-4 flex-wrap">
-                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">6 FT</span>
-                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">ADJUSTABLE</span>
-                        </div>
-                    </div>
-                    <div class="flex justify-between items-center mt-4">
-                        <span class="font-mono font-bold text-xl">₱55.00</span>
-                        <button onclick="addToCart('Hands-Free Rope Leash', 55, 'https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=600&q=80')" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
-                            + Add
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition"
+                data-product-card data-selected-color="Violet" data-selected-color-image="assets/designs/leash 1.png"
+                data-initial-image="assets/designs/leash 1.png">
 
-            <!-- Product 3 -->
-            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition">
                 <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
-                    <img src="https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=600&q=80" alt="Traffic Handle Leather Leash" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="assets/designs/leash 1.png" alt="Hands-Free Rope Leash in Violet"
+                        class="product-main-img w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                 </div>
-                <div class="p-4 flex flex-col flex-grow justify-between">
-                    <div>
-                        <h3 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Traffic Handle Leather Leash</h3>
-                        <div class="flex gap-1 mb-4 flex-wrap">
-                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">GENUINE LEATHER</span>
-                        </div>
-                    </div>
-                    <div class="flex justify-between items-center mt-4">
-                        <span class="font-mono font-bold text-xl">₱60.00</span>
-                        <button onclick="addToCart('Traffic Handle Leather Leash', 60, 'https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=600&q=80')" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
-                            + Add
-                        </button>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Product 4 -->
-            <div class="group relative flex flex-col bg-brand-cream border-4 border-brand-black shadow-brutal brutal-transition">
-                <div class="aspect-square border-b-4 border-brand-black overflow-hidden relative bg-white">
-                    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80" alt="Reflective 3M Control Harness & Lead" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                </div>
                 <div class="p-4 flex flex-col flex-grow justify-between">
                     <div>
-                        <h3 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Reflective 3M Control Lead</h3>
-                        <div class="flex gap-1 mb-4 flex-wrap">
-                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">3M REFLECTIVE</span>
+                        <h3 class="font-sans font-bold text-2xl leading-tight uppercase mb-1">Hands-Free Pawson Rope
+                            Leash</h3>
+                        <div class="flex gap-1 mb-3 flex-wrap">
+                            <span class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">6
+                                FT</span>
+                            <span
+                                class="text-[10px] font-mono font-bold bg-brand-black text-white px-1.5 py-0.5">ADJUSTABLE</span>
+                        </div>
+
+                        <!-- Color Picker -->
+                        <div class="my-3 pt-2 border-t-2 border-brand-black/20">
+                            <div class="flex justify-between items-center mb-2 font-mono text-xs">
+                                <span class="font-bold text-brand-black/70">COLOR:</span>
+                                <span class="color-label font-bold text-brand-red uppercase">VIOLET</span>
+                            </div>
+
+                            <div class="flex flex-wrap gap-2 items-center" role="radiogroup"
+                                aria-label="Select color for Hands-Free Leash">
+                                <button type="button" role="radio" aria-checked="true" aria-label="Select color Violet"
+                                    data-color-name="Violet"
+                                    onclick="selectProductColor(this, 'Violet', 'assets/designs/leash 1.png')"
+                                    onmouseenter="previewProductColor(this, 'assets/designs/leash 1.png')"
+                                    onmouseleave="resetProductColor(this)" class="color-swatch active"
+                                    style="background-color: #ab46d9;">
+                                    <svg class="check-icon w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </button>
+                                <button type="button" role="radio" aria-checked="false" aria-label="Select color Green"
+                                    data-color-name="Green"
+                                    onclick="selectProductColor(this, 'Green', 'assets/designs/leash 2.png')"
+                                    onmouseenter="previewProductColor(this, 'assets/designs/leash 2.png')"
+                                    onmouseleave="resetProductColor(this)" class="color-swatch"
+                                    style="background-color: #22c55e;">
+                                    <svg class="check-icon hidden w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </button>
+                                <button type="button" role="radio" aria-checked="false" aria-label="Select color Blue"
+                                    data-color-name="Blue"
+                                    onclick="selectProductColor(this, 'Blue', 'assets/designs/leash 3.png')"
+                                    onmouseenter="previewProductColor(this, 'assets/designs/leash 3.png')"
+                                    onmouseleave="resetProductColor(this)" class="color-swatch"
+                                    style="background-color: #3b82f6;">
+                                    <svg class="check-icon hidden w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </button>
+                                <button type="button" role="radio" aria-checked="false" aria-label="Select color Pink"
+                                    data-color-name="Pink"
+                                    onclick="selectProductColor(this, 'Pink', 'assets/designs/leash 4.png')"
+                                    onmouseenter="previewProductColor(this, 'assets/designs/leash 4.png')"
+                                    onmouseleave="resetProductColor(this)" class="color-swatch"
+                                    style="background-color: #ec4899;">
+                                    <svg class="check-icon hidden w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </button>
+                                <button type="button" role="radio" aria-checked="false" aria-label="Select color Orange"
+                                    data-color-name="Orange"
+                                    onclick="selectProductColor(this, 'Orange', 'assets/designs/leash 5.png')"
+                                    onmouseenter="previewProductColor(this, 'assets/designs/leash 5.png')"
+                                    onmouseleave="resetProductColor(this)" class="color-swatch"
+                                    style="background-color: #f97316;">
+                                    <svg class="check-icon hidden w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+                                        stroke="currentColor" stroke-width="3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex justify-between items-center mt-4">
-                        <span class="font-mono font-bold text-xl">₱65.00</span>
-                        <button onclick="addToCart('Reflective 3M Control Lead', 65, 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80')" class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
+
+                    <div class="flex justify-between items-center mt-4 pt-2 border-t-2 border-brand-black">
+                        <span class="font-mono font-bold text-xl">₱550.00</span>
+                        <button
+                            onclick="addToCartFromCard(this, 'Hands-Free Pawson Rope Leash', 550, 'assets/designs/leash 1.png')"
+                            class="min-h-[44px] min-w-[44px] px-4 py-2.5 inline-flex items-center justify-center bg-brand-cream border-2 border-brand-black font-display uppercase hover:bg-brand-black hover:text-white transition-colors">
                             + Add
                         </button>
                     </div>
@@ -269,13 +414,17 @@
 
             <!-- Left Side: Navigation Links & Copyright -->
             <div class="w-full md:w-auto flex flex-col items-start font-sans font-bold uppercase text-white gap-2">
-                <a href="faq.html" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">FAQ /
+                <a href="faq.html"
+                    class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">FAQ /
                     Contact</a>
-                <a href="shipping-returns.html" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Shipping &
+                <a href="shipping-returns.html"
+                    class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Shipping &
                     Returns</a>
-                <a href="terms-of-service.html" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Terms of
+                <a href="terms-of-service.html"
+                    class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Terms of
                     Service</a>
-                <a href="privacy-policy.html" class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Privacy
+                <a href="privacy-policy.html"
+                    class="text-2xl hover:text-brand-black hover:bg-white px-2 -mx-2 transition-colors">Privacy
                     Policy</a>
 
                 <div
@@ -287,7 +436,8 @@
 
             <!-- Right Side: Social Media Links -->
             <div class="flex flex-col items-start md:items-end gap-3">
-                <span class="font-mono text-xs font-bold uppercase text-brand-black bg-brand-cream border-2 border-brand-black px-2 py-0.5">
+                <span
+                    class="font-mono text-xs font-bold uppercase text-brand-black bg-brand-cream border-2 border-brand-black px-2 py-0.5">
                     FOLLOW THE PACK
                 </span>
                 <div class="flex items-center gap-3">
