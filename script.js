@@ -1,3 +1,19 @@
+// ==========================================
+// CONFIGURABLE CHECKOUT & APP SETTINGS
+// ==========================================
+const CHECKOUT_LOADING_DURATION = 7000; // 7 seconds (in milliseconds)
+const CHECKOUT_GIF_PATH = 'assets/dog chasing tail.gif';
+
+// Preload Checkout Loading GIF Asset
+(function preloadCheckoutGif() {
+    try {
+        const gifPreloader = new Image();
+        gifPreloader.src = encodeURI(CHECKOUT_GIF_PATH);
+    } catch (e) {
+        console.warn('GIF preloader initialized');
+    }
+})();
+
 // Cart State Management with localStorage
 function getCartItems() {
     try {
@@ -26,13 +42,58 @@ function updateCartUI() {
     }
 }
 
-// Initialize cart count on page load
+// Initialize cart count & interactive components on page load
 document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
     if (window.location.pathname.includes('cart.html')) {
         renderCartPage();
     }
+    if (window.location.pathname.includes('faq.html') || document.getElementById('faq-accordion-container')) {
+        renderFAQAccordion();
+    }
+    initBackToTop();
 });
+
+// Floating "Go Back to Top" Button System
+function initBackToTop() {
+    let backToTopBtn = document.getElementById('back-to-top');
+
+    // Dynamically insert button if not already present in DOM
+    if (!backToTopBtn) {
+        backToTopBtn = document.createElement('button');
+        backToTopBtn.id = 'back-to-top';
+        backToTopBtn.setAttribute('aria-label', 'Go back to the top');
+        backToTopBtn.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 bg-brand-red text-white border-3 border-brand-black px-4 py-2.5 font-mono font-bold text-sm shadow-brutal opacity-0 pointer-events-none translate-y-4 transition-all duration-300 hover:bg-brand-black hover:text-brand-cream hover:shadow-brutal-hover active:translate-y-1 group';
+        backToTopBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                <path stroke-linecap="square" stroke-linejoin="miter" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+            </svg>
+            <span>TOP</span>
+        `;
+        document.body.appendChild(backToTopBtn);
+    }
+
+    function toggleBackToTop() {
+        const scrollPosition = window.scrollY || window.pageYOffset;
+        if (scrollPosition > 300) {
+            backToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+            backToTopBtn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+        } else {
+            backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            backToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        }
+    }
+
+    window.addEventListener('scroll', toggleBackToTop, { passive: true });
+    toggleBackToTop();
+
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
 
 // Interactive Size Selection on Product Cards
 function selectProductSize(pillBtn, size) {
@@ -69,9 +130,9 @@ const COLLARS_LEASHES_DATA = [
         tags: ["HEAVY DUTY", "COBRA BUCKLE"],
         colors: [
             { id: "violet", name: "Violet", hex: "#8b5cf6", image: "assets/designs/collar 1.png", inStock: true },
-            { id: "green",  name: "Green",  hex: "#22c55e", image: "assets/designs/collar 2.png", inStock: true },
-            { id: "blue",   name: "Blue",   hex: "#3b82f6", image: "assets/designs/collar 3.png", inStock: true },
-            { id: "pink",   name: "Pink",   hex: "#ec4899", image: "assets/designs/collar 4.png", inStock: true },
+            { id: "green", name: "Green", hex: "#22c55e", image: "assets/designs/collar 2.png", inStock: true },
+            { id: "blue", name: "Blue", hex: "#3b82f6", image: "assets/designs/collar 3.png", inStock: true },
+            { id: "pink", name: "Pink", hex: "#ec4899", image: "assets/designs/collar 4.png", inStock: true },
             { id: "orange", name: "Orange", hex: "#f97316", image: "assets/designs/collar 5.png", inStock: true }
         ]
     },
@@ -82,9 +143,9 @@ const COLLARS_LEASHES_DATA = [
         tags: ["6 FT", "ADJUSTABLE"],
         colors: [
             { id: "violet", name: "Violet", hex: "#8b5cf6", image: "assets/designs/leash 1.png", inStock: true },
-            { id: "green",  name: "Green",  hex: "#22c55e", image: "assets/designs/leash 2.png", inStock: true },
-            { id: "blue",   name: "Blue",   hex: "#3b82f6", image: "assets/designs/leash 3.png", inStock: true },
-            { id: "pink",   name: "Pink",   hex: "#ec4899", image: "assets/designs/leash 4.png", inStock: true },
+            { id: "green", name: "Green", hex: "#22c55e", image: "assets/designs/leash 2.png", inStock: true },
+            { id: "blue", name: "Blue", hex: "#3b82f6", image: "assets/designs/leash 3.png", inStock: true },
+            { id: "pink", name: "Pink", hex: "#ec4899", image: "assets/designs/leash 4.png", inStock: true },
             { id: "orange", name: "Orange", hex: "#f97316", image: "assets/designs/leash 5.png", inStock: true }
         ]
     }
@@ -98,7 +159,7 @@ function selectProductColor(swatchBtn, colorName, colorImgSrc) {
     if (!card) return;
 
     const container = swatchBtn.closest('[role="radiogroup"]') || swatchBtn.parentElement;
-    
+
     // Reset sibling swatches
     const swatches = container.querySelectorAll('.color-swatch');
     swatches.forEach(sw => {
@@ -155,7 +216,7 @@ function resetProductColor(swatchBtn) {
 
     const mainImg = card.querySelector('.product-main-img') || card.querySelector('img');
     const activeColorImg = card.getAttribute('data-selected-color-image') || card.getAttribute('data-initial-image');
-    
+
     if (mainImg && activeColorImg) {
         mainImg.src = activeColorImg;
     }
@@ -413,9 +474,9 @@ function addToCart(productName, price, imageSrc, size, color) {
     const itemColor = color || null;
 
     // Compare name, size, AND color
-    const existingIndex = items.findIndex(item => 
-        item.name === productName && 
-        item.size === itemSize && 
+    const existingIndex = items.findIndex(item =>
+        item.name === productName &&
+        item.size === itemSize &&
         item.color === itemColor
     );
 
@@ -622,13 +683,157 @@ function removeCartItem(index) {
     }
 }
 
-// Checkout Form Submission
+// ==========================================
+// DATA-DRIVEN FAQ ACCORDION SYSTEM
+// ==========================================
+const FAQ_DATA = [
+    {
+        category: "THRIFT & CONDITION",
+        badge: "01",
+        items: [
+            {
+                id: "faq-item-1",
+                question: "1-of-1 ba talaga 'tong thrift items? Paano kapag Sold Out na?",
+                answer: "Yessir! 100% unique 1-of-1 thrift pieces ang apparel natin. Once ma-checkout and sold out na, wala nang kasunod na kapareho! If nagustuhan mo ang item, checkout mo na agad bago ma-unahan ng ibang dawg."
+            },
+            {
+                id: "faq-item-2",
+                question: "Ano ang condition ng clothing? May hidden flaws ba?",
+                answer: "Lahat ng items natin ay handpicked, deeply washed, and sanitized! Clear nating inilalagay sa description ang condition rating (e.g. [LIKE NEW], [VINTAGE DISTRESSED], or [MINOR FLAW]). Condition rates are 8/10 to 10/10 — ready to flex agad si doggo."
+            }
+        ]
+    },
+    {
+        category: "SIZING & FIT",
+        badge: "02",
+        items: [
+            {
+                id: "faq-item-3",
+                question: "Paano malalaman ang exact size ni doggo? Stretchable ba?",
+                answer: "Gamit ka ng soft tape measure! Kunin ang chest girth (pinaka-malapad na part sa likod ng front legs) and neck circumference. For jackets and fleece hoodies, size UP para comfy. For stretch sleeveless tanks, size DOWN for a snug thrift fit. Check out our 'View Size Guide' modal!"
+            },
+            {
+                id: "faq-item-4",
+                question: "Ano gagawin kapag sa pagitan ng dalawang sizes ang sukat?",
+                answer: "Laging piliin ang mas malaking size (Size UP)! Mas okay ang relaxed streetwear fit kay doggo kaysa masyadong masikip at mahirapan gumalaw."
+            }
+        ]
+    },
+    {
+        category: "SHIPPING & DELIVERY",
+        badge: "03",
+        items: [
+            {
+                id: "faq-item-5",
+                question: "Gaano katagal ang delivery nationwide sa PH?",
+                answer: "Metro Manila takes 2-3 business days. Provincial Luzon, Visayas & Mindanao areas take 4-7 days via J&T Express / Flash Express. Mag-e-email kami ng tracking number once na-dispatch na ang package mo."
+            },
+            {
+                id: "faq-item-6",
+                question: "Magkano ang shipping fee?",
+                answer: "Standard nationwide shipping flat rate is ₱100.00 lang! Subaybayan din ang limited promos natin for Free Shipping vouchers sa special drops."
+            }
+        ]
+    },
+    {
+        category: "PAYMENT & RETURNS",
+        badge: "04",
+        items: [
+            {
+                id: "faq-item-7",
+                question: "Ano-ano ang accepted payment methods?",
+                answer: "Super convenient! We accept Cash on Delivery (COD nationwide), GCash, Maya E-Wallet, and Credit/Debit Cards upon checkout."
+            },
+            {
+                id: "faq-item-8",
+                question: "Pwede ba mag-return or refund kapag hindi kasya?",
+                answer: "Dahil 1-of-1 thrift items ang apparel natin, strictly NO RETURNS for wrong size choice. Make sure to double check measurements! But if may unmentioned major damage, message us within 24 hours after receiving for store credits."
+            }
+        ]
+    }
+];
+
+function renderFAQAccordion() {
+    const container = document.getElementById('faq-accordion-container');
+    if (!container) return;
+
+    let html = '';
+    FAQ_DATA.forEach((catGroup) => {
+        html += `
+            <div class="bg-white border-4 border-brand-black p-6 sm:p-8 shadow-brutal">
+                <div class="flex items-center gap-3 border-b-4 border-brand-black pb-4 mb-6">
+                    <span class="bg-brand-red text-white font-mono text-sm font-bold px-3 py-1 border-2 border-brand-black">${catGroup.badge}</span>
+                    <h2 class="font-display text-3xl uppercase text-brand-black">${catGroup.category}</h2>
+                </div>
+                <div class="space-y-4">
+        `;
+
+        catGroup.items.forEach((item) => {
+            html += `
+                <div class="border-3 border-brand-black bg-brand-cream overflow-hidden brutal-transition">
+                    <button id="btn-${item.id}"
+                            aria-expanded="false" 
+                            aria-controls="content-${item.id}"
+                            onclick="toggleFAQAccordion('${item.id}')"
+                            class="faq-accordion-btn w-full min-h-[44px] text-left p-4 sm:p-5 flex justify-between items-center font-bold text-lg sm:text-xl uppercase text-brand-black hover:bg-brand-black hover:text-brand-cream transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-brand-red">
+                        <span class="flex items-center gap-2 pr-4">
+                            <span class="text-brand-red font-mono font-bold shrink-0">Q:</span>
+                            <span>${item.question}</span>
+                        </span>
+                        <svg class="faq-chevron w-6 h-6 transform shrink-0 text-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <path stroke-linecap="square" stroke-linejoin="miter" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div id="content-${item.id}" role="region" aria-labelledby="btn-${item.id}" class="faq-accordion-content">
+                        <div class="faq-accordion-inner">
+                            <p class="font-mono text-sm text-brand-black/90 leading-relaxed p-4 sm:p-5 border-t-2 border-brand-black bg-white">
+                                <span class="font-bold text-brand-red mr-1">A:</span> ${item.answer}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        html += `
+                </div>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+}
+
+function toggleFAQAccordion(targetId) {
+    const allButtons = document.querySelectorAll('.faq-accordion-btn');
+    const allContents = document.querySelectorAll('.faq-accordion-content');
+
+    const targetBtn = document.getElementById(`btn-${targetId}`);
+    const targetContent = document.getElementById(`content-${targetId}`);
+
+    const isCurrentlyOpen = targetBtn?.getAttribute('aria-expanded') === 'true';
+
+    // Single-open accordion logic: Close all currently open items
+    allButtons.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+    allContents.forEach(content => content.classList.remove('open'));
+
+    // Toggle target item if it wasn't already open
+    if (!isCurrentlyOpen && targetBtn && targetContent) {
+        targetBtn.setAttribute('aria-expanded', 'true');
+        targetContent.classList.add('open');
+    }
+}
+
+
+// ==========================================
+// CHECKOUT FORM SUBMISSION & 5S OVERLAY SYSTEM
+// ==========================================
 function processCheckout(event) {
     event.preventDefault();
 
     const items = getCartItems();
     if (items.length === 0) {
-        showToast('Your cart is empty!', 'error');
+        showToast('Your cart is empty! Add gear before placing an order.', 'error');
         return;
     }
 
@@ -641,29 +846,145 @@ function processCheckout(event) {
     const orderId = 'PW-' + Math.floor(100000 + Math.random() * 900000);
     const totalAmount = document.getElementById('cart-total')?.innerText || '₱0.00';
 
-    // Show Order Confirmation View
-    const cartActiveView = document.getElementById('cart-active-view');
-    const orderSuccessView = document.getElementById('order-success-view');
-    const orderIdSpan = document.getElementById('receipt-order-id');
-    const receiptEmail = document.getElementById('receipt-email');
-    const receiptName = document.getElementById('receipt-name');
-    const receiptAddress = document.getElementById('receipt-address');
-    const receiptTotal = document.getElementById('receipt-total');
+    // 1. Create / Get Checkout Overlay Element
+    let overlay = document.getElementById('checkout-loading-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'checkout-loading-overlay';
+        document.body.appendChild(overlay);
+    }
 
-    if (orderIdSpan) orderIdSpan.innerText = `#${orderId}`;
-    if (receiptEmail) receiptEmail.innerText = email;
-    if (receiptName) receiptName.innerText = name;
-    if (receiptAddress) receiptAddress.innerText = `${address}, ${city}`;
-    if (receiptTotal) receiptTotal.innerText = totalAmount;
+    // Configure overlay classes & ARIA live region
+    overlay.className = 'fixed inset-0 z-[100] bg-brand-black/90 backdrop-blur-md flex flex-col items-center justify-center p-4 sm:p-6 text-center select-none';
+    overlay.setAttribute('aria-live', 'assertive');
 
-    if (cartActiveView) cartActiveView.classList.add('hidden');
-    if (orderSuccessView) orderSuccessView.classList.remove('hidden');
+    // Check prefers-reduced-motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Clear cart storage
-    saveCartItems([]);
+    // Render 5-Second Loading Overlay State
+    const encodedGifPath = encodeURI(CHECKOUT_GIF_PATH);
+    overlay.innerHTML = `
+        <div class="relative w-full max-w-md bg-brand-cream border-4 border-brand-black shadow-brutal p-6 sm:p-8 flex flex-col items-center gap-4 text-brand-black">
+            <div class="inline-block bg-brand-red text-white font-mono text-xs font-bold px-3 py-1 border-2 border-brand-black uppercase tracking-wider animate-pulse">
+                /// PROCESSING ORDER
+            </div>
+            
+            <h3 class="font-display text-3xl sm:text-4xl uppercase leading-tight">
+                PROCESSING... CHILLAX KA MUNA, DAWG!
+            </h3>
 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    showToast(`Order ${orderId} placed successfully!`, 'success');
+            <!-- GIF Container with Fallback handling -->
+            <div class="w-48 h-48 sm:w-56 sm:h-56 border-4 border-brand-black bg-brand-black relative overflow-hidden flex items-center justify-center my-2 shadow-brutal-sm">
+                ${prefersReducedMotion ? `
+                    <div class="text-6xl">🐶</div>
+                ` : `
+                    <img src="${encodedGifPath}" 
+                         alt="Dog chasing tail processing animation"
+                         class="w-full h-full object-cover"
+                         onerror="this.style.display='none'; document.getElementById('gif-fallback').classList.remove('hidden');">
+                    <div id="gif-fallback" class="hidden flex flex-col items-center gap-2 p-4 text-brand-cream">
+                        <div class="w-12 h-12 border-4 border-brand-red border-t-transparent rounded-full animate-spin"></div>
+                        <span class="font-mono text-xs font-bold uppercase">CHASING TAIL... 🐶</span>
+                    </div>
+                `}
+            </div>
+
+            <p class="font-mono text-xs sm:text-sm text-brand-black/80 font-bold">
+                SECURING YOUR 1-OF-1 THRIFT APPAREL
+            </p>
+
+            <!-- 5-Second Progress Bar -->
+            <div class="w-full bg-brand-black border-2 border-brand-black h-4 overflow-hidden relative mt-2">
+                <div class="bg-brand-red h-full animate-progress-5s"></div>
+            </div>
+
+            <span class="font-mono text-[10px] text-brand-black/60 uppercase">
+                DO NOT REFRESH OR CLOSE THIS WINDOW
+            </span>
+        </div>
+    `;
+
+    // Lock page scrolling
+    document.body.style.overflow = 'hidden';
+
+    // Prevent tab closing / page refreshing during the 5s processing window
+    function preventReload(e) {
+        e.preventDefault();
+        e.returnValue = 'Your order is currently processing. Are you sure you want to exit?';
+        return e.returnValue;
+    }
+    window.addEventListener('beforeunload', preventReload);
+
+    // Execute exactly after 5000ms (5 seconds)
+    setTimeout(() => {
+        // Unlock page reload warning
+        window.removeEventListener('beforeunload', preventReload);
+        document.body.style.overflow = '';
+
+        // Clear cart items AFTER 5s confirmation
+        saveCartItems([]);
+
+        // Show Order Confirmation View on Page & Update Order Details
+        const cartActiveView = document.getElementById('cart-active-view');
+        const orderSuccessView = document.getElementById('order-success-view');
+        const orderIdSpan = document.getElementById('receipt-order-id');
+        const receiptEmail = document.getElementById('receipt-email');
+        const receiptName = document.getElementById('receipt-name');
+        const receiptAddress = document.getElementById('receipt-address');
+        const receiptTotal = document.getElementById('receipt-total');
+
+        if (orderIdSpan) orderIdSpan.innerText = `#${orderId}`;
+        if (receiptEmail) receiptEmail.innerText = email;
+        if (receiptName) receiptName.innerText = name;
+        if (receiptAddress) receiptAddress.innerText = `${address}, ${city}`;
+        if (receiptTotal) receiptTotal.innerText = totalAmount;
+
+        if (cartActiveView) cartActiveView.classList.add('hidden');
+        if (orderSuccessView) orderSuccessView.classList.remove('hidden');
+
+        // Render Order Placed Confirmation Inside Overlay Modal
+        overlay.innerHTML = `
+            <div class="relative w-full max-w-md bg-white border-4 border-brand-black shadow-brutal p-6 sm:p-8 flex flex-col items-center gap-4 text-brand-black">
+                <div class="w-16 h-16 bg-[#a3e635] border-4 border-brand-black flex items-center justify-center shadow-brutal-sm">
+                    <svg class="w-10 h-10 text-brand-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
+                        <path stroke-linecap="square" stroke-linejoin="miter" d="M5 13l4 4L19 7" />
+                    </svg>
+                </div>
+
+                <div class="inline-block bg-brand-black text-[#a3e635] font-mono text-xs font-bold px-3 py-1 border-2 border-brand-black uppercase">
+                    /// ORDER PLACED SUCCESSFULLY
+                </div>
+
+                <h3 class="font-display text-4xl uppercase text-brand-black leading-tight">
+                    SUCCESS, DAWG!
+                </h3>
+
+                <p class="font-mono text-sm font-bold text-brand-red">
+                    ORDER ID: #${orderId}
+                </p>
+
+                <p class="font-mono text-xs text-brand-black/80 leading-relaxed border-t-2 border-b-2 border-brand-black py-3">
+                    Salamat sa pag-order! Your thrift fit is prepped & ready to ship to <span class="font-bold text-brand-black">${city}</span>.
+                </p>
+
+                <button onclick="closeCheckoutOverlay()" class="w-full bg-brand-red text-white border-3 border-brand-black py-3.5 font-display text-2xl uppercase tracking-wider shadow-brutal brutal-transition hover:bg-brand-black">
+                    VIEW RECEIPT & DETAILS &rarr;
+                </button>
+            </div>
+        `;
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showToast(`Order ${orderId} placed successfully!`, 'success');
+
+    }, CHECKOUT_LOADING_DURATION);
+}
+
+function closeCheckoutOverlay() {
+    const overlay = document.getElementById('checkout-loading-overlay');
+    if (overlay) {
+        overlay.remove();
+    }
+    document.body.style.overflow = '';
 }
 
 
