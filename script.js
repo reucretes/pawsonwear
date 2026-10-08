@@ -1,7 +1,7 @@
 // ==========================================
 // CONFIGURABLE CHECKOUT & APP SETTINGS
 // ==========================================
-const CHECKOUT_LOADING_DURATION = 7000; // 7 seconds (in milliseconds)
+const CHECKOUT_LOADING_DURATION = 6000; // 6 seconds (in milliseconds)
 const CHECKOUT_GIF_PATH = 'assets/dog chasing tail.gif';
 
 // Preload Checkout Loading GIF Asset
@@ -54,43 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
     initBackToTop();
 });
 
-// Floating "Go Back to Top" Button System
+// "Go Back to Top" Button System
 function initBackToTop() {
-    let backToTopBtn = document.getElementById('back-to-top');
-
-    // Dynamically insert button if not already present in DOM
-    if (!backToTopBtn) {
-        backToTopBtn = document.createElement('button');
-        backToTopBtn.id = 'back-to-top';
-        backToTopBtn.setAttribute('aria-label', 'Go back to the top');
-        backToTopBtn.className = 'fixed bottom-6 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 bg-brand-red text-white border-3 border-brand-black px-4 py-2.5 font-mono font-bold text-sm shadow-brutal opacity-0 pointer-events-none translate-y-4 transition-all duration-300 hover:bg-brand-black hover:text-brand-cream hover:shadow-brutal-hover active:translate-y-1 group';
-        backToTopBtn.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                <path stroke-linecap="square" stroke-linejoin="miter" d="M5 10l7-7m0 0l7 7m-7-7v18" />
-            </svg>
-            <span>TOP</span>
-        `;
-        document.body.appendChild(backToTopBtn);
-    }
-
-    function toggleBackToTop() {
-        const scrollPosition = window.scrollY || window.pageYOffset;
-        if (scrollPosition > 300) {
-            backToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
-            backToTopBtn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
-        } else {
-            backToTopBtn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
-            backToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
-        }
-    }
-
-    window.addEventListener('scroll', toggleBackToTop, { passive: true });
-    toggleBackToTop();
-
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+    const backToTopBtns = document.querySelectorAll('#back-to-top, .back-to-top-btn');
+    backToTopBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     });
 }
@@ -694,12 +667,12 @@ const FAQ_DATA = [
             {
                 id: "faq-item-1",
                 question: "1-of-1 ba talaga 'tong thrift items? Paano kapag Sold Out na?",
-                answer: "Yessir! 100% unique 1-of-1 thrift pieces ang apparel natin. Once ma-checkout and sold out na, wala nang kasunod na kapareho! If nagustuhan mo ang item, checkout mo na agad bago ma-unahan ng ibang dawg."
+                answer: "Corretion, thrift styled lang ang mga clothes ngunit hindi ito 1-of-1. Lahat ng items natin ay palaging available (except sa mga seasonal items)."
             },
             {
                 id: "faq-item-2",
                 question: "Ano ang condition ng clothing? May hidden flaws ba?",
-                answer: "Lahat ng items natin ay handpicked, deeply washed, and sanitized! Clear nating inilalagay sa description ang condition rating (e.g. [LIKE NEW], [VINTAGE DISTRESSED], or [MINOR FLAW]). Condition rates are 8/10 to 10/10 — ready to flex agad si doggo."
+                answer: "Lahat ng items natin ay handpicked, deeply washed, and sanitized!"
             }
         ]
     },
@@ -710,12 +683,12 @@ const FAQ_DATA = [
             {
                 id: "faq-item-3",
                 question: "Paano malalaman ang exact size ni doggo? Stretchable ba?",
-                answer: "Gamit ka ng soft tape measure! Kunin ang chest girth (pinaka-malapad na part sa likod ng front legs) and neck circumference. For jackets and fleece hoodies, size UP para comfy. For stretch sleeveless tanks, size DOWN for a snug thrift fit. Check out our 'View Size Guide' modal!"
+                answer: "Check out our 'View Size Guide' model! Para sa mga jackets and sweaters, size UP para comfy. For stretch sleeveless tanks, size DOWN for a snug thrift fit."
             },
             {
                 id: "faq-item-4",
                 question: "Ano gagawin kapag sa pagitan ng dalawang sizes ang sukat?",
-                answer: "Laging piliin ang mas malaking size (Size UP)! Mas okay ang relaxed streetwear fit kay doggo kaysa masyadong masikip at mahirapan gumalaw."
+                answer: "Laging piliin ang mas malaking size (Size UP) para mas okay ang relaxed streetwear fit kay doggo."
             }
         ]
     },
@@ -726,12 +699,7 @@ const FAQ_DATA = [
             {
                 id: "faq-item-5",
                 question: "Gaano katagal ang delivery nationwide sa PH?",
-                answer: "Metro Manila takes 2-3 business days. Provincial Luzon, Visayas & Mindanao areas take 4-7 days via J&T Express / Flash Express. Mag-e-email kami ng tracking number once na-dispatch na ang package mo."
-            },
-            {
-                id: "faq-item-6",
-                question: "Magkano ang shipping fee?",
-                answer: "Standard nationwide shipping flat rate is ₱100.00 lang! Subaybayan din ang limited promos natin for Free Shipping vouchers sa special drops."
+                answer: "Metro Manila takes 2-3 business days. Provincial Luzon, Visayas & Mindanao areas take 4-7 days via J&T Express / Flash Express."
             }
         ]
     },
@@ -742,12 +710,12 @@ const FAQ_DATA = [
             {
                 id: "faq-item-7",
                 question: "Ano-ano ang accepted payment methods?",
-                answer: "Super convenient! We accept Cash on Delivery (COD nationwide), GCash, Maya E-Wallet, and Credit/Debit Cards upon checkout."
+                answer: "We accept Cash on Delivery (COD nationwide), GCash, Maribank E-Wallet, and Credit/Debit Cards upon checkout."
             },
             {
                 id: "faq-item-8",
                 question: "Pwede ba mag-return or refund kapag hindi kasya?",
-                answer: "Dahil 1-of-1 thrift items ang apparel natin, strictly NO RETURNS for wrong size choice. Make sure to double check measurements! But if may unmentioned major damage, message us within 24 hours after receiving for store credits."
+                answer: "P'wedeng p'wede para sa'yo Idol!"
             }
         ]
     }
