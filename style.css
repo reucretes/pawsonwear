@@ -22,6 +22,7 @@ body {
 .no-scrollbar::-webkit-scrollbar {
     display: none;
 }
+
 .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -76,6 +77,31 @@ body {
     color: #fdf5ed;
 }
 
+/* ==========================================
+   MARQUEE BANNER
+   FIX: .animate-marquee had no definition or @keyframes, so the banner never scrolled.
+   The two child spans are w-1/2 each, so the track is 200% wide and moves -50%.
+   ========================================== */
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee {
+    width: 200%;
+    animation: marquee 25s linear infinite;
+}
+
+.animate-marquee-fast {
+    width: 200%;
+    animation: marquee 12s linear infinite;
+}
+
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
 
@@ -97,13 +123,25 @@ body {
     padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* Mobile Drawer State */
+/* ==========================================
+   MOBILE DRAWER STATE
+   FIX: Tailwind v4 moves the drawer with the `translate` property (-translate-x-full),
+   so the old `transform: translateX(0)` never overrode it and the drawer stayed off-screen.
+   `visibility` also keeps the closed drawer's links out of the keyboard tab order.
+   ========================================== */
+/* Works on Tailwind v3 pages (uses `transform`) and v4 pages (uses `translate`) */
 #mobile-drawer {
-    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    visibility: hidden;
+    transition: translate 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+        transform 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+        visibility 0s linear 0.3s;
 }
 
 #mobile-drawer.open {
+    translate: 0 0;
     transform: translateX(0);
+    visibility: visible;
+    transition-delay: 0s;
 }
 
 #mobile-drawer-backdrop {
@@ -113,6 +151,19 @@ body {
 #mobile-drawer-backdrop.open {
     opacity: 1;
     pointer-events: auto;
+}
+
+/* ==========================================
+   HIDDEN vs FLEX CONFLICT
+   FIX: these elements use both `hidden` and `flex`, so `hidden` could lose.
+   Scoped on purpose: a global `.hidden { display:none !important }` would break
+   responsive classes like `hidden md:flex` and `hidden sm:inline`.
+   ========================================== */
+form.hidden,
+#nav-login-btn.hidden,
+#mobile-auth-logged-in.hidden,
+#gif-fallback.hidden {
+    display: none !important;
 }
 
 /* Color Swatch & Preview Crossfade System */
@@ -177,15 +228,21 @@ body {
 
 /* ==========================================
    FAQ ACCORDION ANIMATION SYSTEM
+   FIX: collapsed answers are now hidden from screen readers and the tab order
+   (visibility), with a delay so the close animation still plays.
    ========================================== */
 .faq-accordion-content {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    visibility: hidden;
+    transition: grid-template-rows 250ms cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0s linear 250ms;
 }
 
 .faq-accordion-content.open {
     grid-template-rows: 1fr;
+    visibility: visible;
+    transition-delay: 0s;
 }
 
 .faq-accordion-inner {
@@ -202,14 +259,32 @@ body {
 
 /* ==========================================
    CHECKOUT OVERLAY & PROGRESS BAR
+   Matches CHECKOUT_LOADING_DURATION = 5000 in script.js
    ========================================== */
 @keyframes progress-fill {
-    0% { width: 0%; }
-    100% { width: 100%; }
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
 }
 
 .animate-progress-5s {
     animation: progress-fill 5s linear forwards;
 }
 
+/* ==========================================
+   PAWSON WEAR AUTHENTICATION & DROPDOWN STATES
+   ========================================== */
 
+#user-dropdown-menu {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    transform-origin: top right;
+}
+
+.pw-strength-bar {
+    height: 6px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}

@@ -1,7 +1,26 @@
 // ==========================================
 // CONFIGURABLE CHECKOUT & APP SETTINGS
 // ==========================================
-const CHECKOUT_LOADING_DURATION = 6000; // 6 seconds (in milliseconds)
+const PAWSON_CONFIG = {
+    // Orders switch: keep false while pre-launch, switch to true to open checkout
+    ORDERS_ENABLED: true,
+
+    // Auth system settings
+    AUTH: {
+        USE_DEMO: true,               // Set to false once Firebase keys are connected
+        MIN_PASSWORD_LENGTH: 8,
+        STORAGE_KEY_SESSION: 'pawson_active_session',
+        STORAGE_KEY_DEMO_USERS: 'pawson_demo_vault_v1', // Stores salted SHA-256 hashes only!
+        FIREBASE_CONFIG: {
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID"
+        }
+    }
+};
+
+// FIX: was 6000. Now exactly 5 seconds to match the progress bar (animate-progress-5s)
+const CHECKOUT_LOADING_DURATION = 5000;
 const CHECKOUT_GIF_PATH = 'assets/dog chasing tail.gif';
 
 // Preload Checkout Loading GIF Asset
@@ -10,23 +29,30 @@ const CHECKOUT_GIF_PATH = 'assets/dog chasing tail.gif';
         const gifPreloader = new Image();
         gifPreloader.src = encodeURI(CHECKOUT_GIF_PATH);
     } catch (e) {
-        console.warn('GIF preloader initialized');
+        console.warn('GIF preloader could not start');
     }
 })();
 
-// Cart State Management with localStorage
+// ==========================================
+// CART STATE (localStorage)
+// ==========================================
 function getCartItems() {
     try {
-        return JSON.parse(localStorage.getItem('pawson_cart_items') || '[]');
+        const parsed = JSON.parse(localStorage.getItem('pawson_cart_items') || '[]');
+        return Array.isArray(parsed) ? parsed : [];
     } catch (e) {
         return [];
     }
 }
 
 function saveCartItems(items) {
-    localStorage.setItem('pawson_cart_items', JSON.stringify(items));
-    const totalCount = items.reduce((sum, item) => sum + (item.quantity || 1), 0);
-    localStorage.setItem('pawson_cart_count', totalCount.toString());
+    try {
+        localStorage.setItem('pawson_cart_items', JSON.stringify(items));
+        const totalCount = items.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        localStorage.setItem('pawson_cart_count', totalCount.toString());
+    } catch (e) {
+        console.warn('Could not save cart:', e);
+    }
     updateCartUI();
 }
 
@@ -42,17 +68,51 @@ function updateCartUI() {
     }
 }
 
-// Initialize cart count & interactive components on page load
+// FIX: initAuthPage() was called but never defined, which crashed this handler
+// and stopped renderCartPage() / renderFAQAccordion() / initBackToTop() from running.
 document.addEventListener('DOMContentLoaded', () => {
     updateCartUI();
-    if (window.location.pathname.includes('cart.html')) {
-        renderCartPage();
-    }
-    if (window.location.pathname.includes('faq.html') || document.getElementById('faq-accordion-container')) {
-        renderFAQAccordion();
-    }
+    updateAuthUI();
+    initAuthPage();
+    renderCartPage();      // null-checks internally, safe on every page
+    renderFAQAccordion();  // null-checks internally, safe on every page
     initBackToTop();
 });
+
+// ==========================================
+// SAFE REDIRECT HELPERS (login page)
+// ==========================================
+
+// Only allow redirects to .html pages on this same site (prevents open redirects)
+function getSafeRedirect(fallback = 'index.html') {
+    const param = new URLSearchParams(window.location.search).get('redirect');
+    if (param && /^[a-z0-9_-]+\.html$/i.test(param) && param !== 'login.html') {
+        return param;
+    }
+    try {
+        const ref = new URL(document.referrer);
+        const page = ref.pathname.split('/').pop();
+        if (ref.origin === window.location.origin && /^[a-z0-9_-]+\.html$/i.test(page) && page !== 'login.html') {
+            return page;
+        }
+    } catch (e) { /* no referrer */ }
+    return fallback;
+}
+
+function redirectAfterAuth() {
+    window.location.href = getSafeRedirect();
+}
+
+function initAuthPage() {
+    if (!document.getElementById('auth-login-form')) return; // not the login page
+    if (getActiveAuthSession()) {                            // already logged in
+        redirectAfterAuth();
+        return;
+    }
+    if (new URLSearchParams(window.location.search).get('tab') === 'signup') {
+        switchAuthTab('signup');
+    }
+}
 
 // "Go Back to Top" Button System
 function initBackToTop() {
@@ -67,6 +127,10 @@ function initBackToTop() {
         });
     });
 }
+
+// ==========================================
+// PRODUCT CARDS: SIZE & COLOR
+// ==========================================
 
 // Interactive Size Selection on Product Cards
 function selectProductSize(pillBtn, size) {
@@ -91,9 +155,7 @@ function selectProductSize(pillBtn, size) {
     }
 }
 
-// ==========================================
-// DATA-DRIVEN PRODUCT COLOR CONFIGURATION
-// ==========================================
+// Data-driven product color configuration
 const COLLARS_LEASHES_DATA = [
     {
         id: "collar-1",
@@ -195,7 +257,6 @@ function resetProductColor(swatchBtn) {
     }
 }
 
-
 // Toggle On-Model Preview on Product Cards
 function toggleModelPreview(containerElement, modelSrc, flatSrc) {
     if (!containerElement) return;
@@ -220,8 +281,9 @@ function toggleModelPreview(containerElement, modelSrc, flatSrc) {
     }
 }
 
-
-// Global Sizing & Fit Guide Modal System
+// ==========================================
+// SIZING & FIT GUIDE MODAL
+// ==========================================
 function renderSizeGuideModal() {
     if (document.getElementById('size-guide-modal')) return;
 
@@ -234,7 +296,7 @@ function renderSizeGuideModal() {
             <!-- Header -->
             <div class="flex justify-between items-start border-b-4 border-brand-black pb-4 mb-6">
                 <div>
-                    <span class="font-mono text-xs font-bold text-brand-red uppercase tracking-widest">// PAWSON WEAR FIT MANUAL</span>
+                    <span class="font-mono text-xs font-bold text-brand-red uppercase tracking-widest">PAWSON WEAR FIT MANUAL</span>
                     <h2 class="font-display text-3xl sm:text-5xl uppercase text-brand-black leading-none mt-1">Sizing & Fit Guide</h2>
                 </div>
                 <button onclick="closeSizeGuide()" aria-label="Close Size Guide" class="min-h-[44px] min-w-[44px] p-2 border-3 border-brand-black bg-white hover:bg-brand-red hover:text-white transition-colors font-mono font-bold text-base shadow-brutal-sm">
@@ -331,7 +393,7 @@ function renderSizeGuideModal() {
             <div class="border-3 border-brand-black p-5 sm:p-6 bg-white shadow-brutal-sm">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                     <div class="md:w-1/2 w-full">
-                        <span class="font-mono text-xs font-bold text-brand-red">// ACCURACY CHECK</span>
+                        <span class="font-mono text-xs font-bold text-brand-red">ACCURACY CHECK</span>
                         <h3 class="font-display text-2xl sm:text-3xl uppercase mb-3">How to Measure</h3>
                         <div class="space-y-2.5 font-sans text-sm">
                             <div class="p-3 border-2 border-brand-black bg-brand-cream">
@@ -404,6 +466,10 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+// ==========================================
+// ADD TO CART
+// ==========================================
+
 // Add to Cart from Card helper
 function addToCartFromCard(addBtn, productName, price, imageSrc) {
     const card = addBtn.closest('.group') || addBtn.closest('[data-product-card]');
@@ -459,7 +525,7 @@ function addToCart(productName, price, imageSrc, size, color) {
         const fallbackImg = imageSrc || 'assets/designs/collar 1.png';
         items.push({
             name: productName,
-            price: parseFloat(price),
+            price: parseFloat(price) || 0,
             image: fallbackImg,
             size: itemSize,
             color: itemColor,
@@ -478,12 +544,14 @@ function addToCart(productName, price, imageSrc, size, color) {
         }, 200);
     }
 
-    const sizeMsg = itemSize ? ` (Size: ${itemSize})` : '';
-    const colorMsg = itemColor ? ` [Color: ${itemColor}]` : '';
-    showToast(`+1 ${productName}${colorMsg}${sizeMsg} added to cart.`, 'success');
+    const sizeMsg = itemSize ? ` (Size: ${escapeHTML(itemSize)})` : '';
+    const colorMsg = itemColor ? ` [Color: ${escapeHTML(itemColor)}]` : '';
+    showToast(`+1 ${escapeHTML(productName)}${colorMsg}${sizeMsg} added to cart.`, 'success');
 }
 
-// Mobile Drawer Management
+// ==========================================
+// MOBILE DRAWER
+// ==========================================
 const menuToggle = document.getElementById('mobile-menu-toggle');
 const drawer = document.getElementById('mobile-drawer');
 const backdrop = document.getElementById('mobile-drawer-backdrop');
@@ -524,7 +592,10 @@ if (menuToggle && drawer) {
     });
 }
 
-// Custom Toast Function (Brutalist style)
+// ==========================================
+// TOAST (Brutalist style)
+// ==========================================
+// NOTE: `message` is inserted as HTML. Escape any user-provided text with escapeHTML() first.
 function showToast(message, type = 'default') {
     let container = document.getElementById('toast-container');
     if (!container) {
@@ -536,7 +607,7 @@ function showToast(message, type = 'default') {
 
     const toast = document.createElement('div');
     toast.className = `
-        flex items-center justify-between p-4 border-4 border-brand-black font-mono font-bold text-sm shadow-brutal transform transition-all duration-300 translate-x-full opacity-0
+        flex items-center justify-between p-4 border-4 border-brand-black font-mono font-bold text-sm transform transition-all duration-300 translate-x-full opacity-0
         ${type === 'success' ? 'bg-[#a3e635] text-brand-black' : 'bg-brand-black text-white'}
     `;
 
@@ -561,7 +632,9 @@ function showToast(message, type = 'default') {
     }, 3000);
 }
 
-// Render Cart Page Items & Order Summary
+// ==========================================
+// CART PAGE
+// ==========================================
 function renderCartPage() {
     const cartItemsContainer = document.getElementById('cart-items-list');
     const emptyCartMsg = document.getElementById('empty-cart-view');
@@ -569,7 +642,7 @@ function renderCartPage() {
     const subtotalElement = document.getElementById('cart-subtotal');
     const totalElement = document.getElementById('cart-total');
 
-    if (!cartItemsContainer) return;
+    if (!cartItemsContainer) return; // not the cart page
 
     const items = getCartItems();
 
@@ -586,20 +659,28 @@ function renderCartPage() {
     let subtotal = 0;
 
     items.forEach((item, index) => {
-        const itemTotal = item.price * (item.quantity || 1);
+        const price = Number(item.price) || 0;
+        const qty = item.quantity || 1;
+        const itemTotal = price * qty;
         subtotal += itemTotal;
 
-        const sizeBadge = item.size ? `<span class="bg-brand-black text-white text-[11px] font-mono font-bold px-2 py-0.5 border border-brand-black">SIZE: ${item.size}</span>` : '';
-        const colorBadge = item.color ? `<span class="bg-brand-red text-white text-[11px] font-mono font-bold px-2 py-0.5 border border-brand-black uppercase">COLOR: ${item.color}</span>` : '';
+        // FIX: escape everything that comes from localStorage before inserting as HTML
+        const safeName = escapeHTML(String(item.name || ''));
+        const safeImage = escapeHTML(String(item.image || ''));
+        const safeSize = item.size ? escapeHTML(String(item.size)) : '';
+        const safeColor = item.color ? escapeHTML(String(item.color)) : '';
+
+        const sizeBadge = safeSize ? `<span class="bg-brand-black text-white text-[11px] font-mono font-bold px-2 py-0.5 border border-brand-black">SIZE: ${safeSize}</span>` : '';
+        const colorBadge = safeColor ? `<span class="bg-brand-red text-white text-[11px] font-mono font-bold px-2 py-0.5 border border-brand-black uppercase">COLOR: ${safeColor}</span>` : '';
 
         html += `
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-white border-3 border-brand-black shadow-brutal-sm gap-4 mb-4">
                 <div class="flex items-center gap-4">
-                    <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover border-2 border-brand-black shrink-0">
+                    <img src="${safeImage}" alt="${safeName}" class="w-20 h-20 object-cover border-2 border-brand-black shrink-0">
                     <div>
-                        <h4 class="font-sans font-bold text-xl uppercase leading-tight mb-1">${item.name}</h4>
+                        <h4 class="font-sans font-bold text-xl uppercase leading-tight mb-1">${safeName}</h4>
                         <div class="flex items-center gap-2 mb-1 flex-wrap">
-                            <span class="font-mono text-sm text-brand-red font-bold">₱${item.price.toFixed(2)} each</span>
+                            <span class="font-mono text-sm text-brand-red font-bold">₱${price.toFixed(2)} each</span>
                             ${sizeBadge}
                             ${colorBadge}
                         </div>
@@ -608,9 +689,9 @@ function renderCartPage() {
 
                 <div class="flex items-center justify-between w-full sm:w-auto gap-6 border-t-2 sm:border-t-0 border-brand-black pt-3 sm:pt-0">
                     <div class="flex items-center border-2 border-brand-black bg-brand-cream">
-                        <button onclick="updateCartQuantity(${index}, -1)" class="w-8 h-8 font-mono font-bold hover:bg-brand-black hover:text-white transition-colors">-</button>
-                        <span class="w-10 text-center font-mono font-bold text-sm">${item.quantity || 1}</span>
-                        <button onclick="updateCartQuantity(${index}, 1)" class="w-8 h-8 font-mono font-bold hover:bg-brand-black hover:text-white transition-colors">+</button>
+                        <button onclick="updateCartQuantity(${index}, -1)" aria-label="Decrease quantity" class="w-8 h-8 font-mono font-bold hover:bg-brand-black hover:text-white transition-colors">-</button>
+                        <span class="w-10 text-center font-mono font-bold text-sm">${qty}</span>
+                        <button onclick="updateCartQuantity(${index}, 1)" aria-label="Increase quantity" class="w-8 h-8 font-mono font-bold hover:bg-brand-black hover:text-white transition-colors">+</button>
                     </div>
 
                     <div class="font-mono font-bold text-lg min-w-[70px] text-right">
@@ -632,6 +713,19 @@ function renderCartPage() {
 
     if (subtotalElement) subtotalElement.innerText = `₱${subtotal.toFixed(2)}`;
     if (totalElement) totalElement.innerText = `₱${total.toFixed(2)}`;
+
+    // Sync checkout button states based on PAWSON_CONFIG.ORDERS_ENABLED
+    const disabledOrderBtn = document.getElementById('disabled-orders-btn');
+    const activeOrderBtn = document.getElementById('active-orders-btn');
+    if (disabledOrderBtn && activeOrderBtn) {
+        if (PAWSON_CONFIG.ORDERS_ENABLED) {
+            disabledOrderBtn.classList.add('hidden');
+            activeOrderBtn.classList.remove('hidden');
+        } else {
+            disabledOrderBtn.classList.remove('hidden');
+            activeOrderBtn.classList.add('hidden');
+        }
+    }
 }
 
 function updateCartQuantity(index, delta) {
@@ -649,7 +743,7 @@ function updateCartQuantity(index, delta) {
 function removeCartItem(index) {
     const items = getCartItems();
     if (items[index]) {
-        showToast(`Removed ${items[index].name} from cart.`);
+        showToast(`Removed ${escapeHTML(String(items[index].name || 'item'))} from cart.`);
         items.splice(index, 1);
         saveCartItems(items);
         renderCartPage();
@@ -723,7 +817,7 @@ const FAQ_DATA = [
 
 function renderFAQAccordion() {
     const container = document.getElementById('faq-accordion-container');
-    if (!container) return;
+    if (!container) return; // not the FAQ page
 
     let html = '';
     FAQ_DATA.forEach((catGroup) => {
@@ -781,7 +875,7 @@ function toggleFAQAccordion(targetId) {
 
     const isCurrentlyOpen = targetBtn?.getAttribute('aria-expanded') === 'true';
 
-    // Single-open accordion logic: Close all currently open items
+    // Single-open accordion logic: close all currently open items
     allButtons.forEach(btn => btn.setAttribute('aria-expanded', 'false'));
     allContents.forEach(content => content.classList.remove('open'));
 
@@ -792,12 +886,26 @@ function toggleFAQAccordion(targetId) {
     }
 }
 
-
 // ==========================================
 // CHECKOUT FORM SUBMISSION & 5S OVERLAY SYSTEM
 // ==========================================
 function processCheckout(event) {
-    event.preventDefault();
+    if (event) event.preventDefault();
+
+    // 1. Check if orders are currently enabled (this blocks ordering even when logged in)
+    if (!PAWSON_CONFIG.ORDERS_ENABLED) {
+        showToast('Hindi pa po open ang orders as of now Stay tuned!', 'default');
+        return;
+    }
+
+    // 2. Check if customer is logged in
+    const session = getActiveAuthSession();
+    if (!session || !session.email) {
+        showToast('Kailangan mo muna mag-log in bago mag-order, dawg!', 'default');
+        // FIX: the auth modal no longer exists. Send them to the login page, then back to the cart.
+        setTimeout(() => { window.location.href = 'login.html?redirect=cart.html'; }, 1200);
+        return;
+    }
 
     const items = getCartItems();
     if (items.length === 0) {
@@ -805,16 +913,21 @@ function processCheckout(event) {
         return;
     }
 
-    const form = event.target;
-    const name = form.elements['fullName'].value;
-    const email = form.elements['email'].value;
-    const address = form.elements['address'].value;
-    const city = form.elements['city'].value;
+    // FIX: safe reads so a missing field name can't crash checkout
+    const form = event ? event.target : null;
+    const readField = (fieldName) => {
+        const el = form && form.elements ? form.elements[fieldName] : null;
+        return el && typeof el.value === 'string' ? el.value : '';
+    };
+    const name = readField('fullName');
+    const email = readField('email');
+    const address = readField('address');
+    const city = readField('city');
 
     const orderId = 'PW-' + Math.floor(100000 + Math.random() * 900000);
     const totalAmount = document.getElementById('cart-total')?.innerText || '₱0.00';
 
-    // 1. Create / Get Checkout Overlay Element
+    // Create / Get Checkout Overlay Element
     let overlay = document.getElementById('checkout-loading-overlay');
     if (!overlay) {
         overlay = document.createElement('div');
@@ -829,12 +942,12 @@ function processCheckout(event) {
     // Check prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Render 5-Second Loading Overlay State
+    // Render loading overlay state
     const encodedGifPath = encodeURI(CHECKOUT_GIF_PATH);
     overlay.innerHTML = `
         <div class="relative w-full max-w-md bg-brand-cream border-4 border-brand-black shadow-brutal p-6 sm:p-8 flex flex-col items-center gap-4 text-brand-black">
             <div class="inline-block bg-brand-red text-white font-mono text-xs font-bold px-3 py-1 border-2 border-brand-black uppercase tracking-wider animate-pulse">
-                /// PROCESSING ORDER
+                PROCESSING ORDER
             </div>
             
             <h3 class="font-display text-3xl sm:text-4xl uppercase leading-tight">
@@ -858,7 +971,7 @@ function processCheckout(event) {
             </div>
 
             <p class="font-mono text-xs sm:text-sm text-brand-black/80 font-bold">
-                SECURING YOUR 1-OF-1 THRIFT APPAREL
+                SECURING YOUR ORDER
             </p>
 
             <!-- 5-Second Progress Bar -->
@@ -875,7 +988,7 @@ function processCheckout(event) {
     // Lock page scrolling
     document.body.style.overflow = 'hidden';
 
-    // Prevent tab closing / page refreshing during the 5s processing window
+    // Prevent tab closing / page refreshing during the processing window
     function preventReload(e) {
         e.preventDefault();
         e.returnValue = 'Your order is currently processing. Are you sure you want to exit?';
@@ -883,13 +996,13 @@ function processCheckout(event) {
     }
     window.addEventListener('beforeunload', preventReload);
 
-    // Execute exactly after 5000ms (5 seconds)
+    // Execute after CHECKOUT_LOADING_DURATION (5 seconds)
     setTimeout(() => {
         // Unlock page reload warning
         window.removeEventListener('beforeunload', preventReload);
         document.body.style.overflow = '';
 
-        // Clear cart items AFTER 5s confirmation
+        // Clear cart items AFTER confirmation
         saveCartItems([]);
 
         // Show Order Confirmation View on Page & Update Order Details
@@ -901,45 +1014,17 @@ function processCheckout(event) {
         const receiptAddress = document.getElementById('receipt-address');
         const receiptTotal = document.getElementById('receipt-total');
 
-        if (orderIdSpan) orderIdSpan.innerText = `#${orderId}`;
-        if (receiptEmail) receiptEmail.innerText = email;
-        if (receiptName) receiptName.innerText = name;
-        if (receiptAddress) receiptAddress.innerText = `${address}, ${city}`;
-        if (receiptTotal) receiptTotal.innerText = totalAmount;
+        // textContent (not innerHTML) so user-typed values can never be run as HTML
+        if (orderIdSpan) orderIdSpan.textContent = `#${orderId}`;
+        if (receiptEmail) receiptEmail.textContent = email;
+        if (receiptName) receiptName.textContent = name;
+        if (receiptAddress) receiptAddress.textContent = `${address}, ${city}`;
+        if (receiptTotal) receiptTotal.textContent = totalAmount;
 
         if (cartActiveView) cartActiveView.classList.add('hidden');
         if (orderSuccessView) orderSuccessView.classList.remove('hidden');
 
-        // Render Order Placed Confirmation Inside Overlay Modal
-        overlay.innerHTML = `
-            <div class="relative w-full max-w-md bg-white border-4 border-brand-black shadow-brutal p-6 sm:p-8 flex flex-col items-center gap-4 text-brand-black">
-                <div class="w-16 h-16 bg-[#a3e635] border-4 border-brand-black flex items-center justify-center shadow-brutal-sm">
-                    <svg class="w-10 h-10 text-brand-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="4">
-                        <path stroke-linecap="square" stroke-linejoin="miter" d="M5 13l4 4L19 7" />
-                    </svg>
-                </div>
-
-                <div class="inline-block bg-brand-black text-[#a3e635] font-mono text-xs font-bold px-3 py-1 border-2 border-brand-black uppercase">
-                    /// ORDER PLACED SUCCESSFULLY
-                </div>
-
-                <h3 class="font-display text-4xl uppercase text-brand-black leading-tight">
-                    SUCCESS, DAWG!
-                </h3>
-
-                <p class="font-mono text-sm font-bold text-brand-red">
-                    ORDER ID: #${orderId}
-                </p>
-
-                <p class="font-mono text-xs text-brand-black/80 leading-relaxed border-t-2 border-b-2 border-brand-black py-3">
-                    Salamat sa pag-order! Your thrift fit is prepped & ready to ship to <span class="font-bold text-brand-black">${city}</span>.
-                </p>
-
-                <button onclick="closeCheckoutOverlay()" class="w-full bg-brand-red text-white border-3 border-brand-black py-3.5 font-display text-2xl uppercase tracking-wider shadow-brutal brutal-transition hover:bg-brand-black">
-                    VIEW RECEIPT & DETAILS &rarr;
-                </button>
-            </div>
-        `;
+        closeCheckoutOverlay();
 
         window.scrollTo({ top: 0, behavior: 'smooth' });
         showToast(`Order ${orderId} placed successfully!`, 'success');
@@ -955,5 +1040,370 @@ function closeCheckoutOverlay() {
     document.body.style.overflow = '';
 }
 
+// ==========================================================================
+// PAWSON WEAR AUTHENTICATION ENGINE (DEMO & FIREBASE READY)
+// Login now lives on its own page (login.html), so the old modal code is removed.
+// ==========================================================================
 
+// Helper: Sanitize plain text to prevent XSS injection
+function escapeHTML(str) {
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/[&<>'"]/g, tag => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+    }[tag] || tag));
+}
 
+// SHA-256 Hasher for Demo Mode (NEVER store plain-text passwords!)
+async function hashDemoPassword(password, salt) {
+    const text = password + '::' + salt;
+
+    // Preferred: real SHA-256 (only exists on HTTPS or localhost pages)
+    if (window.crypto && window.crypto.subtle) {
+        const encoder = new TextEncoder();
+        const hashBuffer = await window.crypto.subtle.digest('SHA-256', encoder.encode(text));
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    // FIX: DEMO-ONLY fallback so signup/login still work when the page is opened over
+    // plain http on a non-localhost address (e.g. http://192.168.x.x). NOT secure.
+    // Real accounts need HTTPS and a backend (Firebase, Supabase, etc.).
+    let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+    for (let i = 0; i < text.length; i++) {
+        const ch = text.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+    }
+    h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+    h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+    return 'fb-' + (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(16);
+}
+
+// FIX: crypto.randomUUID() is also missing on insecure pages, so use a safe fallback
+function makeSalt() {
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+        return window.crypto.randomUUID();
+    }
+    return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+
+// Safe read of the demo user vault
+function getDemoVault() {
+    try {
+        const vault = JSON.parse(localStorage.getItem(PAWSON_CONFIG.AUTH.STORAGE_KEY_DEMO_USERS) || '{}');
+        return vault && typeof vault === 'object' ? vault : {};
+    } catch (e) {
+        return {};
+    }
+}
+
+// Session Management
+function getActiveAuthSession() {
+    try {
+        const session = localStorage.getItem(PAWSON_CONFIG.AUTH.STORAGE_KEY_SESSION);
+        return session ? JSON.parse(session) : null;
+    } catch (e) {
+        return null;
+    }
+}
+
+function setActiveAuthSession(email) {
+    const sessionData = {
+        email: email,
+        loggedInAt: new Date().toISOString()
+    };
+    localStorage.setItem(PAWSON_CONFIG.AUTH.STORAGE_KEY_SESSION, JSON.stringify(sessionData));
+    updateAuthUI();
+}
+
+function clearAuthSession() {
+    localStorage.removeItem(PAWSON_CONFIG.AUTH.STORAGE_KEY_SESSION);
+    updateAuthUI();
+}
+
+// Update All Navbar and Drawer States Based on Current Auth
+function updateAuthUI() {
+    const session = getActiveAuthSession();
+    const navLoginBtns = document.querySelectorAll('#nav-login-btn, .nav-login-btn');
+    const navUserDropdowns = document.querySelectorAll('#nav-user-dropdown, .nav-user-dropdown');
+    const navUserEmailLabels = document.querySelectorAll('#nav-user-email-label, .nav-user-email-label');
+    const dropdownUserEmailFulls = document.querySelectorAll('#dropdown-user-email-full, .dropdown-user-email-full');
+
+    const mobileLoggedOuts = document.querySelectorAll('#mobile-auth-logged-out, .mobile-auth-logged-out');
+    const mobileLoggedIns = document.querySelectorAll('#mobile-auth-logged-in, .mobile-auth-logged-in');
+    const mobileUserEmails = document.querySelectorAll('#mobile-user-email, .mobile-user-email');
+
+    if (session && session.email) {
+        const shortName = session.email.split('@')[0];
+
+        navLoginBtns.forEach(btn => btn.classList.add('hidden'));
+        navUserDropdowns.forEach(dd => dd.classList.remove('hidden'));
+        navUserEmailLabels.forEach(label => { label.textContent = shortName; });
+        dropdownUserEmailFulls.forEach(label => { label.textContent = session.email; });
+
+        mobileLoggedOuts.forEach(el => el.classList.add('hidden'));
+        mobileLoggedIns.forEach(el => el.classList.remove('hidden'));
+        mobileUserEmails.forEach(el => { el.textContent = session.email; });
+    } else {
+        navLoginBtns.forEach(btn => btn.classList.remove('hidden'));
+        navUserDropdowns.forEach(dd => dd.classList.add('hidden'));
+
+        mobileLoggedOuts.forEach(el => el.classList.remove('hidden'));
+        mobileLoggedIns.forEach(el => el.classList.add('hidden'));
+    }
+}
+
+// User Dropdown Menu Toggle
+function toggleUserDropdown() {
+    const menu = document.getElementById('user-dropdown-menu');
+    const btn = document.getElementById('user-menu-btn');
+    if (!menu) return;
+    const isHidden = menu.classList.contains('hidden');
+    menu.classList.toggle('hidden', !isHidden);
+    if (btn) btn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+}
+
+// Close Dropdown when clicking outside
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('nav-user-dropdown');
+    const menu = document.getElementById('user-dropdown-menu');
+    if (dropdown && menu && !dropdown.contains(e.target)) {
+        menu.classList.add('hidden');
+        const btn = document.getElementById('user-menu-btn');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+});
+
+// Logout Handler
+function handleAuthLogout() {
+    clearAuthSession();
+    const menu = document.getElementById('user-dropdown-menu');
+    if (menu) menu.classList.add('hidden');
+    showToast('Logged out na. Balik ka ulit sa pack, dawg!', 'default');
+}
+
+// Tab Switcher Logic (Log in / Create account)
+// FIX: keeps cursor-pointer and now updates aria-selected
+function switchAuthTab(tab) {
+    clearAuthValidationErrors();
+    const isLogin = tab === 'login';
+
+    const loginForm = document.getElementById('auth-login-form');
+    const signupForm = document.getElementById('auth-signup-form');
+    if (loginForm) loginForm.classList.toggle('hidden', !isLogin);
+    if (signupForm) signupForm.classList.toggle('hidden', isLogin);
+
+    const on = 'py-2.5 text-center bg-brand-black text-brand-cream transition-colors cursor-pointer';
+    const off = 'py-2.5 text-center text-brand-black hover:bg-white transition-colors cursor-pointer';
+
+    const tabLoginBtn = document.getElementById('tab-login-btn');
+    const tabSignupBtn = document.getElementById('tab-signup-btn');
+    if (tabLoginBtn) {
+        tabLoginBtn.className = isLogin ? on : off;
+        tabLoginBtn.setAttribute('aria-selected', String(isLogin));
+    }
+    if (tabSignupBtn) {
+        tabSignupBtn.className = isLogin ? off : on;
+        tabSignupBtn.setAttribute('aria-selected', String(!isLogin));
+    }
+}
+
+// Password Visibility Toggle
+function togglePasswordVisibility(inputId, btn) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🕶';
+    } else {
+        input.type = 'password';
+        btn.textContent = '👁';
+    }
+}
+
+// Password Strength Calculator
+function updatePasswordStrength(password) {
+    const bar = document.getElementById('pw-strength-bar');
+    const label = document.getElementById('pw-strength-text');
+    if (!bar || !label) return;
+
+    if (!password || password.length === 0) {
+        bar.style.width = '0%';
+        bar.className = 'pw-strength-bar bg-brand-red';
+        label.textContent = 'PW STRENGTH: WALA PA'; // matches the text in login.html
+        return;
+    }
+
+    let score = 0;
+    if (password.length >= PAWSON_CONFIG.AUTH.MIN_PASSWORD_LENGTH) score += 1;
+    if (/[A-Z]/.test(password) && /[a-z]/.test(password)) score += 1;
+    if (/\d/.test(password)) score += 1;
+    if (/[^A-Za-z0-9]/.test(password)) score += 1;
+
+    if (score <= 1) {
+        bar.style.width = '25%';
+        bar.className = 'pw-strength-bar bg-[#ef4444]';
+        label.textContent = 'PW STRENGTH: MEDYO MAHINA (MAG-DAGDAG PA)';
+    } else if (score === 2) {
+        bar.style.width = '55%';
+        bar.className = 'pw-strength-bar bg-[#f59e0b]';
+        label.textContent = 'PW STRENGTH: COMFY FIT NA';
+    } else {
+        bar.style.width = '100%';
+        bar.className = 'pw-strength-bar bg-[#22c55e]';
+        label.textContent = 'PW STRENGTH: SOLID / GOD-TIER!';
+    }
+}
+
+// Inline Validation Helpers
+function showFieldError(errorElementId, message) {
+    const el = document.getElementById(errorElementId);
+    if (el) {
+        el.textContent = message;
+        el.classList.remove('hidden');
+    }
+}
+
+function clearAuthValidationErrors() {
+    const errorIds = ['login-email-error', 'login-password-error', 'signup-email-error', 'signup-password-error'];
+    errorIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.textContent = '';
+            el.classList.add('hidden');
+        }
+    });
+}
+
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// 1. CREATE ACCOUNT SUBMISSION
+async function handleAuthSignupSubmit(e) {
+    e.preventDefault();
+    clearAuthValidationErrors();
+
+    const email = document.getElementById('signup-email')?.value.trim().toLowerCase() || '';
+    const password = document.getElementById('signup-password')?.value || '';
+    const submitBtn = document.getElementById('signup-submit-btn');
+
+    let hasError = false;
+    if (!email || !isValidEmail(email)) {
+        showFieldError('signup-email-error', 'Mali ang format ng email, idol. Dapat may @ at tamang domain.');
+        hasError = true;
+    }
+    if (password.length < PAWSON_CONFIG.AUTH.MIN_PASSWORD_LENGTH) {
+        showFieldError('signup-password-error', `Bitin pa ang password! Mag-add pa ng characters (at least ${PAWSON_CONFIG.AUTH.MIN_PASSWORD_LENGTH} dapat).`);
+        hasError = true;
+    }
+
+    if (hasError) return;
+
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'CREATING ACCOUNT...';
+    }
+
+    try {
+        if (PAWSON_CONFIG.AUTH.USE_DEMO) {
+            const demoVault = getDemoVault();
+
+            if (demoVault[email]) {
+                showFieldError('signup-email-error', "May account na ang email na 'to. Mag-log in na lang.");
+                return; // finally block re-enables the button
+            }
+
+            const salt = makeSalt();
+            const passwordHash = await hashDemoPassword(password, salt);
+
+            demoVault[email] = { salt, passwordHash, createdAt: new Date().toISOString() };
+            localStorage.setItem(PAWSON_CONFIG.AUTH.STORAGE_KEY_DEMO_USERS, JSON.stringify(demoVault));
+
+            setActiveAuthSession(email);
+            showToast(`Solid! Welcome sa Pawson fam, ${escapeHTML(email)}!`, 'success');
+            // FIX: was closeAuthModal(). Go back to the page they came from (or cart/home).
+            setTimeout(redirectAfterAuth, 800);
+        } else {
+            // Firebase Auth Integration placeholder
+        }
+    } catch (err) {
+        showFieldError('signup-email-error', 'Nagka-problema sa pag-create ng account. Paki-try ulit mamaya.');
+    } finally {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'CREATE ACCOUNT →';
+        }
+    }
+}
+
+// 2. LOG IN SUBMISSION
+async function handleAuthLoginSubmit(e) {
+    e.preventDefault();
+    clearAuthValidationErrors();
+
+    const email = document.getElementById('login-email')?.value.trim().toLowerCase() || '';
+    const password = document.getElementById('login-password')?.value || '';
+    const submitBtn = document.getElementById('login-submit-btn');
+
+    let hasError = false;
+    if (!email || !isValidEmail(email)) {
+        showFieldError('login-email-error', 'Pakilagay ang tamang email address.');
+        hasError = true;
+    }
+    if (!password) {
+        showFieldError('login-password-error', 'Pakilagay ang iyong password.');
+        hasError = true;
+    }
+
+    if (hasError) return;
+
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'CHECKING CREDENTIALS...';
+    }
+
+    try {
+        if (PAWSON_CONFIG.AUTH.USE_DEMO) {
+            const demoVault = getDemoVault();
+            const userRecord = demoVault[email];
+            const genericError = 'Mali ang email o password. Paki-check ulit, idol.';
+
+            if (!userRecord) {
+                showFieldError('login-password-error', genericError);
+                return;
+            }
+
+            const inputHash = await hashDemoPassword(password, userRecord.salt);
+            if (inputHash !== userRecord.passwordHash) {
+                showFieldError('login-password-error', genericError);
+                return;
+            }
+
+            setActiveAuthSession(email);
+            showToast(`Welcome back, ${escapeHTML(email)}! Ready to thrift na.`, 'success');
+            // FIX: was closeAuthModal(). Go back to the page they came from (or cart/home).
+            setTimeout(redirectAfterAuth, 800);
+        } else {
+            // Firebase Auth Integration placeholder
+        }
+    } catch (err) {
+        showFieldError('login-password-error', 'Mali ang email o password. Paki-check ulit, idol.');
+    } finally {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerText = 'LOG IN →';
+        }
+    }
+}
+
+// 3. FORGOT PASSWORD HANDLER
+function handleForgotPasswordClick() {
+    if (PAWSON_CONFIG.AUTH.USE_DEMO) {
+        showToast('Sa Demo Mode, walang outgoing email server. Sa live Firebase setup, automated ang reset link!', 'default');
+    }
+}
